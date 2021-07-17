@@ -1,0 +1,48 @@
+/*-*- mode: css; -*-*/
+/**
+ * ROFI Color theme
+ * User: Qball
+ * Copyright: Dave Davenport
+ */
+* {
+    background-color:#172030;
+    border-color:#f0f4fc;
+    text-color:#f0f4fc;
+    prompt-foreground:#6a8fb3;
+    element-select-foreground:  #c6797e;
+    font: "Ubuntu Bold 9";
+}
+
+#window {
+    anchor:     north;
+    location:   north;
+    width:      100%;
+    height:     28px;
+    padding:    4px;
+    children:   [ horibox ];
+}
+
+#horibox {
+    orientation: horizontal;
+    children:   [ prompt, entry, listview ];
+}
+
+#listview {
+    layout:     horizontal;
+    spacing:    5px;
+    lines:      100;
+}
+
+#entry {
+    expand:     false;
+    width:      10em;
+}
+#prompt{
+    text-color: @prompt-foreground;
+}
+#element {
+    padding: 0px 2px;
+}
+#element selected {
+    background-color: @element-select-foreground;
+}
