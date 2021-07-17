@@ -47,6 +47,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
-feh --bg-fill --randomize ~/Pictures/wallpapers &
+feh --bg-fill ~/Pictures/wallpapers/0137.jpg &
 /usr/bin/dwbar &
 exec /usr/local/bin/dwm
