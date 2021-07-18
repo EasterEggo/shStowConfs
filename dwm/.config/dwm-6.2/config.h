@@ -69,7 +69,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *termcmd[] = {term};
 static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-
+static const char *roficmd[] = {"rofi", "-show", "run", "-display-run", "Run:  ", NULL };
 static const char *browser[] = {"firefox", NULL };
 static const char *textEditor[] = {"emacs", NULL };
 static const char *files[] = {term, "-e", "ranger", NULL };
@@ -83,7 +83,7 @@ static Key keys[] = {
     /*keybindings*/
 
     /*Launch Programs*/	
-    { MODKEY, XK_p, spawn, {.v = dmenucmd} },
+    { MODKEY, XK_p, spawn, {.v = roficmd} },
     { MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd} },
     { MODKEY, XK_b, spawn, {.v = browser} },
     { MODKEY, XK_e, spawn, {.v = textEditor} },
