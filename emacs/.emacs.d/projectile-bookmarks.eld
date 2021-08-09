@@ -1,1 +1,0 @@
-("~/shStowConfs/" "~/projects/rust/hello-cargo/")
