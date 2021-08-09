@@ -1,6 +1,5 @@
 .local
 .ccls-cache
-straight/
 *.o
 dwm/.config/dwm-6.2/dwm
 emacs/.emacs.d/recentf
