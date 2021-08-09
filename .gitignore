@@ -1,11 +1,12 @@
 .local
 .ccls-cache
 *.o
+straight/
 dwm/.config/dwm-6.2/dwm
 emacs/.emacs.d/recentf
 emacs/.emacs.d/bookmarks
 emacs/.emacs.d/.lsp-session-v1
 emacs/.emacs.d/.org-id-locations
-emacs/.emacs.d/org-roam-db
+emacs/.emacs.d/org-roam.db
 emacs/.emacs.d/projectile-bookmarks.eld
 
