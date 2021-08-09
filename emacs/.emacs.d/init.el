@@ -1,57 +1,186 @@
-;;; init.el -*- lexical-binding: t; -*-
-;;
-;; Author:  Henrik Lissner <henrik@lissner.net>
-;; URL:     https://github.com/hlissner/doom-emacs
-;;
-;;   =================     ===============     ===============   ========  ========
-;;   \\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //
-;;   ||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||
-;;   || . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||
-;;   ||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||
-;;   || . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||
-;;   ||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||
-;;   || . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||
-;;   ||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||
-;;   ||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||
-;;   ||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||
-;;   ||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||
-;;   ||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||
-;;   ||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||
-;;   ||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||
-;;   ||.=='    _-'                                                     `' |  /==.||
-;;   =='    _-'                                                            \/   `==
-;;   \   _-'                                                                `-_   /
-;;    `''                                                                      ``'
-;;
-;; These demons are not part of GNU Emacs.
-;;
-;;; License: MIT
+(setq make-backup-files nil)
+(setq backup-directory-alist '(("" . "~/.emacs.d/backups"))
+      delete-old-versions t)
 
-;; In the strange case that early-init.el wasn't loaded (e.g. you're using
-;; Chemacs 1? Or you're loading this file directly?), we do it explicitly:
-(unless (boundp 'doom-version)
-  (load (concat (file-name-directory load-file-name) "early-init")
-        nil t))
+;;straight plugin manager setup
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(setq straight-use-package-by-default t)
 
-;; Ensure Doom's core libraries are properly initialized, autoloads file is
-;; loaded, and hooks set up for an interactive session.
-(doom-initialize)
 
-;; Now we load all enabled modules in the order dictated by your `doom!' block
-;; in $DOOMDIR/init.el. `doom-initialize-modules' loads them (and hooks) in the
-;; given order:
-;;
-;;   $DOOMDIR/init.el
-;;   {$DOOMDIR,~/.emacs.d}/modules/*/*/init.el
-;;   `doom-before-init-modules-hook'
-;;   {$DOOMDIR,~/.emacs.d}/modules/*/*/config.el
-;;   `doom-init-modules-hook'
-;;   $DOOMDIR/config.el
-;;   `doom-after-init-modules-hook'
-;;   `after-init-hook'
-;;   `emacs-startup-hook'
-;;   `doom-init-ui-hook'
-;;   `window-setup-hook'
-;;
-;; And then we're good to go!
-(doom-initialize-modules)
+;;packages using straight.el
+(straight-use-package 'use-package)
+(straight-use-package 'el-patch)
+(straight-use-package 'ivy)
+(straight-use-package 'neotree)
+(straight-use-package 'all-the-icons)
+(straight-use-package 'solaire-mode)
+(straight-use-package 'evil)
+(straight-use-package 'chocolate-theme)
+(straight-use-package 'vterm)
+(straight-use-package 'company)
+(straight-use-package 'projectile)
+(straight-use-package 'rust-mode)
+(straight-use-package 'magit)
+(straight-use-package 'doom-modeline)
+(straight-use-package 'which-key)
+(straight-use-package 'websocket)
+
+
+;;themes
+(load-theme 'chocolate t)
+
+
+;;removing menubars
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+
+;;welcome screen
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (custom-set-variables
+   '(initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+   '(dashboard-set-heading-icons t)
+   '(dashboard-set-file-icons t)
+   '(dashboard-banner-logo-title "Welcome to Teamacs")
+   '(dashboard-startup-banner 'official)
+   '(dashboard-center-content t)))
+
+
+;;tabs
+(use-package centaur-tabs
+  :config
+  (centaur-tabs-mode t)
+  (centaur-tabs-headline-match)
+  (setq
+   centaur-tabs-style "bar"
+   centaur-tabs-height 32
+   centaur-tabs-set-icons t
+   centaur-tabs-set-bar 'left
+   x-underline-at-descent-line t)
+  :hook
+  (vterm-mode . centaur-tabs-local-mode)
+  (dashboard-mode . centaur-tabs-local-mode))
+
+
+;;LSP
+(use-package lsp-mode
+  :hook
+  (rust-mode . lsp))
+
+
+;;activating plugins
+(evil-mode 1)
+(ivy-mode 1)
+(solaire-global-mode +1)
+(add-hook 'after-init-hook #'doom-modeline-mode)
+(add-hook 'after-init-hook 'global-company-mode)
+
+
+;;plugins config
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(which-key-setup-side-window-bottom)
+(which-key-setup-minibuffer)
+(which-key-mode)
+
+
+;;Ligatures
+(use-package ligature
+  :straight (ligature :type git :host github :repo "mickeynp/ligature.el")
+  :config
+  ;; Enable all JetBrains Mono ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--"
+  				       "->" "->>" "-->" "///" "/=" "/=="
+				       "/>" "//" "/*" "*>" "***" "*/" "<-"
+ 				       "<<-" "<=>" "<=" "<|" "<||"
+				       "<|||" "<|>" "<:" "<>" "<-<"
+  				       "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+				       "<<" "<~>" "<=|" "<~~" "<~" "<$>"
+  				       "<$" "<+>" "<+" "</>" "</" "<*"
+				       "<*>" "<->" "<!--" ":>" ":<" ":::"
+  				       "::" ":?" ":?>" ":=" "::=" "=>>"
+				       "==>" "=/=" "=!=" "=>" "===" "=:="
+  				       "==" "!==" "!!" "!=" ">]" ">:"
+				       ">>-" ">>=" ">=>" ">>>" ">-" ">="
+  				       "&&&" "&&" "|||>" "||>" "|>" "|]"
+				       "|}" "|=>" "|->" "|=" "||-" "|-"
+  				       "||=" "||" ".." ".?" ".=" ".-" "..<"
+				       "..." "+++" "+>" "++" "[||]" "[<"
+ 				       "[|" "{|" "??" "?." "?=" "?:" "##"
+				       "###" "####" "#[" "#{" "#=" "#!" "#:"
+  				       "#_(" "#_" "#?" "#(" ";;" "_|_"
+ 				       "__" "~~" "~~>" "~>" "~-" "~@"
+ 				       "$>" "^=" "]#"))
+  ;; Enables ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
+
+
+;;bindings
+(global-set-key [f8] 'neotree-toggle)
+(evil-set-leader 'normal (kbd "<SPC>"))
+(define-key evil-normal-state-map (kbd "<leader>,") 'dired)
+(define-key evil-normal-state-map (kbd "<leader>SPC") 'execute-extended-command)
+(global-set-key (kbd "M-x") nil)
+
+
+;;org mode
+(setq
+ org-directory "~/organization"
+ org-agenda-files nil
+ org-hide-leading-stars t
+ org-odd-levels-only t
+ org-pretty-entities t
+ org-startup-indented t)
+(use-package org-roam
+  :init
+  :custom
+  (org-roam-directory (file-truename "~/organization/roam/node"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+	 ("C-c n g" . org-roam-graph)
+	 ("C-c n i" . org-roam-node-insert)
+	 ("C-c n c" . org-roam-capture)
+	 ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-setup))
+
+(use-package org-roam-ui
+  :straight
+  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+	org-roam-ui-follow t
+	org-roam-ui-update-on-save t
+	org-roam-ui-open-on-start t))
+
+
+;;fonts
+(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font-12" )
+;; set font for emoji
+(set-fontset-font
+ t
+ '(#x1f300 . #x1fad0)
+ (cond
+  ((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
+  ((member "Noto Emoji" (font-family-list)) "Noto Emoji")
+  ((member "Segoe UI Emoji" (font-family-list)) "Segoe UI Emoji")
+  ((member "Symbola" (font-family-list)) "Symbola")
+  ((member "Apple Color Emoji" (font-family-list)) "Apple Color Emoji")))
+
+(display-line-numbers-mode 1)
+(setq org-roam-v2-ack t)

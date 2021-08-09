@@ -1,2 +1,5 @@
 .local
 .ccls-cache
+straight
+dwm/.config/dwm-6.2/ *.o
+dwm/.config/dwm-6.2/dwm
