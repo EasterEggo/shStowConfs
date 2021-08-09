@@ -1,5 +1,12 @@
 .local
 .ccls-cache
-straight
-dwm/.config/dwm-6.2/ *.o
+straight/
+*.o
 dwm/.config/dwm-6.2/dwm
+recentf
+bookmarks
+.lsp-session-v1
+.org-id-locations
+org-roam-db
+projectile-bookmarks.eld
+
