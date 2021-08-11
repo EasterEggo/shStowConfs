@@ -15,15 +15,15 @@ static const int topbar = 1;  /* 0 means bottom bar */
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
-static const char col_gray1[] = "#02111B";
-static const char col_gray2[] = "#444444";
-static const char col_gray3[] = "#bbbbbb";
-static const char col_gray4[] = "#eeeeee";
-static const char col_cyan[] = "#073C5F";
+static const char col1[] = "#141414";
+static const char col2[] = "#444444";
+static const char col3[] = "#bbbbbb";
+static const char col4[] = "#eeeeee";
+static const char col5[] = "#2F3061";
 static const char *colors[][3] = {
     /*               fg         bg         border   */
-    [SchemeNorm] = {col_gray3, col_gray1, col_gray2},
-    [SchemeSel] = {col_gray4, col_cyan, col_cyan},
+    [SchemeNorm] = {col3, col1, col2},
+    [SchemeSel] = {col4, col5, col5},
 };
 
 /* tagging */
@@ -70,11 +70,11 @@ static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *termcmd[] = {term};
 static const char *dmenucmd[] = {
-    "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
-    "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray4, NULL};
+    "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col1,
+    "-nf",       col3, "-sb",    col5, "-sf",     col4, NULL};
 static const char *roficmd[] = {"rofi",         "-show",  "run",
                                 "-display-run", "Run:  ", NULL};
-static const char *browser[] = {"firefox", NULL};
+static const char *browser[] = {"brave-bin", NULL};
 static const char *textEditor[] = {"emacs", NULL};
 static const char *files[] = {term, "-e", "ranger", NULL};
 static const char *youtube[] = {"ytfzf", "-D", NULL};
