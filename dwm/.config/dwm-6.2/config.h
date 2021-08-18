@@ -36,7 +36,7 @@ static const Rule rules[] = {
      */
     /* class      instance    title       tags mask     isfloating   monitor */
     {"Gimp", NULL, NULL, 0, 1, -1},
-    {"Firefox", NULL, 0, 0, 0, -1},
+    {"Brave-bin", NULL, NULL, 1 << 3, 1, -1},
 };
 
 /* layout(s) */
@@ -79,10 +79,10 @@ static const char *textEditor[] = {"emacs", NULL};
 static const char *files[] = {term, "-e", "ranger", NULL};
 static const char *youtube[] = {"ytfzf", "-D", NULL};
 
-static const char *mutecmd[] = {"amixer", "-q", "set", "PCM", "toggle", NULL};
-static const char *volupcmd[] = {"amixer", "-q",     "set", "PCM",
+static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
+static const char *volupcmd[] = {"amixer", "-q",     "set", "Master",
                                  "5%+",    "unmute", NULL};
-static const char *voldowncmd[] = {"amixer", "-q",     "set", "PCM",
+static const char *voldowncmd[] = {"amixer", "-q",     "set", "Master",
                                    "5%-",    "unmute", NULL};
 static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
 static const char *scrotcmd[] = {"scrot", NULL};
@@ -145,3 +145,4 @@ static Button buttons[] = {
     {ClkTagBar, MODKEY, Button1, tag, {0}},
     {ClkTagBar, MODKEY, Button3, toggletag, {0}},
 };
+
