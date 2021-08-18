@@ -34,10 +34,9 @@
 (straight-use-package 'magit)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'which-key)
-(straight-use-package 'websocket)
 
 
-;;themes
+;;theme
 (load-theme 'chocolate t)
 
 
@@ -51,13 +50,13 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (custom-set-variables
-   '(initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-   '(dashboard-set-heading-icons t)
-   '(dashboard-set-file-icons t)
-   '(dashboard-banner-logo-title "Welcome to Teamacs")
-   '(dashboard-startup-banner 'official)
-   '(dashboard-center-content t)))
+  (setq
+   initial-buffer-choice (lambda () (get-buffer "*dashboard*"))
+   dashboard-set-heading-icons t
+   dashboard-set-file-icons t
+   dashboard-banner-logo-title "Welcome to Teamacs"
+   dashboard-startup-banner 'official
+   dashboard-center-content t))
 
 
 ;;tabs
@@ -97,44 +96,11 @@
 (which-key-mode)
 
 
-;;Ligatures
-(use-package ligature
-  :straight (ligature :type git :host github :repo "mickeynp/ligature.el")
-  :config
-  ;; Enable all JetBrains Mono ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--"
-  				       "->" "->>" "-->" "///" "/=" "/=="
-				       "/>" "//" "/*" "*>" "***" "*/" "<-"
- 				       "<<-" "<=>" "<=" "<|" "<||"
-				       "<|||" "<|>" "<:" "<>" "<-<"
-  				       "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
-				       "<<" "<~>" "<=|" "<~~" "<~" "<$>"
-  				       "<$" "<+>" "<+" "</>" "</" "<*"
-				       "<*>" "<->" "<!--" ":>" ":<" ":::"
-  				       "::" ":?" ":?>" ":=" "::=" "=>>"
-				       "==>" "=/=" "=!=" "=>" "===" "=:="
-  				       "==" "!==" "!!" "!=" ">]" ">:"
-				       ">>-" ">>=" ">=>" ">>>" ">-" ">="
-  				       "&&&" "&&" "|||>" "||>" "|>" "|]"
-				       "|}" "|=>" "|->" "|=" "||-" "|-"
-  				       "||=" "||" ".." ".?" ".=" ".-" "..<"
-				       "..." "+++" "+>" "++" "[||]" "[<"
- 				       "[|" "{|" "??" "?." "?=" "?:" "##"
-				       "###" "####" "#[" "#{" "#=" "#!" "#:"
-  				       "#_(" "#_" "#?" "#(" ";;" "_|_"
- 				       "__" "~~" "~~>" "~>" "~-" "~@"
- 				       "$>" "^=" "]#"))
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
-  (global-ligature-mode t))
-
-
 ;;bindings
 (global-set-key [f8] 'neotree-toggle)
 (evil-set-leader 'normal (kbd "<SPC>"))
-(define-key evil-normal-state-map (kbd "<leader>,") 'dired)
+(define-key evil-normal-state-map (kbd "<leader>.") 'dired)
 (define-key evil-normal-state-map (kbd "<leader>SPC") 'execute-extended-command)
-(global-set-key (kbd "M-x") nil)
 
 
 ;;org mode
@@ -145,10 +111,12 @@
  org-odd-levels-only t
  org-pretty-entities t
  org-startup-indented t)
+
 (use-package org-roam
   :init
+  (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory (file-truename "~/organization/roam/node"))
+  (org-roam-directory (file-truename "~/organization/roam/"))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
 	 ("C-c n g" . org-roam-graph)
@@ -156,21 +124,21 @@
 	 ("C-c n c" . org-roam-capture)
 	 ("C-c n j" . org-roam-dailies-capture-today))
   :config
-  (org-roam-setup))
+  (org-roam-db-autosync-mode))
 
 (use-package org-roam-ui
   :straight
-  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-	org-roam-ui-follow t
-	org-roam-ui-update-on-save t
-	org-roam-ui-open-on-start t))
-
+    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+    :after org-roam
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+(straight-use-package 'websocket)
 
 ;;fonts
-(set-face-attribute 'default nil :font "JetBrainsMono Nerd Font-12" )
+(set-face-attribute 'default nil :font "Fira Code Nerd Font-13" )
 ;; set font for emoji
 (set-fontset-font
  t
@@ -182,5 +150,6 @@
   ((member "Symbola" (font-family-list)) "Symbola")
   ((member "Apple Color Emoji" (font-family-list)) "Apple Color Emoji")))
 
-(display-line-numbers-mode 1)
-(setq org-roam-v2-ack t)
+;;misc
+(defalias 'yes-or-no-p 'y-or-n-p)
+(org-roam-db-sync 1)
