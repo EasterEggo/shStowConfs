@@ -34,6 +34,7 @@
 (straight-use-package 'magit)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'which-key)
+(straight-use-package 'toc-org)
 
 
 ;;theme
@@ -106,11 +107,14 @@
 ;;org mode
 (setq
  org-directory "~/organization"
+ org-agenda-files "~/organization/agenda.org"
  org-agenda-files nil
  org-hide-leading-stars t
  org-odd-levels-only t
  org-pretty-entities t
  org-startup-indented t)
+
+(add-hook 'org-mode-hook 'toc-org-mode)
 
 (use-package org-roam
   :init
