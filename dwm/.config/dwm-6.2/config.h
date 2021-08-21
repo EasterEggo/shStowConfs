@@ -1,16 +1,15 @@
 #include <X11/XF86keysym.h>
-#define print 0x0000ff61
-/* appearance */
-static const unsigned int borderpx = 1; /* border pixel of windows */
-static const unsigned int snap = 32;    /* snap pixel */
 
-static const unsigned int gappx = 5; /* gaps between windows */
-static const int user_bh = 25; /*0 means that dwm will calculate bar height, >=
-                                  1 means dwm will user_bh as bar height */
-static const char term[] = "alacritty"; /* default terminal */
+static const unsigned int borderpx = 1;
+static const unsigned int snap = 32;
 
-static const int showbar = 1; /* 0 means no bar */
-static const int topbar = 1;  /* 0 means bottom bar */
+static const unsigned int gappx = 5;
+static const int user_bh = 25;
+
+static const char term[] = "alacritty";
+
+static const int showbar = 1;
+static const int topbar = 1;
 
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
@@ -21,74 +20,62 @@ static const char col3[] = "#bbbbbb";
 static const char col4[] = "#eeeeee";
 static const char col5[] = "#2F3061";
 static const char *colors[][3] = {
-    /*               fg         bg         border   */
+    /*              fg     bg   border   */
     [SchemeNorm] = {col3, col1, col2},
     [SchemeSel] = {col4, col5, col5},
 };
 
-/* tagging */
-static const char *tags[] = {" ", "", "", "", "", "", ""};
+static const char *tags[] = {" ", "", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
-    /* xprop(1):
-     *	WM_CLASS(STRING) = instance, class
-     *	WM_NAME(STRING) = title
-     */
-    /* class      instance    title       tags mask     isfloating   monitor */
-    {"Gimp", NULL, NULL, 0, 1, -1},
-    {"Brave-bin", NULL, NULL, 1 << 3, 1, -1},
+        /* class      instance    title       tags mask     isfloating   monitor */
+      {"Steam", NULL, NULL, 1 << 5, 0, -1}, 
+      {"Brave-browser", NULL, NULL, 1 << 0, 0, -1},
 };
 
-/* layout(s) */
-static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster = 1;    /* number of clients in master area */
-static const int resizehints =
-    1; /* 1 means respect size hints in tiled resizals */
-
+static const float mfact = 0.55;  /* factor of master area size [0.05..0.95] */
+static const int nmaster = 1;     /* number of clients in master area */
+static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
-    {"", tile}, /* default */
-    {"", NULL}, /* no floating behavior */
+    {"", tile}, 
+    {"", NULL},
     {"", monocle},
 };
 
-/* key definitions */
 #define MODKEY Mod4Mask
+#define print 0x0000ff61
 #define TAGKEYS(KEY, TAG)                                                      \
-  {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
-      {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
-      {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
-      {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
+   {MODKEY, KEY, view, {.ui = 1 << TAG}},                                       \
+       {MODKEY | ControlMask, KEY, toggleview, {.ui = 1 << TAG}},               \
+       {MODKEY | ShiftMask, KEY, tag, {.ui = 1 << TAG}},                        \
+       {MODKEY | ControlMask | ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
 
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd)                                                             \
-  {                                                                            \
-    .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
-  }
+ /* helper for spawning shell commands*/
+ #define SHCMD(cmd)                                                             \
+   {                                                                            \
+     .v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }                       \
+   }
 
-/* commands */
-static char dmenumon[2] =
-    "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *termcmd[] = {term};
-static const char *dmenucmd[] = {
-    "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col1,
-    "-nf",       col3, "-sb",    col5, "-sf",     col4, NULL};
-static const char *roficmd[] = {"rofi",         "-show",  "run",
-                                "-display-run", "Run:  ", NULL};
-static const char *browser[] = {"brave-bin", NULL};
-static const char *textEditor[] = {"emacs", NULL};
-static const char *files[] = {term, "-e", "ranger", NULL};
-static const char *youtube[] = {"ytfzf", "-D", NULL};
+static char dmenumon[2] = "0";
+  static const char *termcmd[] = {term};
+  static const char *dmenucmd[] = {
+      "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col1,
+      "-nf",       col3, "-sb",    col5, "-sf",     col4, NULL};
+  static const char *roficmd[] = {"rofi",         "-show",  "run",
+                                  "-display-run", "Run:  ", NULL};
+  static const char *browser[] = {"brave-bin", NULL};
+  static const char *textEditor[] = {"emacs", NULL};
+  static const char *files[] = {term, "-e", "ranger", NULL};
+  static const char *youtube[] = {"ytfzf", "-D", NULL};
 
-static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
-static const char *volupcmd[] = {"amixer", "-q",     "set", "Master",
-                                 "5%+",    "unmute", NULL};
-static const char *voldowncmd[] = {"amixer", "-q",     "set", "Master",
-                                   "5%-",    "unmute", NULL};
-static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
-static const char *scrotcmd[] = {"scrot", NULL};
+  static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
+  static const char *volupcmd[] = {"amixer", "-q",     "set", "Master",
+                                   "5%+",    "unmute", NULL};
+  static const char *voldowncmd[] = {"amixer", "-q", "set", "Master", "5%-", "unmute", NULL};
+  static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
+  static const char *scrotcmd[] = {"scrot", NULL};
+
 static Key keys[] = {
-    /*keybindings*/
-
     /*Launch Programs*/
     {MODKEY, XK_p, spawn, {.v = dmenucmd}},
     {MODKEY | ShiftMask, XK_Return, spawn, {.v = termcmd}},
@@ -124,25 +111,29 @@ static Key keys[] = {
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
     {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
-    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
-        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8){MODKEY | ShiftMask, XK_q, quit, {0}},
+    TAGKEYS(XK_1, 0)
+    TAGKEYS(XK_2, 1)
+    TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
+    TAGKEYS(XK_5, 4)
+    TAGKEYS(XK_6, 5)
+    TAGKEYS(XK_7, 6) 
+    TAGKEYS(XK_8, 7)
+    TAGKEYS(XK_9, 8)
+    {MODKEY | ShiftMask, XK_q, quit, {0}},
 };
 
-/* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
  * ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-    /* click|vent|mask|button|function argument*/
-    {ClkLtSymbol, 0, Button1, setlayout, {0}},
-    {ClkLtSymbol, 0, Button3, setlayout, {.v = &layouts[2]}},
-    {ClkStatusText, 0, Button2, spawn, {.v = termcmd}},
-    {ClkClientWin, MODKEY, Button1, movemouse, {0}},
-    {ClkClientWin, MODKEY, Button2, togglefloating, {0}},
-    {ClkClientWin, MODKEY, Button3, resizemouse, {0}},
-    {ClkTagBar, 0, Button1, view, {0}},
-    {ClkTagBar, 0, Button3, toggleview, {0}},
-    {ClkTagBar, MODKEY, Button1, tag, {0}},
-    {ClkTagBar, MODKEY, Button3, toggletag, {0}},
+    /* click        vent     mask     button         function argument*/
+    {ClkLtSymbol,    0,     Button1, setlayout,      {0}},
+    {ClkLtSymbol,    0,     Button3, setlayout,      {.v = &layouts[2]}},
+    {ClkStatusText,  0,     Button2, spawn,          {.v = termcmd}},
+    {ClkClientWin, MODKEY,  Button1, movemouse,      {0}},
+    {ClkClientWin, MODKEY,  Button2, togglefloating, {0}},
+    {ClkClientWin, MODKEY,  Button3, resizemouse,    {0}},
+    {ClkTagBar,      0,     Button1, view,           {0}},
+    {ClkTagBar,      0,     Button3, toggleview,     {0}},
+    {ClkTagBar,    MODKEY,  Button1, tag,            {0}},
+    {ClkTagBar,    MODKEY,  Button3, toggletag,      {0}},
 };
-
