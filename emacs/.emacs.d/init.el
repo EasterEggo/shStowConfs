@@ -35,6 +35,7 @@
 (straight-use-package 'doom-modeline)
 (straight-use-package 'which-key)
 (straight-use-package 'toc-org)
+(straight-use-package 'slime)
 
 
 ;;theme
@@ -83,6 +84,7 @@
 
 
 ;;activating plugins
+(setq inferior-lisp-program "sbcl")
 (evil-mode 1)
 (ivy-mode 1)
 (solaire-global-mode +1)
