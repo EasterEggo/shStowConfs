@@ -49,5 +49,7 @@ fi
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
 ~/.config/dwm-6.2/dwbar &
-feh --bg-fill wallpapers/0078.jpg &
+feh --bg-fill ~/gruvbox-gentoo.png &
+xset -dpms &
+xset s off &
 exec /usr/local/bin/dwm

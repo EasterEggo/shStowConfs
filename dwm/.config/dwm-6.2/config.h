@@ -3,7 +3,7 @@
 static const unsigned int borderpx = 1;
 static const unsigned int snap = 32;
 
-static const unsigned int gappx = 5;
+static const unsigned int gappx = 24;
 static const int user_bh = 25;
 
 static const char term[] = "alacritty";
@@ -14,25 +14,28 @@ static const int topbar = 1;
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
-static const char col1[] = "#141414";
+static const char col1[] = "#282828";
 static const char col2[] = "#444444";
-static const char col3[] = "#bbbbbb";
-static const char col4[] = "#eeeeee";
-static const char col5[] = "#2F3061";
+static const char col3[] = "#ebdbb2";
+static const char col4[] = "#ebdbb2";
+static const char col5[] = "#458588";
 static const char *colors[][3] = {
     /*              fg     bg   border   */
     [SchemeNorm] = {col3, col1, col2},
     [SchemeSel] = {col4, col5, col5},
 };
 
-static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
+static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
     /* class            instance   title       tags mask    isfloating   monitor */
-      {"Emacs",         NULL,      NULL,       1 << 3,      0,           -1},
+      {"Steam",         NULL,      NULL,       1 << 7,      0,           -1}, 
+      {"Gimp",          NULL,      NULL,       1 << 6,      0,           -1},
+      {"Blender",       NULL,      NULL,       1 << 6,      0,           -1},
+      {"Virt-manager",  NULL,      NULL,       1 << 5,      0,           -1},
       {"KeePassXC",     NULL,      NULL,       1 << 4,      0,           -1},
+      {"Emacs",         NULL,      NULL,       1 << 3,      0,           -1},
       {"Alacritty",     NULL,      NULL,       1 << 2,      0,           -1},
-      {"Steam",         NULL,      NULL,       1 << 6,      0,           -1}, 
       {"Brave-browser", NULL,      NULL,       1 << 1,      0,           -1},
 };
 
