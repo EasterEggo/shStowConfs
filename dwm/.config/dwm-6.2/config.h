@@ -70,11 +70,13 @@ static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL}
 static const char *volupcmd[] = {"amixer", "-q",     "set", "Master", "5%+", "unmute", NULL};
 static const char *voldowncmd[] = {"amixer", "-q", "set", "Master", "5%-", "unmute", NULL};
 static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
+static const char *passcmd[] = {"passmenu", NULL};
 static const char *scrotcmd[] = {"scrot", NULL};
 
 static Key keys[] = {
   // modifier                       key        function        argument */   
     {MODKEY,                       XK_p,       spawn,          {.v = dmenucmd}},
+    {MODKEY | ShiftMask,           XK_p,       spawn,          {.v = passcmd}},
     {MODKEY | ShiftMask,      XK_Return,       spawn,          {.v = termcmd}},
     {MODKEY,                       XK_b,       spawn,          {.v = browser}},
     {MODKEY,                       XK_e,       spawn,          {.v = textEditor}},
