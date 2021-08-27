@@ -34,6 +34,7 @@
 (straight-use-package 'password-store)
 (straight-use-package 'gruvbox-theme)
 (straight-use-package 'toc-org)
+(straight-use-package 'treemacs)
 (straight-use-package 'slime)
 
 (load-theme 'chocolate t)
