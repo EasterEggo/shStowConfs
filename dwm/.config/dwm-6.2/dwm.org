@@ -28,7 +28,7 @@ XF86keysym = media keys support
   #+end_src
 ** Patch Variables
  #+begin_src c
-   static const unsigned int gappx = 24;
+   static const unsigned int gappx = 14;
    static const int user_bh = 25;
    #+end_src
 ** Default Terminal
@@ -107,7 +107,7 @@ Use xprop to see your window class and instance (WM_CLASS) and title (WM_NAME)
 ** Commands
 Variables for launching programs
   #+begin_src c
-    static char dmenumon[2] = "0";
+      static char dmenumon[2] = "0";
       static const char *termcmd[] = {term};
       static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col1, "-nf", col3, "-sb", col5, "-sf", col4, NULL};
       static const char *browser[] = {"brave-bin", NULL};

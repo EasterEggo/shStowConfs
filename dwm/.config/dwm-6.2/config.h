@@ -3,7 +3,7 @@
 static const unsigned int borderpx = 1;
 static const unsigned int snap = 32;
 
-static const unsigned int gappx = 24;
+static const unsigned int gappx = 14;
 static const int user_bh = 25;
 
 static const char term[] = "alacritty";
@@ -60,17 +60,17 @@ static const Layout layouts[] = {
  #define SHCMD(cmd) {.v = (const char *[]) { "/bin/sh", "-c", cmd, NULL }}
 
 static char dmenumon[2] = "0";
-  static const char *termcmd[] = {term};
-  static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col1, "-nf", col3, "-sb", col5, "-sf", col4, NULL};
-  static const char *browser[] = {"brave-bin", NULL};
-  static const char *textEditor[] = {"emacs", NULL};
-  static const char *files[] = {term, "-e", "ranger", NULL};
-  static const char *youtube[] = {"ytfzf", "-D", NULL};
-  static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
-  static const char *volupcmd[] = {"amixer", "-q",     "set", "Master", "5%+", "unmute", NULL};
-  static const char *voldowncmd[] = {"amixer", "-q", "set", "Master", "5%-", "unmute", NULL};
-  static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
-  static const char *scrotcmd[] = {"scrot", NULL};
+static const char *termcmd[] = {term};
+static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col1, "-nf", col3, "-sb", col5, "-sf", col4, NULL};
+static const char *browser[] = {"brave-bin", NULL};
+static const char *textEditor[] = {"emacs", NULL};
+static const char *files[] = {term, "-e", "ranger", NULL};
+static const char *youtube[] = {"ytfzf", "-D", NULL};
+static const char *mutecmd[] = {"amixer", "-q", "set", "Master", "toggle", NULL};
+static const char *volupcmd[] = {"amixer", "-q",     "set", "Master", "5%+", "unmute", NULL};
+static const char *voldowncmd[] = {"amixer", "-q", "set", "Master", "5%-", "unmute", NULL};
+static const char *pausecmd[] = {"playerctl", "play-pause", NULL};
+static const char *scrotcmd[] = {"scrot", NULL};
 
 static Key keys[] = {
   // modifier                       key        function        argument */   
