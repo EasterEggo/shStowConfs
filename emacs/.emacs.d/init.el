@@ -18,7 +18,8 @@
 
 (straight-use-package 'use-package)
 (straight-use-package 'el-patch)
-(straight-use-package 'ivy)
+(straight-use-package 'helm)
+(straight-use-package 'helm-lsp)
 (straight-use-package 'neotree)
 (straight-use-package 'all-the-icons)
 (straight-use-package 'solaire-mode)
@@ -32,16 +33,10 @@
 (straight-use-package 'doom-modeline)
 (straight-use-package 'which-key)
 (straight-use-package 'password-store)
-(straight-use-package 'gruvbox-theme)
 (straight-use-package 'toc-org)
-(straight-use-package 'treemacs)
-(straight-use-package 'slime)
+(straight-use-package 'company-box)
 
 (load-theme 'chocolate t)
-
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
 
 (use-package dashboard
   :config
@@ -52,6 +47,10 @@
    dashboard-set-file-icons t
    dashboard-startup-banner 'official
    dashboard-center-content t))
+
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
 
 (use-package centaur-tabs
   :config
@@ -69,14 +68,17 @@
 
 (use-package lsp-mode
   :hook
-  (rust-mode . lsp))
+  (rust-mode . lsp)
+  (c-mode . lsp))
+(setq lsp-clangd-binary-path "/bin/clangd")
 
 (setq inferior-lisp-program "sbcl")
 (evil-mode 1)
-(ivy-mode 1)
+(helm-mode 1)
 (solaire-global-mode +1)
 (add-hook 'after-init-hook #'doom-modeline-mode)
 (add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'company-mode-hook 'company-box-mode)
 
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 (which-key-setup-side-window-bottom)
@@ -85,12 +87,11 @@
 
 (global-set-key [f8] 'neotree-toggle)
 (evil-set-leader 'normal (kbd "<SPC>"))
-(define-key evil-normal-state-map (kbd "<leader>.") 'dired)
-(define-key evil-normal-state-map (kbd "<leader>SPC") 'execute-extended-command)
+(define-key evil-normal-state-map (kbd "<leader>.") 'helm-find-files)
+(define-key evil-normal-state-map (kbd "<leader>SPC") 'helm-M-x)
+(define-key evil-normal-state-map (kbd "<leader>,")'vterm-other-window)
 
 (setq
- org-directory "~/organization"
- org-agenda-files "~/organization/agenda.org"
  org-agenda-files nil
  org-hide-leading-stars t
  org-odd-levels-only t
@@ -103,7 +104,7 @@
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory (file-truename "~/organization/roam/"))
+  (org-roam-directory (file-truename "~/organization/roam"))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
