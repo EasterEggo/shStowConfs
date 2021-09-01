@@ -14,11 +14,11 @@ static const int topbar = 1;
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
-static const char col1[] = "#282828";
+static const char col1[] = "#2d333f";
 static const char col2[] = "#444444";
-static const char col3[] = "#ebdbb2";
-static const char col4[] = "#ebdbb2";
-static const char col5[] = "#458588";
+static const char col3[] = "#e5e9f0";
+static const char col4[] = "#e5e9f0";
+static const char col5[] = "#5d80ab";
 static const char *colors[][3] = {
     /*              fg     bg   border   */
     [SchemeNorm] = {col3, col1, col2},
