@@ -48,6 +48,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+       eval `dbus-launch --sh-syntax --exit-with-session`
+fi
+
+pipewire &
 ~/.config/dwm-6.2/dwbar &
 feh --bg-fill ~/gruvbox-gentoo.png &
 xset -dpms &
