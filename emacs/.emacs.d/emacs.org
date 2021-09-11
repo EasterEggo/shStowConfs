@@ -55,7 +55,7 @@
     (straight-use-package 'projectile)
     (straight-use-package 'rust-mode)
     (straight-use-package 'magit)
-    (straight-use-package 'doom-modeline)
+    (straight-use-package 'spaceline-all-the-icons)
     (straight-use-package 'which-key)
     (straight-use-package 'password-store)
     (straight-use-package 'toc-org)
@@ -90,10 +90,9 @@
     (centaur-tabs-mode t)
     (centaur-tabs-headline-match)
     (setq
-     centaur-tabs-style "bar"
+     centaur-tabs-style "wave"
      centaur-tabs-height 32
      centaur-tabs-set-icons t
-     centaur-tabs-set-bar 'left
      x-underline-at-descent-line t)
     :hook
     (vterm-mode . centaur-tabs-local-mode)
@@ -114,7 +113,6 @@
   (evil-mode 1)
   (helm-mode 1)
   (solaire-global-mode +1)
-  (add-hook 'after-init-hook #'doom-modeline-mode)
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook 'company-box-mode)
   #+end_src
@@ -187,4 +185,5 @@
   #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
   (org-roam-db-sync 1)
+  (spaceline-all-the-icons-theme)
   #+end_src
