@@ -54,7 +54,7 @@ fi
 
 pipewire &
 ~/.config/dwm-6.2/dwbar &
-feh --bg-fill ~/gruvbox-gentoo.png &
+feh --bg-fill ~/wallpapers/rose.png &
 xset -dpms &
 xset s off &
 exec /usr/local/bin/dwm
