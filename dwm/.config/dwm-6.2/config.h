@@ -14,38 +14,38 @@ static const int topbar = 1;
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
-static const char col1[] = "#2d333f";
+static const char col1[] = "#222035";
 static const char col2[] = "#444444";
-static const char col3[] = "#e5e9f0";
-static const char col4[] = "#e5e9f0";
-static const char col5[] = "#5d80ab";
+static const char col3[] = "#ebeef3";
+static const char col4[] = "#ebeef3";
+static const char col5[] = "#7eb1c0";
 static const char *colors[][3] = {
-    /*              fg     bg   border   */
+    //              fg    bg    border  
     [SchemeNorm] = {col3, col1, col2},
-    [SchemeSel] = {col4, col5, col5},
+    [SchemeSel] = { col4, col5, col5},
 };
 
 static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
     /* class                        instance   title       tags mask    isfloating   monitor */
-      {"Steam",                     NULL,      NULL,       1 << 7,      0,           -1},
+      {"Steam",                     NULL,      NULL,       1 << 7,      0,           -1}, 
       {"Gimp",                      NULL,      NULL,       1 << 6,      0,           -1},
       {"Blender",                   NULL,      NULL,       1 << 6,      0,           -1},
       {"Virt-manager",              NULL,      NULL,       1 << 5,      0,           -1},
       {"KeePassXC",                 NULL,      NULL,       1 << 4,      0,           -1},
       {"Emacs",                     NULL,      NULL,       1 << 3,      0,           -1},
       {"st-256color",               NULL,      NULL,       1 << 2,      0,           -1},
-      {"Chromium-browser-chromium", NULL,      NULL,       1 << 1,      0,           -1},
+      {"Brave-browser",		    NULL,      NULL,       1 << 1,      0,           -1},
 };
 
 static const float mfact = 0.55;  /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;     /* number of clients in master area */
 static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
-    {"", tile},
-    {"", NULL},
-    {"", monocle},
+    {"[]=", tile}, 
+    {"><>", NULL},
+    {"[M]", monocle},
 };
 
 #define MODKEY Mod4Mask
@@ -62,7 +62,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *termcmd[] = {term};
 static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col1, "-nf", col3, "-sb", col5, "-sf", col4, NULL};
-static const char *browser[] = {"chromium", NULL};
+static const char *browser[] = {"brave-bin", NULL};
 static const char *textEditor[] = {"emacs", NULL};
 static const char *files[] = {term, "-e", "ranger", NULL};
 static const char *youtube[] = {"ytfzf", "-D", NULL};
@@ -74,7 +74,7 @@ static const char *passcmd[] = {"passmenu", NULL};
 static const char *scrotcmd[] = {"scrot", NULL};
 
 static Key keys[] = {
-  // modifier                       key        function        argument */
+  // modifier                       key        function        argument */   
     {MODKEY,                       XK_p,       spawn,          {.v = dmenucmd}},
     {MODKEY | ShiftMask,           XK_p,       spawn,          {.v = passcmd}},
     {MODKEY | ShiftMask,      XK_Return,       spawn,          {.v = termcmd}},
@@ -116,7 +116,7 @@ static Key keys[] = {
     TAGKEYS(                       XK_4,                       3)
     TAGKEYS(                       XK_5,                       4)
     TAGKEYS(                       XK_6,                       5)
-    TAGKEYS(                       XK_7,                       6)
+    TAGKEYS(                       XK_7,                       6) 
     TAGKEYS(                       XK_8,                       7)
     TAGKEYS(                       XK_9,                       8)
     {MODKEY | ShiftMask,           XK_q,       quit,           {0}},
