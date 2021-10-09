@@ -44,32 +44,35 @@
   
 * packages using straight.el
   #+begin_src emacs-lisp
-    (straight-use-package 'use-package)
-    (straight-use-package 'el-patch)
-    (straight-use-package 'helm)
-    (straight-use-package 'helm-lsp)
-    (straight-use-package 'neotree)
-    (straight-use-package 'all-the-icons)
-    (straight-use-package 'solaire-mode)
-    (straight-use-package 'evil)
-    (straight-use-package 'doom-themes)
-    (straight-use-package 'vterm)
-    (straight-use-package 'company)
-    (straight-use-package 'projectile)
-    (straight-use-package 'rust-mode)
-    (straight-use-package 'magit)
-    (straight-use-package 'doom-modeline)
-    (straight-use-package 'which-key)
-    (straight-use-package 'password-store)
-    (straight-use-package 'toc-org)
-    (straight-use-package 'company-box)
-    (straight-use-package 'restclient)
-    (straight-use-package 'org-bullets)
+        (straight-use-package 'use-package)
+        (straight-use-package 'el-patch)
+        (straight-use-package 'helm)
+        (straight-use-package 'helm-lsp)
+        (straight-use-package 'neotree)
+        (straight-use-package 'all-the-icons)
+        (straight-use-package 'solaire-mode)
+        (straight-use-package 'evil)
+        (straight-use-package 'doom-themes)
+        (straight-use-package 'vterm)
+        (straight-use-package 'company)
+        (straight-use-package 'projectile)
+        (straight-use-package 'rust-mode)
+        (straight-use-package 'magit)
+        (straight-use-package 'doom-modeline)
+        (straight-use-package 'which-key)
+        (straight-use-package 'password-store)
+        (straight-use-package 'toc-org)
+        (straight-use-package 'company-box)
+        (straight-use-package 'restclient)
+        (straight-use-package 'flycheck)
+        (straight-use-package 'org-bullets)
+        (straight-use-package 'emmet-mode)
+        (straight-use-package 'skewer-mode)
   #+end_src  
   
 * theme
   #+begin_src emacs-lisp
-    (load-theme 'doom-ayu-mirage t)
+    (load-theme 'doom-city-lights t)
   #+end_src
   
 * welcome screen
@@ -106,7 +109,9 @@
   (use-package lsp-mode
     :hook
     (rust-mode . lsp)
-    (c-mode . lsp))
+    (c-mode . lsp)
+    (html-mode . lsp)
+    (ts-mode . lsp))
   (setq lsp-clangd-binary-path "/bin/clangd")
   
   #+end_src
@@ -126,7 +131,7 @@
       :init
       (setq org-roam-v2-ack t)
       :custom
-      (org-roam-directory (file-truename "~/organization/roam"))
+      (org-roam-directory (file-truename "~/org/roam"))
       :bind (("C-c n l" . org-roam-buffer-toggle)
              ("C-c n f" . org-roam-node-find)
              ("C-c n g" . org-roam-graph)
@@ -163,7 +168,7 @@
   (setq inferior-lisp-program "sbcl")
   (evil-mode 1)
   (helm-mode 1)
-  ; (solaire-global-mode +1)
+  (global-flycheck-mode)
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook 'company-box-mode)
   #+end_src

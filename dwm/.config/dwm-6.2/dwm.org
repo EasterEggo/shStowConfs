@@ -7,7 +7,7 @@
   - [[#default-apps][Default Apps]]
   - [[#bar-configs][Bar Configs]]
   - [[#fonts][Fonts]]
-  - [[#default-colorscheme][Default Colorscheme]]
+  - [[#default-colorscheme-and-alpha][Default Colorscheme and Alpha]]
   - [[#workspaces][Workspaces]]
   - [[#rules][Rules]]
   - [[#layout-configs][Layout Configs]]
@@ -46,19 +46,27 @@ default interface and dmenu fonts
     static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
     static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
     #+end_src
-** Default Colorscheme
+** Default Colorscheme and Alpha
 color variables
-  #+begin_src c
-    static const char col1[] = "#3a4151";
-    static const char col2[] = "#444444";
-    static const char col3[] = "#ebeef3";
-    static const char col4[] = "#ebeef3";
-    static const char col5[] = "#7eb1c0";
-    static const char *colors[][3] = {
-        /*              fg     bg   border   */
-        [SchemeNorm] = {col3, col1, col2},
-        [SchemeSel] = {col4, col5, col5},
-    };
+#+begin_src c
+          //0xd0
+          static const unsigned int baralpha = 0x4D;
+          static const unsigned int borderalpha = OPAQUE;
+          static const char col1[] = "#000000";
+          static const char col2[] = "#444444";
+          static const char col3[] = "#ebeef3";
+          static const char col4[] = "#ebeef3";
+          static const char col5[] = "#6a8ca5";
+          static const char *colors[][3] = {
+              /*              fg     bg   border   */
+              [SchemeNorm] = {col3, col1, col2},
+              [SchemeSel] = {col4, col5, col5},
+          };
+          static const unsigned int alphas[][3]      = {
+             /*               fg      bg        border     */
+             [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+             [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+  };
     #+end_src
 ** Workspaces
 Workspace names

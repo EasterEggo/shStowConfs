@@ -36,9 +36,12 @@
 (straight-use-package 'toc-org)
 (straight-use-package 'company-box)
 (straight-use-package 'restclient)
+(straight-use-package 'flycheck)
 (straight-use-package 'org-bullets)
+(straight-use-package 'emmet-mode)
+(straight-use-package 'skewer-mode)
 
-(load-theme 'doom-ayu-mirage t)
+(load-theme 'doom-city-lights t)
 
 (use-package dashboard
   :config
@@ -66,7 +69,9 @@
 (use-package lsp-mode
   :hook
   (rust-mode . lsp)
-  (c-mode . lsp))
+  (c-mode . lsp)
+  (html-mode . lsp)
+  (ts-mode . lsp))
 (setq lsp-clangd-binary-path "/bin/clangd")
 
 (setq
@@ -82,7 +87,7 @@
     :init
     (setq org-roam-v2-ack t)
     :custom
-    (org-roam-directory (file-truename "~/organization/roam"))
+    (org-roam-directory (file-truename "~/org/roam"))
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
            ("C-c n g" . org-roam-graph)
@@ -112,7 +117,7 @@
 (setq inferior-lisp-program "sbcl")
 (evil-mode 1)
 (helm-mode 1)
-; (solaire-global-mode +1)
+(global-flycheck-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'company-mode-hook 'company-box-mode)
 
@@ -143,15 +148,3 @@
 (org-roam-db-sync 1)
 
 (doom-modeline-mode 1)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/organization/roam/20210911083035-agenda.org")))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

@@ -53,8 +53,9 @@ if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
 fi
 
 pipewire &
+picom &
 ~/.config/dwm-6.2/dwbar &
-feh --bg-fill ~/wallpapers/rose.png &
+feh --bg-fill ~/wallpapers/pac2.jpg &
 xset -dpms &
 xset s off &
 exec /usr/local/bin/dwm

@@ -14,15 +14,23 @@ static const int topbar = 1;
 static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
-static const char col1[] = "#222035";
-static const char col2[] = "#444444";
-static const char col3[] = "#ebeef3";
-static const char col4[] = "#ebeef3";
-static const char col5[] = "#7eb1c0";
-static const char *colors[][3] = {
-    //              fg    bg    border  
-    [SchemeNorm] = {col3, col1, col2},
-    [SchemeSel] = { col4, col5, col5},
+//0xd0
+        static const unsigned int baralpha = 0x4D;
+        static const unsigned int borderalpha = OPAQUE;
+        static const char col1[] = "#000000";
+        static const char col2[] = "#444444";
+        static const char col3[] = "#ebeef3";
+        static const char col4[] = "#ebeef3";
+        static const char col5[] = "#6a8ca5";
+        static const char *colors[][3] = {
+            /*              fg     bg   border   */
+            [SchemeNorm] = {col3, col1, col2},
+            [SchemeSel] = {col4, col5, col5},
+        };
+        static const unsigned int alphas[][3]      = {
+           /*               fg      bg        border     */
+           [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
+           [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
 static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
@@ -36,16 +44,16 @@ static const Rule rules[] = {
       {"KeePassXC",                 NULL,      NULL,       1 << 4,      0,           -1},
       {"Emacs",                     NULL,      NULL,       1 << 3,      0,           -1},
       {"st-256color",               NULL,      NULL,       1 << 2,      0,           -1},
-      {"Brave-browser",		    NULL,      NULL,       1 << 1,      0,           -1},
+      {"Brave-browser",             NULL,      NULL,       1 << 1,      0,           -1},
 };
 
 static const float mfact = 0.55;  /* factor of master area size [0.05..0.95] */
 static const int nmaster = 1;     /* number of clients in master area */
 static const int resizehints = 1; /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
-    {"[]=", tile}, 
-    {"><>", NULL},
-    {"[M]", monocle},
+    {"", tile}, 
+    {"", NULL},
+    {"", monocle},
 };
 
 #define MODKEY Mod4Mask
