@@ -42,28 +42,6 @@ require('packer').startup(function(use)
 	use 'rose-pine/neovim'
 
 	use 'yamatsum/nvim-cursorline'
-	
-	-- neorg
-	use { 
-    		"nvim-neorg/neorg",
-    		config = function()
-        		require('neorg').setup {
-            			load = {
-                			["core.defaults"] = {},
-                			["core.norg.concealer"] = {},
-                			["core.norg.dirman"] = {
-                    				config = {
-                        				workspaces = {
-                            				my_workspace = "~/neorg"
-                        				}
-                    				}
-                			}
-            			},
-        		}
-		end,
-		requires = "nvim-lua/plenary.nvim"
-	}
-
 end)
 
 require("galaxyline.themes.eviline")
