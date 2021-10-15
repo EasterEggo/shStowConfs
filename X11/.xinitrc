@@ -42,7 +42,7 @@ pipewire &
 picom &
 udiskie &
 ~/.config/dwm-6.2/dwbar &
-feh --bg-fill ~/wallpapers/pac2.jpg &
+feh --bg-fill ~/wallpapers/pac3.jpg &
 xset -dpms &
 xset s off &
 exec /usr/local/bin/dwm
