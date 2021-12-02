@@ -3,10 +3,7 @@ require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	
 	-- tabs
-	use {
-		'romgrk/barbar.nvim',
-		requires = {'kyazdani42/nvim-web-devicons'}
-	}
+	use 'romgrk/barbar.nvim'
   
 	-- dashboard
 	use 'glepnir/dashboard-nvim'
@@ -22,37 +19,28 @@ require('packer').startup(function(use)
 	
 	-- file explorer
 	use {
-    		'kyazdani42/nvim-tree.lua',
-    		requires = 'kyazdani42/nvim-web-devicons'
+		'kyazdani42/nvim-tree.lua',
+		config = function() require'nvim-tree'.setup {} end
 	}
 	
 	-- modeline
-	use({
-  		"NTBBloodbath/galaxyline.nvim",
-  		-- your statusline
-  		config = function()
-    		require("galaxyline.themes.eviline")
-  		end,
-  		-- some optional icons
-  		requires = { "kyazdani42/nvim-web-devicons", opt = true }
-	})
+	use 'nvim-lualine/lualine.nvim'
 
 
 	-- themes
-	use 'rose-pine/neovim'
+	use 'dracula/vim'
 
 	use 'yamatsum/nvim-cursorline'
+	use 'kyazdani42/nvim-web-devicons'
 end)
 
-require("galaxyline.themes.eviline")
+require('lualine').setup()
 
 -- vim commands
 vim.cmd([[
-" let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-" let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
- 
 set termguicolors
-colorscheme rose-pine
+set nu
+colorscheme dracula
 
-let g:dashboard_default_executive ='telescope'
+let g:dashboard_default_executive = 'telescope'
 ]])

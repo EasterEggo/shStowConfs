@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: tagComplete 
+# key: <
+# --
+<${1:tag}></$1>

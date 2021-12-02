@@ -17,7 +17,7 @@ import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig
 
 myLauncher :: String
-myLauncher = "rofi -show run -display-run 'Run: '"
+myLauncher = "dmenu_run"
 
 myTextEditor :: String
 myTextEditor = "emacs"
@@ -26,10 +26,10 @@ myTerminal :: String
 myTerminal = "alacritty "
 
 myBrowser :: String
-myBrowser = "brave-browser-nightly"
+myBrowser = "vivaldi-stable"
 
-myFiles :: String
-myFiles = "-e ranger"
+--myFiles :: String
+--myFiles = "-e ranger"
 
 myBorderWidth :: Dimension
 myBorderWidth = 1
@@ -66,16 +66,19 @@ myEventHook = mempty
 
 myStartupHook :: X()
 myStartupHook =  do
-    spawnOnce "xmobar ~/.config/xmobar/xmobarrc &"
-    spawnOnce "nitrogen --restore &"
+    spawnOnce "pipewire &"
+    spawnOnce "pipewire-media session &"
+    spawnOnce "pipewire-pulse &"
+    spawnOnce "feh --bg-fill '~/wallpapers/pac1.jpg'"
     spawnOnce "picom &"
+    spawnOnce "xmobar ~/.config/xmobar/xmobarrc &"
 
 ---------- Key bindings ----------
 myKeys::[(String, X())]
 myKeys =
   [
-     --launcher keybindings
-     ("M-f", spawn ( myTerminal ++ myFiles)),
+     -- launcher keybindings
+     --("M-f", spawn ( myTerminal ++ myFiles)),
      ("M-e", spawn myTextEditor),
      ("M-S-<Return>", spawn myTerminal),
      ("M-p", spawn myLauncher),
