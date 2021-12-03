@@ -3,7 +3,6 @@
 (require 'rs)
 (require 'py)
 (require 'cc)
-
-
+(require 'sh)
 
 (provide 'prog)

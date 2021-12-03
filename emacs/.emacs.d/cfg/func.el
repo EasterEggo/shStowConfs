@@ -6,7 +6,6 @@
 
 (defun font (dfnt)
   (set-face-attribute 'default nil :font dfnt )
-  (setq default-frame-alist '((font . dfnt)))
 )
 
 (provide 'func)
