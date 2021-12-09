@@ -2,6 +2,7 @@
 .ccls-cache
 *.o
 straight/
+.cache/
 dwm/.config/dwm-6.2/dwm
 emacs/.emacs.d/recentf
 emacs/.emacs.d/bookmarks
