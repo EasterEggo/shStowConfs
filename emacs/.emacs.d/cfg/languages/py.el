@@ -1,5 +1,4 @@
-(straight-use-package 'jupyter)
-
-(add-hook 'python-mode-hook #'lsp-deferred)
+(use-package jupyter)
+(lsp 'python-mode-hook)
 
 (provide 'py)

@@ -1,2 +1,2 @@
-(add-hook 'sh-mode-hook #'lsp-deferred)
+(lsp 'sh-mode-hook)
 (provide 'sh)

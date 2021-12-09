@@ -1,4 +1,4 @@
-(pkg 'rust-mode)
-(add-hook 'rust-mode-hook #'lsp-deferred)
+(use-package rust-mode)
+(lsp 'rust-mode-hook)
 
 (provide 'rs)

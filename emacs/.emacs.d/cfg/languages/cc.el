@@ -1,3 +1,3 @@
-(add-hook 'c-mode-hook #'lsp-deferred)
+(lsp 'c-mode-hook)
 
 (provide 'cc)

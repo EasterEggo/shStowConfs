@@ -1,17 +1,21 @@
-(pkg 'helm)
-(helm-mode 1)
+(use-package vertico
+  :config
+  (vertico-mode 1))
 
-(pkg 'lsp-mode)
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
-(pkg 'company)
-(pkg 'company-box)
-(add-hook 'company-mode-hook 'company-box-mode)
+(use-package savehist
+  :init
+  (savehist-mode))
 
-(pkg 'quickrun)
+(use-package marginalia
+  :config
+  (marginalia-mode 1))
 
-(pkg 'yasnippet)
-(setq yas-snippet-dirs '("~/.emacs.d/cfg/snippets"))
-(yas-global-mode 1)
-
+(use-package vterm)
 
 (provide 'utils)

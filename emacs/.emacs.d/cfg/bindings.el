@@ -1,10 +1,18 @@
-(pkg 'evil)
-(evil-mode 1)
+(use-package evil
+  :config (evil-mode 1))
+(use-package general)
+(use-package which-key
+  :config
+  (which-key-mode 1))
 
-(engbind "<SPC><SPC>" 'helm-M-x)
-(engbind "<SPC>." 'helm-find-files)
-(engbind "<SPC>r" 'helm-recentf)
-(engbind "<SPC>b" 'helm-bookmarks)
-(engbind "<SPC><" 'helm-buffers-list)
+(general-define-key
+ :states 'normal
+ "<SPC><SPC>" 'execute-extended-command
+ "<SPC>." 'find-file
+ "<SPC><" 'switch-to-buffer
+
+ "<SPC>ni" 'org-roam-node-insert
+ "<SPC>nf" 'org-roam-node-find
+ "<SPC>nl" 'org-roam-buffer-toggle)
 
 (provide 'bindings)
