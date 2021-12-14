@@ -4,7 +4,7 @@
 (setq make-backup-files nil)
 
 (require 'straight)
-(require 'func)
+(require 'custom)
 
 (require 'bindings)
 (require 'style)
