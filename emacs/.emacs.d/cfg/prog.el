@@ -15,7 +15,18 @@
 
 (use-package vterm)
 
-(use-package magit :config (use-package forge))
+(use-package magit
+  :config (use-package forge)
+  :general
+  (:states 'normal
+	   :prefix "<SPC>m"
+	   "m" 'magit
+	   "c" 'magit-commit
+	   "s" 'magit-stage
+	   "u" 'magit-unstage
+	   "p" 'magit-push
+	   "r" 'magit-reset
+	   ))
 
 (use-package docker)
 
