@@ -10,7 +10,7 @@ pipewire-pulse &
 
 picom &
 
-udiskie &
+udiskie-mount --all &
 
 xset -dpms &
 xset s off &
