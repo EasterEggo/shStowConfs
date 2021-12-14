@@ -1,18 +1,11 @@
-(use-package evil
-  :config (evil-mode 1))
 (use-package general)
-(use-package which-key
-  :config
-  (which-key-mode 1))
 
-(general-define-key
- :states 'normal
- "<SPC><SPC>" 'execute-extended-command
- "<SPC>." 'find-file
- "<SPC><" 'switch-to-buffer
+(use-package evil
+  :init (evil-mode)
+  :config (use-package evil-nerd-commenter
+	    :general
+	    (:states 'normal "<SPC>;" 'evilnc-comment-or-uncomment-lines)))
 
- "<SPC>ni" 'org-roam-node-insert
- "<SPC>nf" 'org-roam-node-find
- "<SPC>nl" 'org-roam-buffer-toggle)
+(use-package which-key :init (which-key-mode))
 
 (provide 'bindings)

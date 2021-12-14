@@ -6,10 +6,10 @@
 (require 'straight)
 (require 'func)
 
-(require 'style)
 (require 'bindings)
-(require 'dashboard)
-(require 'utils)
+(require 'style)
+(require 'completion)
 (require 'auto-insert)
 (require 'prog)
 (require 'prod)
+(require 'dashboard)

@@ -1,22 +1,24 @@
-(add-to-list 'load-path "~/.emacs.d/cfg/languages")
+(defconst lsp-hooks
+  '(html-mode-hook
+    css-mode-hook
+    js-mode-hook
 
-(use-package company
-  :init (add-hook 'after-init-hook 'global-company-mode)
-  :config (setq company-idle-delay 0
-		company-minimum-prefix-length 1
-		company-selection-wrap-around t))
+    c-mode-hook
+    shell-mode-hook
 
-(if (fboundp 'company)
-    (use-package company-box
-      :hook (company-mode . company-box-mode)))
+    sql-mode-hook))
 
 (use-package quickrun)
 
-(use-package lsp-mode)
+(use-package lsp-mode
+  :ghook (lsp-hooks #'lsp))
 
-(require 'rs)
-(require 'py)
-(require 'cc)
-(require 'sh)
+(use-package vterm)
+
+(use-package magit :config (use-package forge))
+
+(use-package docker)
+
+(use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
 
 (provide 'prog)
