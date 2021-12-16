@@ -1,22 +1,26 @@
 (use-package org-roam
-  :init (setq org-roam-v2-ack t)
+  :init
+  (setq org-roam-v2-ack t)
   :config
+  (require 'org-protocol)
   (setq org-roam-directory (file-truename "~/org/roam")
-	org-roam-db-autosync-mode t)
-  (require 'org-roam-protocol)
-  (setq org-roam-protocol-store-links "~/org/roam")
+	org-roam-db-autosync-mode t
+	org-roam-protocol-store-links "~/org/roam")
   :general
   (:states 'normal
 	   "<SPC>ni" 'org-roam-node-insert))
 
+
 (use-package org-bullets :ghook 'org-mode-hook)
 
 (use-package org
-  :gfhook ('org-mode-hook (list #'org-indent-mode))
-  :config (setq org-agenda-files '("~/org/roam/20211129102234-agenda.org")))
+  :gfhook
+  ('org-mode-hook (list #'org-indent-mode))
+  :custom
+  (org-agenda-files '("~/org/roam/20211129102234-agenda.org")))
 
 (use-package pass
-  :config (use-package password-store)
+  :straight password-store t
   :general
   (:states 'normal
 	   :prefix "<SPC>p"
@@ -27,7 +31,8 @@
 	   "g" 'password-store-generate))
 
 (use-package perspective
-  :init (persp-mode)
+  :init
+  (persp-mode)
   :general
   (:states 'normal
 	   :prefix "<SPC>w"
@@ -35,6 +40,10 @@
 	   "d" 'persp-kill
 	   "r" 'persp-rename))
 
-(use-package projectile :init (projectile-mode))
+(use-package projectile
+  :straight ag rg t
+  :custom
+  (projectile-mode 1))
+
 
 (provide 'prod)
