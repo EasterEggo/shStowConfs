@@ -37,7 +37,7 @@
 ;; (setq mini-frame-ignore-commands '(evil-ex)))
 
 (use-package company
-  :straight company-box
+  :straight company-box t
   :custom
   (global-company-mode 1)
   (company-idle-delay 0)
