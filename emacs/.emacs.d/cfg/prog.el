@@ -10,13 +10,12 @@
 
 (use-package quickrun)
 
-(use-package lsp-mode
-  :ghook (lsp-hooks #'lsp))
+(use-package lsp-mode :ghook (lsp-hooks #'lsp))
 
 (use-package vterm)
 
 (use-package magit
-  :config (use-package forge)
+  :straight forge t
   :general
   (:states 'normal
 	   :prefix "<SPC>m"
