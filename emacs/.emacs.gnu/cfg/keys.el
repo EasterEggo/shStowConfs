@@ -2,7 +2,10 @@
 
 (use-package evil
   :init
-  (evil-mode))
+  (evil-mode)
+  :general
+  (:states 'normal
+	   "/" 'swiper))
 
 (use-package evil-nerd-commenter
   :requires
@@ -11,5 +14,9 @@
   (:states 'normal "<SPC>;" 'evilnc-comment-or-uncomment-lines))
 
 (use-package which-key :init (which-key-mode))
+
+;;some main bindings
+(general-define-key
+ "<escape>" 'keyboard-escape-quit)
 
 (provide 'keys)

@@ -1,19 +1,19 @@
-(use-package vertico
+(use-package ivy
   :init
-  (vertico-mode)
+  (ivy-mode)
   :general
   (:states 'normal
 	   :prefix "<SPC>"
 	   "<SPC>" 'execute-extended-command
 	   "." 'find-file))
 
-(use-package consult
+(use-package counsel
   :general
   (:states 'normal
 	   :prefix "<SPC>"
-	   "<" 'consult-buffer
-	   "b" 'consult-bookmark
-	   "r" 'consult-recent-file))
+	   "<" 'counsel-switch-buffer
+	   "b" 'counsel-bookmark
+	   "r" 'counsel-recent-file))
 
 (use-package orderless
   :custom
