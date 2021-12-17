@@ -1,19 +1,16 @@
-(use-package ivy
+(use-package counsel
   :init
   (ivy-mode)
   :general
   (:states 'normal
 	   :prefix "<SPC>"
 	   "<SPC>" 'execute-extended-command
-	   "." 'find-file))
-
-(use-package counsel
-  :general
-  (:states 'normal
-	   :prefix "<SPC>"
+	   "." 'find-file
 	   "<" 'counsel-switch-buffer
 	   "b" 'counsel-bookmark
-	   "r" 'counsel-recent-file))
+	   "r" 'counsel-recent-file)
+  (:keymaps 'ivy-minibuffer-map
+	    "<tab>" 'ivy-alt-done))
 
 (use-package orderless
   :custom
