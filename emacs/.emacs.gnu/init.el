@@ -1,4 +1,4 @@
-(add-to-list 'load-path  ".config/emacs/cfg/")
+(add-to-list 'load-path  (expand-file-name "cfg/" user-emacs-directory))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq make-backup-files nil)
