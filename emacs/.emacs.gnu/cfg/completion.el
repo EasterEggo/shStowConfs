@@ -1,37 +1,31 @@
-(use-package counsel
+(use-package vertico
+  :straight
+  consult
+  marginalia
+  savehist orderless
+  all-the-icons-completion
+  embark
+  embark-consult
+  t
   :init
-  (ivy-mode)
+  (vertico-mode)
+  (savehist-mode)
+  (marginalia-mode)
+  (all-the-icons-completion-mode)
+  :custom
+  (completion-styles '(orderless))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion))))
   :general
   (:states 'normal
 	   :prefix "<SPC>"
 	   "<SPC>" 'execute-extended-command
 	   "." 'find-file
-	   "<" 'counsel-switch-buffer
-	   "b" 'counsel-bookmark
-	   "r" 'counsel-recent-file)
-  (:keymaps 'ivy-minibuffer-map
-	    "<tab>" 'ivy-alt-done))
-
-(use-package orderless
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
-
-(use-package savehist :init (savehist-mode))
-
-(use-package marginalia :init (marginalia-mode))
-
-;; (use-package mini-frame
-;; :init
-;; (mini-frame-mode 1)
-;; :config
-;; (custom-set-variables
-;; '(mini-frame-show-parameters
-;; '((top . 0.4)
-;; (width . 0.7)
-;; (left . 0.5))))
-;; (setq mini-frame-ignore-commands '(evil-ex)))
+	   "<" 'consult-buffer
+	   "b" 'consult-bookmark
+	   "r" 'consult-recent-file)
+  (:states 'normal
+	   "/" 'consult-line))
 
 (use-package company
   :straight company-box t
