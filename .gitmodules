@@ -1,3 +1,6 @@
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = https://github.com/plexus/chemacs2
+[submodule "asdf/.asdf"]
+	path = asdf/.asdf
+	url = https://github.com/asdf-vm/asdf.git
