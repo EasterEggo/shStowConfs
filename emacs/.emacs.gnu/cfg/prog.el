@@ -18,16 +18,16 @@
   :straight forge t
   :general
   (:states 'normal
-	   :prefix "<SPC>m"
-	   "m" 'magit
-	   "c" 'magit-commit
-	   "C" 'magit-clone
-	   "s" 'magit-stage
-	   "u" 'magit-unstage
-	   "p" 'magit-push
-	   "P" 'magit-pull
-	   "r" 'magit-reset
-	   ))
+           :prefix "<SPC>m"
+           "m" 'magit
+           "c" 'magit-commit
+           "C" 'magit-clone
+           "s" 'magit-stage
+           "u" 'magit-unstage
+           "p" 'magit-push
+           "P" 'magit-pull
+           "r" 'magit-reset
+           ))
 
 (use-package docker)
 

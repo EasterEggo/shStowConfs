@@ -1,0 +1,304 @@
+#+title: emacs configs
+
+* Init
+#+begin_src emacs-lisp :tangle init.el
+  
+  (add-to-list 'load-path  (expand-file-name "cfg/" user-emacs-directory))
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (setq make-backup-files nil)
+
+  (require 'straight)
+  (require 'custom)
+
+  (require 'keys)
+  (require 'style)
+  (require 'completion)
+  (require 'auto-insert)
+  (require 'prog)
+  (require 'prod)
+  (require 'dashboard)
+
+#+end_src
+
+* Straight Package Manager and Use-Package Support
+#+begin_src emacs-lisp :tangle cfg/straight.el
+
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
+
+  (provide 'straight)
+  
+#+end_src
+
+* The Evil Way and General
+#+begin_src emacs-lisp :tangle cfg/keys.el
+  
+  (use-package general)
+  (use-package evil
+    :straight evil-nerd-commenter t
+    :init
+    (evil-mode)
+    :general
+    (:states 'normal
+             "/" 'consult-line
+             "<SPC>;" 'evilnc-comment-or-uncomment-lines))
+
+  (use-package which-key :init (which-key-mode))
+
+  ;;some main bindings
+  (general-define-key
+   "<escape>" 'keyboard-escape-quit)
+
+  (provide 'keys)
+
+#+end_src
+
+* Completion Systems and Complementary Packages
+#+begin_src emacs-lisp :tangle cfg/completion.el
+
+   (use-package vertico
+   :straight
+   consult
+   marginalia
+   savehist orderless
+   all-the-icons-completion
+   embark
+   embark-consult
+   t
+
+   :init
+   (vertico-mode)
+   (savehist-mode)
+   (marginalia-mode)
+  (all-the-icons-completion-mode)
+
+   :custom
+   (completion-styles '(orderless))
+   (completion-category-defaults nil)
+   (completion-category-overrides '((file (styles partial-completion))))
+   :general
+
+   (:states 'normal
+            :prefix "<SPC>"
+            "<SPC>" 'execute-extended-command
+            "." 'find-file
+
+            "<" 'consult-buffer
+            "b" 'consult-bookmark
+            "r" 'consult-recent-file)
+
+   (:states 'normal "/" 'consult-line)
+
+   ("C-." 'embark-act))
+
+   (use-package company
+   :straight company-box t
+
+   :custom
+   (global-company-mode 1)
+   (company-idle-delay 0)
+   (company-minimum-prefix-length 1)
+   (company-selection-wrap-around t)
+
+   :ghook
+   ('company-mode-hook #'company-box-mode))
+
+   (provide 'completion)
+
+#+end_src
+
+* Just Style
+#+begin_src emacs-lisp :tangle cfg/style.el
+  
+  (setq default-frame-alist '((vertical-scroll-bars . nil)
+                              (font . "JetBrains Mono Nerd Font-11")))
+
+  (menu-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+
+  (use-package doom-themes :init (load-theme 'doom-monokai-octagon t))
+
+  (use-package doom-modeline :init (doom-modeline-mode))
+
+  (use-package anzu :init (global-anzu-mode))
+
+  (use-package evil-anzu :requires (anzu))
+
+  (use-package rainbow-delimiters :ghook 'prog-mode-hook)
+
+  (use-package rainbow-mode :ghook 'prog-mode-hook)
+
+  (use-package sublimity)
+  (require 'sublimity-scroll)
+
+  (use-package format-all
+    :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
+    :custom (format-all-formatters t))
+
+  ;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
+  ;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+
+  (provide 'style)
+
+#+end_src
+
+* Programming Related Packages
+#+begin_src emacs-lisp :tangle cfg/prog.el
+
+  (defconst lsp-hooks
+    '(html-mode-hook
+      css-mode-hook
+      js-mode-hook
+
+      c-mode-hook
+      shell-mode-hook
+
+      sql-mode-hook))
+
+  (use-package quickrun)
+
+  (use-package lsp-mode :ghook (lsp-hooks #'lsp))
+
+  (use-package vterm)
+
+  (use-package magit
+    :straight forge t
+    :general
+    (:states 'normal
+             :prefix "<SPC>m"
+             "m" 'magit
+             "c" 'magit-commit
+             "C" 'magit-clone
+             "s" 'magit-stage
+             "u" 'magit-unstage
+             "p" 'magit-push
+             "P" 'magit-pull
+             "r" 'magit-reset
+             ))
+
+  (use-package docker)
+
+  (use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
+
+  (provide 'prog)
+
+#+end_src
+
+* Productivity and Organization Related Packages
+#+begin_src emacs-lisp :tangle cfg/prod.el
+
+  (use-package org-roam
+    :init
+    (setq org-roam-v2-ack t)
+    :config
+    (require 'org-protocol)
+    (setq org-roam-directory (file-truename "~/org/roam")
+          org-roam-db-autosync-mode t
+          org-roam-protocol-store-links "~/org/roam")
+    :general
+    (:states 'normal
+             "<SPC>ni" 'org-roam-node-insert))
+
+
+  (use-package org-bullets :ghook 'org-mode-hook)
+
+  (use-package org
+    :gfhook
+    ('org-mode-hook (list #'org-indent-mode))
+    :custom
+    (org-agenda-files '("~/org/roam/20211223160517-agenda.org")))
+
+  (use-package pass
+    :straight password-store t
+    :general
+    (:states 'normal
+             :prefix "<SPC>p"
+             "p" 'pass
+             "i" 'password-store-insert
+             "r" 'password-store-rename
+             "d" 'password-store-remove
+             "g" 'password-store-generate))
+
+  (use-package perspective
+    :init
+    (persp-mode)
+    :general
+    (:states 'normal
+             :prefix "<SPC>w"
+             "s" 'persp-switch
+             "d" 'persp-kill
+             "r" 'persp-rename))
+
+  (use-package projectile
+    :straight ag rg t
+    :custom
+    (projectile-mode 1))
+
+
+  (provide 'prod)
+
+#+end_src
+
+* Snippets Using Yasnippet and Auto-Insert Mode
+#+begin_src emacs-lisp :tangle cfg/auto-insert.el
+
+  (setq auto-insert-directory "~/.emacs.d/cfg/snippets")
+
+  (use-package yasnippet
+    :init
+    (yas-global-mode)
+    :custom
+    (setq yas-snippet-dirs '("~/.emacs.d/cfg/snippets")))
+
+  (auto-insert-mode)
+  (setq auto-insert-query nil)
+
+  (defun autoinsert-yas-expand()
+    "Replace text in yasnippet template."
+    (yas/expand-snippet (buffer-string) (point-min) (point-max)))
+
+  (setq auto-insert-alist '(
+                            (("\\.c\\'" . "c template") . ["c-mode/__c" autoinsert-yas-expand])
+                            ))
+
+  (provide 'auto-insert)
+
+#+end_src
+
+* Dashboard Using... Dashboard
+#+begin_src emacs-lisp :tangle cfg/dashboard.el
+
+  (use-package all-the-icons)
+  (use-package dashboard
+    :init
+    (dashboard-setup-startup-hook)
+    :custom
+    (dashboard-center-content t)
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-set-navigator t)
+    (dashboard-navigator-buttons
+     `(
+       ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Official Repo"
+         "Github Repo"
+         (lambda (&rest _) (browse-url "https://github.com/EasterEggo/shStowConfs"))))))
+  (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
+
+  (provide 'dashboard)
+
+#+end_src

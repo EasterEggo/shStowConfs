@@ -14,7 +14,7 @@
   (yas/expand-snippet (buffer-string) (point-min) (point-max)))
 
 (setq auto-insert-alist '(
-			  (("\\.c\\'" . "c template") . ["c-mode/__c" autoinsert-yas-expand])
-			  ))
+                          (("\\.c\\'" . "c template") . ["c-mode/__c" autoinsert-yas-expand])
+                          ))
 
 (provide 'auto-insert)
