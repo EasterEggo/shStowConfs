@@ -6,7 +6,7 @@ static const unsigned int snap = 32;
 static const unsigned int gappx = 14;
 static const int user_bh = 25;
 
-static const char term[] = "/bin/kitty";
+static const char term[] = "alacritty";
 
 static const int showbar = 1;
 static const int topbar = 1;

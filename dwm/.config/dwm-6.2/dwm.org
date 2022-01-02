@@ -33,7 +33,7 @@ XF86keysym = media keys support
    #+end_src
 ** Default Apps
   #+begin_src c
-    static const char term[] = "/bin/kitty";
+    static const char term[] = "alacritty";
     #+end_src
 ** Bar Configs
   #+begin_src c
