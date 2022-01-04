@@ -126,7 +126,7 @@
 #+begin_src emacs-lisp :tangle cfg/style.el
   
   (setq default-frame-alist '((vertical-scroll-bars . nil)
-                              (font . "JetBrains Mono Nerd Font-11")))
+                              (font . "JetBrains Mono Nerd Font-12")))
 
   (menu-bar-mode -1)
   (toggle-scroll-bar -1)
@@ -175,7 +175,11 @@
 
   (use-package lsp-mode :ghook (lsp-hooks #'lsp))
 
-  (use-package vterm)
+  (use-package vterm
+   :general
+   (:states 'normal
+            :keymaps 'vterm-mode-map
+            "p" 'vterm-yank))
 
   (use-package magit
     :straight forge t
@@ -222,7 +226,7 @@
     :gfhook
     ('org-mode-hook (list #'org-indent-mode))
     :custom
-    (org-agenda-files '("~/org/roam/20211223160517-agenda.org")))
+    (org-agenda-files '("~/org/master.org")))
 
   (use-package pass
     :straight password-store t

@@ -17,7 +17,7 @@
   :gfhook
   ('org-mode-hook (list #'org-indent-mode))
   :custom
-  (org-agenda-files '("~/org/roam/20211223160517-agenda.org")))
+  (org-agenda-files '("~/org/master.org")))
 
 (use-package pass
   :straight password-store t

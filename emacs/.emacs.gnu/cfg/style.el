@@ -1,5 +1,5 @@
 (setq default-frame-alist '((vertical-scroll-bars . nil)
-                            (font . "JetBrains Mono Nerd Font-11")))
+                            (font . "JetBrains Mono Nerd Font-12")))
 
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)

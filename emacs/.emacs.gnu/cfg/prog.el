@@ -12,7 +12,11 @@
 
 (use-package lsp-mode :ghook (lsp-hooks #'lsp))
 
-(use-package vterm)
+(use-package vterm
+ :general
+ (:states 'normal
+          :keymaps 'vterm-mode-map
+          "p" 'vterm-yank))
 
 (use-package magit
   :straight forge t
