@@ -2,7 +2,7 @@
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
-feh --bg-fill wallpapers/pac1.jpg
+feh --bg-fill wallpapers/1.png
 
 pipewire &
 pipewire-media-session &
