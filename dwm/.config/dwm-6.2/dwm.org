@@ -50,7 +50,7 @@ default interface and dmenu fonts
 color variables
 #+begin_src c
           //0xd0
-          static const unsigned int baralpha = 0x4D;
+          static const unsigned int baralpha = 0x00;
           static const unsigned int borderalpha = OPAQUE;
           static const char col1[] = "#000000";
           static const char col2[] = "#444444";

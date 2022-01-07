@@ -15,7 +15,7 @@ static const char *fonts[] = {"Ubuntu Nerd Font:size=11:weight=bold"};
 static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
 
 //0xd0
-        static const unsigned int baralpha = 0x4D;
+        static const unsigned int baralpha = 0x00;
         static const unsigned int borderalpha = OPAQUE;
         static const char col1[] = "#000000";
         static const char col2[] = "#444444";
