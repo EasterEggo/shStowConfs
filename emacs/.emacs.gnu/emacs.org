@@ -124,7 +124,7 @@
 
 * Just Style
 #+begin_src emacs-lisp :tangle cfg/style.el
-  
+
   (setq default-frame-alist '((vertical-scroll-bars . nil)
                               (font . "JetBrains Mono Nerd Font-12")))
 
@@ -132,7 +132,7 @@
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
 
-  (use-package doom-themes :init (load-theme 'doom-monokai-octagon t))
+  (use-package doom-themes :init (load-theme 'doom-dracula t))
 
   (use-package doom-modeline :init (doom-modeline-mode))
 
@@ -179,7 +179,8 @@
    :general
    (:states 'normal
             :keymaps 'vterm-mode-map
-            "p" 'vterm-yank))
+            "p" 'vterm-yank
+            "<SPC>," 'vterm-other-window))
 
   (use-package magit
     :straight forge t

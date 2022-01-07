@@ -16,7 +16,8 @@
  :general
  (:states 'normal
           :keymaps 'vterm-mode-map
-          "p" 'vterm-yank))
+          "p" 'vterm-yank
+          "<SPC>," 'vterm-other-window))
 
 (use-package magit
   :straight forge t

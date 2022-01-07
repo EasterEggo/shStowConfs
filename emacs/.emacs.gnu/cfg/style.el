@@ -5,7 +5,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-(use-package doom-themes :init (load-theme 'doom-monokai-octagon t))
+(use-package doom-themes :init (load-theme 'doom-dracula t))
 
 (use-package doom-modeline :init (doom-modeline-mode))
 
