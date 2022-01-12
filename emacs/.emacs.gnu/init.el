@@ -8,9 +8,9 @@
 (require 'straight)
 
 (require 'keys)
-(require 'style)
 (require 'completion)
-(require 'auto-insert)
-(require 'prog)
+(require 'style)
+(require 'dev)
 (require 'prod)
+(require 'auto-insert)
 (require 'dashboard)

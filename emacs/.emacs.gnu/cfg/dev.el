@@ -1,16 +1,15 @@
-(defconst lsp-hooks
-  '(html-mode-hook
-    css-mode-hook
-    js-mode-hook
-
-    c-mode-hook
-    shell-mode-hook
-
-    sql-mode-hook))
-
 (use-package quickrun)
 
-(use-package lsp-mode :ghook (lsp-hooks #'lsp))
+(use-package lsp-mode :ghook ('prog-mode-hook #'lsp))
+(use-package dap-mode
+:config
+(dap-mode t)
+(dap-ui-mode t)
+(dap-tooltip-mode t)
+(tooltip-mode t)
+(dap-ui-controls-mode t)
+(require 'dap-gdb-lldb))
+
 
 (use-package vterm
  :general
@@ -38,4 +37,4 @@
 
 (use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
 
-(provide 'prog)
+(provide 'dev)
