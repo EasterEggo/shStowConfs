@@ -1,4 +1,4 @@
-(use-package quickrun)
+(use-package ein)
 
 (use-package lsp-mode :ghook ('prog-mode-hook #'lsp))
 (use-package dap-mode
@@ -15,8 +15,9 @@
  :general
  (:states 'normal
           :keymaps 'vterm-mode-map
-          "p" 'vterm-yank
-          "<SPC>," 'vterm-other-window))
+          "p" 'vterm-yank)
+ (:states 'normal
+           "<SPC>," 'vterm-other-window))
 
 (use-package magit
   :straight forge t
