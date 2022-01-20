@@ -1,6 +1,9 @@
 (use-package ein)
 
-(use-package lsp-mode :ghook ('prog-mode-hook #'lsp))
+(use-package lsp-mode
+ :ghook ('prog-mode-hook #'lsp)
+ :straight lsp-haskell t)
+
 (use-package dap-mode
 :config
 (dap-mode t)
@@ -10,6 +13,10 @@
 (dap-ui-controls-mode t)
 (require 'dap-gdb-lldb))
 
+(use-package haskell-mode
+ :ghook
+ ('haskell-mode-hook #'lsp)
+ ('haskell-literate-mode-hook #'lsp))
 
 (use-package vterm
  :general
