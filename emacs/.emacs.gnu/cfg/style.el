@@ -24,7 +24,4 @@
   :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
   :custom (format-all-formatters t))
 
-;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
-;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
-
 (provide 'style)

@@ -47,7 +47,7 @@
 
 * The Evil Way and General
 #+begin_src emacs-lisp :tangle cfg/keys.el
-  
+
   (use-package general)
   (use-package evil
     :straight evil-nerd-commenter t
@@ -60,6 +60,37 @@
 
   (use-package which-key :init (which-key-mode))
 
+  (use-package hydra)
+
+  (defhydra hydra-buffer-menu (:color purple
+                               :hint nil)
+  "
+  ^Change Buffer Size^            
+  ^^^^^^^^------
+  _-_: shrink buffer horizontally
+  _+_: enlarge buffer horizontally   
+  _i_: enlarge buffer
+  _d_: shrink buffer
+
+  "
+  ("+" enlarge-window-horizontally)
+  ("-" shrink-window-horizontally)
+  ("i" enlarge-window)
+  ("d" shrink-window)
+  ("c" nil "cancel")
+  ("q" quit-window "quit" :color blue))
+
+  (defhydra hydra-zoom (:color green
+                        :hint nil)
+  "
+   ^zoom
+   ^----
+   _i_: increase text size
+   _d_: decrease text size
+  "
+  ("i" text-scale-increase)
+  ("d" text-scale-decrease ))
+
   ;;some main bindings
   (general-define-key
    "<escape>" 'keyboard-escape-quit)
@@ -71,27 +102,27 @@
 * Completion Systems and Complementary Packages
 #+begin_src emacs-lisp :tangle cfg/completion.el
 
-  (use-package vertico
-  :straight
-  consult
-  marginalia
-  savehist orderless
-  all-the-icons-completion
-  embark
-  embark-consult
-  t
+   (use-package vertico
+   :straight
+   consult
+   marginalia
+   savehist orderless
+   all-the-icons-completion
+   embark
+   embark-consult
+   t
 
-  :init
-  (vertico-mode)
-  (savehist-mode)
-  (marginalia-mode)
-  (all-the-icons-completion-mode)
+   :init
+   (vertico-mode)
+   (savehist-mode)
+   (marginalia-mode)
+   (all-the-icons-completion-mode)
 
-  :custom
-  (completion-styles '(orderless))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion))))
-  :general
+   :custom
+   (completion-styles '(orderless))
+   (completion-category-defaults nil)
+   (completion-category-overrides '((file (styles partial-completion))))
+   :general
 
   (:states 'normal
            :prefix "<SPC>"
@@ -104,14 +135,18 @@
 
   (:states 'normal "/" 'consult-line)
 
-  ("C-." 'embark-act))
+  ("C-." 'embark-act)
+  (:keymaps 'vertico-map
+   "<DEL>" 'vertico-directory-delete-char))
+  
+  (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
+  (require 'vertico-directory)
 
   (use-package company
   :straight company-box t
 
   :custom
   (global-company-mode 1)
-  (company-idle-delay 0)
   (company-minimum-prefix-length 1)
   (company-selection-wrap-around t)
 
@@ -151,9 +186,6 @@
     :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
     :custom (format-all-formatters t))
 
-  ;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
-  ;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
-
   (provide 'style)
 
 #+end_src
@@ -163,7 +195,10 @@
 
   (use-package ein)
 
-  (use-package lsp-mode :ghook ('prog-mode-hook #'lsp))
+  (use-package lsp-mode
+   :ghook ('prog-mode-hook #'lsp)
+   :straight lsp-haskell t)
+
   (use-package dap-mode
   :config
   (dap-mode t)
@@ -173,6 +208,10 @@
   (dap-ui-controls-mode t)
   (require 'dap-gdb-lldb))
 
+  (use-package haskell-mode
+   :ghook
+   ('haskell-mode-hook #'lsp)
+   ('haskell-literate-mode-hook #'lsp))
 
   (use-package vterm
    :general
@@ -224,15 +263,11 @@
       :straight
       (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
       :after org-roam
-    ;;normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-    ;;a hookable mode anymore, you're advised to pick something yourself
-    ;;if you don't care about startup time, use
-    ;;:hook (after-init . org-roam-ui-mode)
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+      :config
+      (setq org-roam-ui-sync-theme t
+            org-roam-ui-follow t
+            org-roam-ui-update-on-save t
+            org-roam-ui-open-on-start t))
 
   (use-package org-bullets :ghook 'org-mode-hook)
 
@@ -312,12 +347,21 @@
     (dashboard-set-file-icons t)
     (dashboard-set-navigator t)
     (dashboard-navigator-buttons
-     `(
-       ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-         "Official Repo"
-         "Github Repo"
-         (lambda (&rest _) (browse-url "https://github.com/EasterEggo/shStowConfs"))))))
-  (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
+      `(;; line1
+        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Homepage"
+         "Browse homepage"
+         (lambda (&rest _) (browse-url "homepage")))
+        ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+        ("?" "" "?/h" #'show-help nil "<" ">"))
+         ;; line 2
+        ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+          "Linkedin"
+          ""
+          (lambda (&rest _) (browse-url "homepage")))
+         ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+
+    (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
 
   (provide 'dashboard)
 
