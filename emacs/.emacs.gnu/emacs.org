@@ -42,7 +42,7 @@
   (setq straight-use-package-by-default t)
 
   (provide 'straight)
-  
+
 #+end_src
 
 * The Evil Way and General
@@ -71,7 +71,7 @@
   _+_: enlarge buffer horizontally   
   _i_: enlarge buffer
   _d_: shrink buffer
-
+  
   "
   ("+" enlarge-window-horizontally)
   ("-" shrink-window-horizontally)
@@ -166,6 +166,8 @@
   (menu-bar-mode -1)
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
+
+  (use-package page-break-lines :custom (global-page-break-lines-mode t))
 
   (use-package doom-themes :init (load-theme 'doom-dracula t))
 

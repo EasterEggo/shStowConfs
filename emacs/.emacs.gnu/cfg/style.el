@@ -5,6 +5,8 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
+(use-package page-break-lines :custom (global-page-break-lines-mode t))
+
 (use-package doom-themes :init (load-theme 'doom-dracula t))
 
 (use-package doom-modeline :init (doom-modeline-mode))
