@@ -71,6 +71,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *termcmd[] = {term, NULL};
 static const char *dmenucmd[] = {"dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col1, "-nf", col3, "-sb", col5, "-sf", col4, NULL};
+static const char *roficmd[] = {"rofi", "-show", "run", NULL};
 static const char *browser[] = {"vivaldi-stable", NULL};
 static const char *textEditor[] = {"/bin/emacsclient", "-c", NULL};
 static const char *emacsAlt[] = {"/usr/bin/emacs", NULL};
@@ -83,7 +84,7 @@ static const char *scrotcmd[] = {"scrot", NULL};
 
 static Key keys[] = {
   // modifier                       key        function        argument */   
-    {MODKEY,                       XK_p,       spawn,          {.v = dmenucmd}},
+    {MODKEY,                       XK_p,       spawn,          {.v = roficmd}},
     {MODKEY | ShiftMask,      XK_Return,       spawn,          {.v = termcmd}},
     {MODKEY,                       XK_b,       spawn,          {.v = browser}},
     {MODKEY,                       XK_e,       spawn,          {.v = textEditor}},
