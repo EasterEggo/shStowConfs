@@ -8,15 +8,12 @@
 (use-package page-break-lines :custom (global-page-break-lines-mode t))
 
 (use-package doom-themes :init (load-theme 'doom-dracula t))
-
 (use-package doom-modeline :init (doom-modeline-mode))
 
 (use-package anzu :init (global-anzu-mode))
-
 (use-package evil-anzu :requires (anzu))
 
 (use-package rainbow-delimiters :ghook 'prog-mode-hook)
-
 (use-package rainbow-mode :ghook 'prog-mode-hook)
 
 (use-package sublimity)
