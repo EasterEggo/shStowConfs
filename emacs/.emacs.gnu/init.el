@@ -7,10 +7,10 @@
 
 (require 'straight)
 
+(require 'dashboard)
 (require 'keys)
 (require 'completion)
 (require 'style)
 (require 'dev)
 (require 'prod)
 (require 'auto-insert)
-(require 'dashboard)

@@ -12,13 +12,13 @@
 
   (require 'straight)
 
+  (require 'dashboard)
   (require 'keys)
   (require 'completion)
   (require 'style)
   (require 'dev)
   (require 'prod)
   (require 'auto-insert)
-  (require 'dashboard)
 
 #+end_src
 
@@ -161,7 +161,7 @@
 #+begin_src emacs-lisp :tangle cfg/style.el
 
   (setq default-frame-alist '((vertical-scroll-bars . nil)
-                              (font . "JetBrains Mono Nerd Font-12")))
+                              (font . "JetBrainsMono Nerd Font-12")))
 
   (menu-bar-mode -1)
   (toggle-scroll-bar -1)
@@ -169,7 +169,7 @@
 
   (use-package page-break-lines :custom (global-page-break-lines-mode t))
 
-  (use-package doom-themes :init (load-theme 'doom-dracula t))
+  (use-package doom-themes :init (load-theme 'doom-monokai-octagon t))
   (use-package doom-modeline :init (doom-modeline-mode))
 
   (use-package anzu :init (global-anzu-mode))
@@ -178,8 +178,8 @@
   (use-package rainbow-delimiters :ghook 'prog-mode-hook)
   (use-package rainbow-mode :ghook 'prog-mode-hook)
 
-  (use-package sublimity)
-  (require 'sublimity-scroll)
+  ;; (use-package sublimity)
+  ;; (require 'sublimity-scroll)
 
   (use-package format-all
     :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
@@ -246,86 +246,92 @@
 * Productivity and Organization Related Packages
 #+begin_src emacs-lisp :tangle cfg/prod.el
 
+  (use-package org-roam
+    :init
+    (setq org-roam-v2-ack t)
+    :config
+    (require 'org-protocol)
+    (setq org-roam-directory (file-truename "~/org/roam")
+          org-roam-protocol-store-links "~/org/roam"
+          org-roam-complete-everywhere t
+          org-roam-db-autosync-mode t)
+    :general
+    (:states 'normal
+             "<SPC>ni" 'org-roam-node-insert))
 
-    (use-package org-roam
-      :init
-      (setq org-roam-v2-ack t)
-      :config
-      (require 'org-protocol)
-      (setq org-roam-directory (file-truename "~/org/roam")
-            org-roam-db-autosync-mode t
-            org-roam-protocol-store-links "~/org/roam")
-      :general
-      (:states 'normal
-               "<SPC>ni" 'org-roam-node-insert))
+  (use-package org-roam-ui
+    :straight
+    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+    :after org-roam
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
-      (use-package org-roam-ui
-        :straight
-        (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-        :after org-roam
-        :config
-        (setq org-roam-ui-sync-theme t
-              org-roam-ui-follow t
-              org-roam-ui-update-on-save t
-              org-roam-ui-open-on-start t))
+  (use-package org-bullets :ghook 'org-mode-hook)
 
-    (use-package org-bullets :ghook 'org-mode-hook)
+  (use-package org
+    :gfhook
+    ('org-mode-hook (list #'org-indent-mode #'variable-pitch-mode #'visual-line-mode))
+    :custom
+    (org-agenda-files '("~/org/master.org"))
+    (org-hide-emphasis-markers t))
 
-    (use-package org
-      :gfhook
-      ('org-mode-hook (list #'org-indent-mode #'variable-pitch-mode #'visual-line-mode))
-      :custom
-      (org-agenda-files '("~/org/master.org"))
-      (org-hide-emphasis-markers t))
-    (let* ((variable-tuple
-          (cond ((x-list-fonts "SourceSansPro")         '(:font "SourceSansPro"))
-                (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-         (base-font-color     (face-foreground 'default nil 'default))
-         (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+  (let* ((variable-tuple
+        (cond ((x-list-fonts "SourceSansPro")         '(:font "SourceSansPro"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
 
-    (custom-theme-set-faces
-     'user
-     '(variable-pitch ((t (:family "et-book" :height 130))))
-     '(fixed-pitch ((t ( :family "Fira Code Nerd Font" :height 110))))
-     `(org-level-8 ((t (,@headline ,@variable-tuple))))
-     `(org-level-7 ((t (,@headline ,@variable-tuple))))
-     `(org-level-6 ((t (,@headline ,@variable-tuple))))
-     `(org-level-5 ((t (,@headline ,@variable-tuple))))
-     `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
-     `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
-     `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
-     `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
-     `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))
 
+   '(fixed-pitch ((t (:family "JetBrainsMono Nerd Font" :height 120))))
+   '(variable-pitch ((t (:family "SourceSansPro" :height 130))))
 
-    (use-package pass
-      :straight password-store t
-      :general
-      (:states 'normal
-               :prefix "<SPC>p"
-               "p" 'pass
-               "i" 'password-store-insert
-               "r" 'password-store-rename
-               "d" 'password-store-remove
-               "g" 'password-store-generate))
+   '(org-code ((t (:inherit fixed-pitch))))
+   '(org-block ((t (:inherit fixed-pitch))))))
 
-    (use-package perspective
-      :init
-      (persp-mode)
-      :general
-      (:states 'normal
-               :prefix "<SPC>w"
-               "s" 'persp-switch
-               "d" 'persp-kill
-               "r" 'persp-rename))
+  (use-package pass
+    :straight password-store t
+    :general
+    (:states 'normal
+             :prefix "<SPC>p"
+             "p" 'pass
+             "i" 'password-store-insert
+             "r" 'password-store-rename
+             "d" 'password-store-remove
+             "g" 'password-store-generate))
 
-    (use-package projectile
-      :straight ag rg t
-      :custom
-      (projectile-mode 1))
+  (use-package perspective
+    :init
+    (persp-mode)
+    :general
+    (:states 'normal
+             :prefix "<SPC>w"
+             "s" 'persp-switch
+             "d" 'persp-kill
+             "r" 'persp-rename))
 
+  (use-package projectile
+    :straight ag rg t
+    :custom
+    (projectile-mode 1))
 
-    (provide 'prod)
+  (use-package pdf-tools
+    :custom (pdf-loader-install t))
+
+  (provide 'prod)
 
 #+end_src
 
@@ -350,7 +356,7 @@
   (setq auto-insert-alist '(
                             (("\\.c\\'" . "c template") . ["c-mode/__c" autoinsert-yas-expand])
                             ))
-
+  
   (provide 'auto-insert)
 
 #+end_src
@@ -362,27 +368,12 @@
   (use-package dashboard
     :init
     (dashboard-setup-startup-hook)
+    (initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
     :custom
     (dashboard-center-content t)
     (dashboard-set-heading-icons t)
     (dashboard-set-file-icons t)
-    (dashboard-set-navigator t)
-    (dashboard-navigator-buttons
-      `(;; line1
-        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-         "Homepage"
-         "Browse homepage"
-         (lambda (&rest _) (browse-url "homepage")))
-        ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
-        ("?" "" "?/h" #'show-help nil "<" ">"))
-         ;; line 2
-        ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
-          "Linkedin"
-          ""
-          (lambda (&rest _) (browse-url "homepage")))
-         ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
-
-    (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
+    (dashboard-set-navigator t))
 
   (provide 'dashboard)
 

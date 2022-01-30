@@ -4,21 +4,22 @@
   :config
   (require 'org-protocol)
   (setq org-roam-directory (file-truename "~/org/roam")
-        org-roam-db-autosync-mode t
-        org-roam-protocol-store-links "~/org/roam")
+        org-roam-protocol-store-links "~/org/roam"
+        org-roam-complete-everywhere t
+        org-roam-db-autosync-mode t)
   :general
   (:states 'normal
            "<SPC>ni" 'org-roam-node-insert))
 
-  (use-package org-roam-ui
-    :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+(use-package org-roam-ui
+  :straight
+  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (use-package org-bullets :ghook 'org-mode-hook)
 
@@ -28,6 +29,7 @@
   :custom
   (org-agenda-files '("~/org/master.org"))
   (org-hide-emphasis-markers t))
+
 (let* ((variable-tuple
       (cond ((x-list-fonts "SourceSansPro")         '(:font "SourceSansPro"))
             (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
@@ -36,8 +38,6 @@
 
 (custom-theme-set-faces
  'user
- '(variable-pitch ((t (:family "et-book" :height 130))))
- '(fixed-pitch ((t ( :family "Fira Code Nerd Font" :height 110))))
  `(org-level-8 ((t (,@headline ,@variable-tuple))))
  `(org-level-7 ((t (,@headline ,@variable-tuple))))
  `(org-level-6 ((t (,@headline ,@variable-tuple))))
@@ -46,8 +46,13 @@
  `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
  `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
  `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
- `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
+ `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))
 
+ '(fixed-pitch ((t (:family "JetBrainsMono Nerd Font" :height 120))))
+ '(variable-pitch ((t (:family "SourceSansPro" :height 130))))
+
+ '(org-code ((t (:inherit fixed-pitch))))
+ '(org-block ((t (:inherit fixed-pitch))))))
 
 (use-package pass
   :straight password-store t
@@ -75,5 +80,7 @@
   :custom
   (projectile-mode 1))
 
+(use-package pdf-tools
+  :custom (pdf-loader-install t))
 
 (provide 'prod)
