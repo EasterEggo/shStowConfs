@@ -2,8 +2,8 @@
 (use-package dashboard
   :init
   (dashboard-setup-startup-hook)
-  (initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   :custom
+  (initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (dashboard-center-content t)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
