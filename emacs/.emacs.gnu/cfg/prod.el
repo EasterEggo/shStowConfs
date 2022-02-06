@@ -23,6 +23,8 @@
 
 (use-package org-bullets :ghook 'org-mode-hook)
 
+(use-package toc-org)
+
 (use-package org
   :gfhook
   ('org-mode-hook (list #'org-indent-mode #'variable-pitch-mode #'visual-line-mode))

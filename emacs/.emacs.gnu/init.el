@@ -13,4 +13,4 @@
 (require 'style)
 (require 'dev)
 (require 'prod)
-(require 'auto-insert)
+(require 'snippet)

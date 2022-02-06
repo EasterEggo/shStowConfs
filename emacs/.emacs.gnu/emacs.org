@@ -1,4 +1,13 @@
-#+title: emacs configs
+* emacs configs :TOC_2_gh:
+- [[#init][Init]]
+- [[#straight-package-manager-and-use-package-support][Straight Package Manager and Use-Package Support]]
+- [[#the-evil-way-and-general][The Evil Way and General]]
+- [[#completion-systems-and-complementary-packages][Completion Systems and Complementary Packages]]
+- [[#just-style][Just Style]]
+- [[#programming-related-packages][Programming Related Packages]]
+- [[#productivity-and-organization-related-packages][Productivity and Organization Related Packages]]
+- [[#snippets-using-yasnippet][Snippets Using Yasnippet]]
+- [[#dashboard-using-dashboard][Dashboard Using... Dashboard]]
 
 * Init
 #+begin_src emacs-lisp :tangle init.el
@@ -18,7 +27,7 @@
   (require 'style)
   (require 'dev)
   (require 'prod)
-  (require 'auto-insert)
+  (require 'snippet)
 
 #+end_src
 
@@ -169,11 +178,11 @@
 
   (use-package page-break-lines :custom (global-page-break-lines-mode t))
 
-  (use-package doom-themes :init (load-theme 'doom-monokai-octagon t))
+  (use-package doom-themes :init (load-theme 'doom-moonlight t))
   (use-package doom-modeline :init (doom-modeline-mode))
 
-  (use-package anzu :init (global-anzu-mode))
-  (use-package evil-anzu :requires (anzu))
+  ;; (use-package anzu :init (global-anzu-mode))
+  ;; (use-package evil-anzu :requires (anzu))
 
   (use-package rainbow-delimiters :ghook 'prog-mode-hook)
   (use-package rainbow-mode :ghook 'prog-mode-hook)
@@ -181,9 +190,9 @@
   ;; (use-package sublimity)
   ;; (require 'sublimity-scroll)
 
-  (use-package format-all
-    :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
-    :custom (format-all-formatters t))
+  ;; (use-package format-all
+    ;; :gfhook ('prog-mode-hook (list #'format-all-mode #'format-all-ensure-formatter))
+    ;; :custom (format-all-formatters t))
 
   (provide 'style)
 
@@ -195,7 +204,7 @@
   (use-package ein)
 
   (use-package lsp-mode
-   :ghook ('prog-mode-hook #'lsp)
+   :ghook ('prog-mode-hook #'lsp-deferred)
    :straight lsp-haskell t)
 
   (use-package dap-mode
@@ -271,6 +280,8 @@
 
   (use-package org-bullets :ghook 'org-mode-hook)
 
+  (use-package toc-org)
+
   (use-package org
     :gfhook
     ('org-mode-hook (list #'org-indent-mode #'variable-pitch-mode #'visual-line-mode))
@@ -335,10 +346,8 @@
 
 #+end_src
 
-* Snippets Using Yasnippet and Auto-Insert Mode
-#+begin_src emacs-lisp :tangle cfg/auto-insert.el
-
-  (setq auto-insert-directory "~/.emacs.d/cfg/snippets")
+* Snippets Using Yasnippet
+#+begin_src emacs-lisp :tangle cfg/snippet.el
 
   (use-package yasnippet
     :init
@@ -349,16 +358,7 @@
   (auto-insert-mode)
   (setq auto-insert-query nil)
 
-  (defun autoinsert-yas-expand()
-    "Replace text in yasnippet template."
-    (yas/expand-snippet (buffer-string) (point-min) (point-max)))
-
-  (setq auto-insert-alist '(
-                            (("\\.c\\'" . "c template") . ["c-mode/__c" autoinsert-yas-expand])
-                            ))
-  
-  (provide 'auto-insert)
-
+  (provide 'snippet)
 #+end_src
 
 * Dashboard Using... Dashboard

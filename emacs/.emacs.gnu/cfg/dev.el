@@ -1,7 +1,7 @@
 (use-package ein)
 
 (use-package lsp-mode
- :ghook ('prog-mode-hook #'lsp)
+ :ghook ('prog-mode-hook #'lsp-deferred)
  :straight lsp-haskell t)
 
 (use-package dap-mode
