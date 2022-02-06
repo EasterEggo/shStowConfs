@@ -43,6 +43,10 @@
 
 (use-package docker)
 
+(use-package highlight-indent-guides
+  :ghook 'prog-mode-hook
+  :custom (highlight-indent-guides-method 'bitmap))
+
 (use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
 
 (provide 'dev)

@@ -23,7 +23,8 @@
 
 (use-package org-bullets :ghook 'org-mode-hook)
 
-(use-package toc-org)
+(use-package toc-org
+  :ghook 'org-mode-hook)
 
 (use-package org
   :gfhook
@@ -83,6 +84,8 @@
   (projectile-mode 1))
 
 (use-package pdf-tools
-  :custom (pdf-loader-install t))
+  :custom
+  (pdf-loader-install t)
+  (pdf-tools-install t))
 
 (provide 'prod)
