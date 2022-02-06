@@ -6,7 +6,6 @@
 (setq make-backup-files nil)
 
 (require 'straight)
-
 (require 'dashboard)
 (require 'keys)
 (require 'completion)

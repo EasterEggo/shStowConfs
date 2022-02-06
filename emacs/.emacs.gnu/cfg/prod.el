@@ -88,4 +88,13 @@
   (pdf-loader-install t)
   (pdf-tools-install t))
 
+(use-package centaur-tabs
+  :config
+  (centaur-tabs-mode t)
+  (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-set-bar 'left)
+  (setq centaur-tabs-height 32)
+  (setq centaur-tabs-set-modified-marker t)
+  (setq centaur-tabs-gray-out-icons 'buffer))
+
 (provide 'prod)
