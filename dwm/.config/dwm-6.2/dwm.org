@@ -71,7 +71,7 @@ color variables
 ** Workspaces
 Workspace names
   #+begin_src c
-    static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
+    static const char *tags[] = {" ", "", "", "", ""};
     #+end_src
 ** Rules
 Use xprop to see your window class and instance (WM_CLASS) and title (WM_NAME)

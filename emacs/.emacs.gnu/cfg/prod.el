@@ -1,15 +1,23 @@
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)
-  :config
-  (require 'org-protocol)
-  (setq org-roam-directory (file-truename "~/org/roam")
-        org-roam-protocol-store-links "~/org/roam"
-        org-roam-complete-everywhere t
-        org-roam-db-autosync-mode t)
+  :custom
+  (org-roam-directory (file-truename "~/org/roam"))
+  (org-roam-complete-everywhere t)
+  (org-roam-db-autosync-mode t)
   :general
   (:states 'normal
            "<SPC>ni" 'org-roam-node-insert))
+
+
+(require 'org-roam-protocol)
+(setq org-roam-protocol-store-links "~/org/roam")
+(setq org-roam-capture-ref-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point)
+         "%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title} ,#+ROAM_KEY: ${ref}"
+         :unnarrowed t)))
 
 (use-package org-roam-ui
   :straight
@@ -34,8 +42,8 @@
   (org-hide-emphasis-markers t))
 
 (let* ((variable-tuple
-      (cond ((x-list-fonts "SourceSansPro")         '(:font "SourceSansPro"))
-            (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+      (cond ((x-list-fonts "Ubuntu Nerd Font")         '(:font "Ubuntu Nerd Font"))
+            (nil (warn "Install Ubuntu Nerd Font."))))
      (base-font-color     (face-foreground 'default nil 'default))
      (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
 
@@ -52,7 +60,7 @@
  `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))
 
  '(fixed-pitch ((t (:family "JetBrainsMono Nerd Font" :height 120))))
- '(variable-pitch ((t (:family "SourceSansPro" :height 130))))
+ '(variable-pitch ((t (:family "Ubuntu Nerd Font" :height 130))))
 
  '(org-code ((t (:inherit fixed-pitch))))
  '(org-block ((t (:inherit fixed-pitch))))))
@@ -78,10 +86,10 @@
            "d" 'persp-kill
            "r" 'persp-rename))
 
-(use-package projectile
-  :straight ag rg t
-  :custom
-  (projectile-mode 1))
+(use-package olivetti)
+
+(use-package ag
+  :straight rg t)
 
 (use-package pdf-tools
   :custom

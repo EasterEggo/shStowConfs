@@ -24,6 +24,6 @@ function VOLUME()
 }
 while true;
 do
-    xsetroot -name " $(CPU)%  |   $(RAM)M  |  墳$(VOLUME)%  |   $(DISKFREE) Free  |   $(DATE)  |   $(TIME)  "
+    xsetroot -name "^c#FF0000^  $(CPU)%  | ^c#FF0000^  $(RAM)M  |  墳$(VOLUME)%  |   $(DISKFREE) Free  |   $(DATE)  |   $(TIME)  "
     sleep 1s
 done

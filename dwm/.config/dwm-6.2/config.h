@@ -33,19 +33,16 @@ static const char dmenufont[] = "Ubuntu Nerd Font:size=11:weight=bold";
            [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
-static const char *tags[] = {"", " ", "", "", "", "", "", "", ""};
+static const char *tags[] = {" ", "", "", "", ""};
 
 static const Rule rules[] = {
     /* class                        instance   title       tags mask    isfloating   monitor */
-      {"Steam",                     NULL,      NULL,       1 << 7,      0,           -1},
-      {"Gimp",                      NULL,      NULL,       1 << 6,      0,           -1},
-      {"Blender",                   NULL,      NULL,       1 << 6,      0,           -1},
-      {"Virt-manager",              NULL,      NULL,       1 << 5,      0,           -1},
-      {"KeePassXC",                 NULL,      NULL,       1 << 4,      0,           -1},
-      {"Emacs",                     NULL,      NULL,       1 << 3,      0,           -1},
-      {"st-256color",               NULL,      NULL,       1 << 2,      0,           -1},
-      {"Brave-browser",             NULL,      NULL,       1 << 1,      0,           -1},
-      {"Vivaldi",                   NULL,      NULL,       1 << 1,      0,           -1},
+      {"Steam",                     NULL,      NULL,       1 << 3,      0,           -1},
+      {"Gimp",                      NULL,      NULL,       1 << 4,      0,           -1},
+      {"Blender",                   NULL,      NULL,       1 << 4,      0,           -1},
+      {"Virt-manager",              NULL,      NULL,       1 << 2,      0,           -1},
+      {"Emacs",                     NULL,      NULL,       1 << 1,      0,           -1},
+      {"Brave-browser",             NULL,      NULL,       1 << 0,      0,           -1},
 };
 
 static const float mfact = 0.55;  /* factor of master area size [0.05..0.95] */

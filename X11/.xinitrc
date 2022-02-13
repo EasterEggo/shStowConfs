@@ -1,8 +1,6 @@
 #!/bin/sh
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
-dbus-launch
-
 pipewire &
 pipewire-media-session &
 pipewire-pulse &
@@ -17,8 +15,9 @@ xsetroot -cursor_name left_ptr &
 
 feh --bg-fill wallpapers/2.png &
 
-/usr/bin/emacs --daemon &
+#/usr/bin/emacs --daemon &
 
-#~/.config/dwm-6.2/dwbar &
-#exec /usr/local/bin/dwm
-exec xmonad
+~/.config/dwm-6.2/dwbar &
+#exec dbus-launch --exit-with-session emacs -mm --debug-init
+exec /usr/local/bin/dwm
+#exec xmonad

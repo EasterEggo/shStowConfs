@@ -18,16 +18,14 @@
  (completion-styles '(orderless))
  (completion-category-defaults nil)
  (completion-category-overrides '((file (styles partial-completion))))
- :general
+ :general (:states 'normal
+                   :prefix "<SPC>"
+                           "<SPC>" 'execute-extended-command
+                           "." 'find-file
 
-(:states 'normal
-         :prefix "<SPC>"
-         "<SPC>" 'execute-extended-command
-         "." 'find-file
-
-         "<" 'consult-buffer
-         "b" 'consult-bookmark
-         "r" 'consult-recent-file)
+                           "<" 'consult-buffer
+                           "b" 'consult-bookmark
+                           "r" 'consult-recent-file)
 
 (:states 'normal "/" 'consult-line)
 
