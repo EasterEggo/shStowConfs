@@ -17,7 +17,7 @@ feh --bg-fill wallpapers/2.png &
 
 #/usr/bin/emacs --daemon &
 
-~/.config/dwm-6.2/dwbar &
-#exec dbus-launch --exit-with-session emacs -mm --debug-init
-exec /usr/local/bin/dwm
+#~/.config/dwm-6.2/dwbar &
+exec /usr/bin/awesome
+#exec /usr/local/bin/dwm
 #exec xmonad

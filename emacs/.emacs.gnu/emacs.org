@@ -1,39 +1,27 @@
 * emacs configs :TOC_2_gh:
 - [[#init][Init]]
 - [[#straight-package-manager-and-use-package-support][Straight Package Manager and Use-Package Support]]
-- [[#the-evil-way-and-general][The Evil Way and General]]
+- [[#bindings][Bindings]]
+- [[#dashboard][Dashboard]]
 - [[#completion-systems-and-complementary-packages][Completion Systems and Complementary Packages]]
 - [[#style][Style]]
-- [[#programming-related-packages][Programming Related Packages]]
-- [[#productivity-and-organization-related-packages][Productivity and Organization Related Packages]]
+- [[#programming-packages][Programming Packages]]
+- [[#productivity-and-organization-packages][Productivity and Organization Packages]]
 - [[#snippets][Snippets]]
-- [[#dashboard][Dashboard]]
 - [[#elfeed][ELFEED]]
 - [[#exwm][EXWM]]
 
 * Init
 #+begin_src emacs-lisp :tangle init.el
 
-  (add-to-list 'load-path  (expand-file-name "cfg/" user-emacs-directory))
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (setq make-backup-files nil)
-
-  (require 'straight)
-  (require 'exwm)
-  (require 'dashboard)
-  (require 'keys)
-  (require 'completion)
-  (require 'style)
-  (require 'dev)
-  (require 'prod)
-  (require 'snippet)
-  (require 'feed)
-
+  
 #+end_src
 
 * Straight Package Manager and Use-Package Support
-#+begin_src emacs-lisp :tangle cfg/straight.el
+#+begin_src emacs-lisp :tangle init.el
 
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -50,154 +38,138 @@
 
   (straight-use-package 'use-package)
   (setq straight-use-package-by-default t)
-
-  (provide 'straight)
+  (use-package use-package-ensure-system-package)
 
 #+end_src
 
-* The Evil Way and General
-#+begin_src emacs-lisp :tangle cfg/keys.el
+* Bindings
+#+begin_src emacs-lisp :tangle init.el
 
-  (use-package general)
-  (use-package evil
-    :straight evil-nerd-commenter t
+    (use-package general)
+    (use-package evil
+      :straight evil-nerd-commenter t
+      :init (evil-mode)
+      :general
+      (:states 'normal
+               "/" 'consult-line
+               "<SPC>;" 'evilnc-comment-or-uncomment-lines))
+
+    (use-package which-key :init (which-key-mode))
+
+    (use-package hydra)
+
+    ;;some main bindings
+    (general-define-key
+     "<escape>" 'keyboard-escape-quit)
+
+#+end_src
+
+* Dashboard
+#+begin_src emacs-lisp :tangle init.el
+
+  (use-package all-the-icons)
+  (use-package dashboard
     :init
-    (evil-mode)
-    :general
-    (:states 'normal
-             "/" 'consult-line
-             "<SPC>;" 'evilnc-comment-or-uncomment-lines))
-
-  (use-package which-key :init (which-key-mode))
-
-  (use-package hydra)
-
-  (defhydra hydra-buffer-menu (:color purple
-                               :hint nil)
-  "
-  ^Change Buffer Size^            
-  ^^^^^^^^------
-  _-_: shrink buffer horizontally
-  _+_: enlarge buffer horizontally   
-  _i_: enlarge buffer
-  _d_: shrink buffer
-  
-  "
-  ("+" enlarge-window-horizontally)
-  ("-" shrink-window-horizontally)
-  ("i" enlarge-window)
-  ("d" shrink-window)
-  ("c" nil "cancel")
-  ("q" quit-window "quit" :color blue))
-
-  (defhydra hydra-zoom (:color green
-                        :hint nil)
-  "
-   ^zoom
-   ^----
-   _i_: increase text size
-   _d_: decrease text size
-  "
-  ("i" text-scale-increase)
-  ("d" text-scale-decrease ))
-
-  ;;some main bindings
-  (general-define-key
-   "<escape>" 'keyboard-escape-quit)
-
-  (provide 'keys)
+    (dashboard-setup-startup-hook)
+    :custom
+    (dashboard-center-content t)
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-set-navigator t)
+    (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
 
 #+end_src
+
 
 * Completion Systems and Complementary Packages
-#+begin_src emacs-lisp :tangle cfg/completion.el
+#+begin_src emacs-lisp :tangle init.el
 
-   (use-package vertico
-   :straight
-   consult
-   marginalia
-   savehist orderless
-   all-the-icons-completion
-   embark
-   embark-consult
-   t
+       (use-package vertico
+       :straight
+       consult
+       marginalia
+       savehist orderless
+       all-the-icons-completion
+       embark
+       embark-consult
+       t
 
-   :init
-   (vertico-mode)
-   (savehist-mode)
-   (marginalia-mode)
-   (all-the-icons-completion-mode)
+       :init
+       (vertico-mode)
+       (savehist-mode)
+       (marginalia-mode)
+       (all-the-icons-completion-mode)
 
-   :custom
-   (completion-styles '(orderless))
-   (completion-category-defaults nil)
-   (completion-category-overrides '((file (styles partial-completion))))
-   :general (:states 'normal
-                     :prefix "<SPC>"
-                             "<SPC>" 'execute-extended-command
-                             "." 'find-file
+       :custom
+       (completion-styles '(orderless))
+       (completion-category-defaults nil)
+       (completion-category-overrides '((file (styles partial-completion))))
+       :general (:states 'normal
+                         :prefix "<SPC>"
+                                 "<SPC>" 'execute-extended-command
+                                 "." 'find-file
 
-                             "<" 'consult-buffer
-                             "b" 'consult-bookmark
-                             "r" 'consult-recent-file)
+                                 "<" 'consult-buffer
+                                 "b" 'consult-bookmark
+                                 "r" 'consult-recent-file)
 
-  (:states 'normal "/" 'consult-line)
+      (:states 'normal "/" 'consult-line)
 
-  ("C-." 'embark-act)
-  (:keymaps 'vertico-map
-   "<DEL>" 'vertico-directory-delete-char))
+      ("C-." 'embark-act)
+      (:keymaps 'vertico-map
+       "<DEL>" 'vertico-directory-delete-char))
 
-  (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
-  (require 'vertico-directory)
+      (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions" user-emacs-directory))
+      (require 'vertico-directory)
 
-  (use-package company
-  :straight company-box t
+      (use-package undo-tree
+      :custom
+      (global-undo-tree-mode))
 
-  :custom
-  (global-company-mode 1)
-  (company-minimum-prefix-length 1)
-  (company-selection-wrap-around t)
+      (use-package company
+        :straight company-box t
 
-  :ghook
-  ('company-mode-hook #'company-box-mode))
+      :custom
+      (global-company-mode 1)
+      (company-minimum-prefix-length 1)
+      (company-selection-wrap-around t)
 
-  (provide 'completion)
+      :hook (
+             (company-mode . company-box-mode)))
 
 #+end_src
 
 * Style
-#+begin_src emacs-lisp :tangle cfg/style.el
-
-  (setq custom-theme-directory (expand-file-name "cfg" user-emacs-directory))
+#+begin_src emacs-lisp :tangle init.el
 
   (setq default-frame-alist '((vertical-scroll-bars . nil)
-			      (font . "JetBrainsMono Nerd Font-12")))
+                              (font . "JetBrainsMono Nerd Font-12")))
   (menu-bar-mode -1)
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
 
-  (use-package page-break-lines :custom (global-page-break-lines-mode t))
+  (use-package page-break-lines
+    :custom (global-page-break-lines-mode t))
 
   (use-package doom-themes :config (load-theme 'doom-dracula t))
   (use-package doom-modeline :init (doom-modeline-mode))
 
-  (use-package rainbow-delimiters :ghook 'prog-mode-hook)
-  (use-package rainbow-mode :ghook 'prog-mode-hook)
-
-  (provide 'style)
+  (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
+  (use-package rainbow-mode :hook prog-mode)
 
 #+end_src
 
-* Programming Related Packages
-#+begin_src emacs-lisp :tangle cfg/dev.el
-  
+* Programming Packages
+#+begin_src emacs-lisp :tangle init.el
+
   (use-package ein)
 
   (use-package lsp-mode
-   :ghook ('prog-mode-hook #'lsp-deferred)
+   :hook (prog-mode . lsp)
    :straight lsp-haskell t)
 
   (use-package dap-mode
+  :after lsp-mode
   :config
   (dap-mode t)
   (dap-ui-mode t)
@@ -207,9 +179,10 @@
   (require 'dap-gdb-lldb))
 
   (use-package haskell-mode
-   :ghook
-   ('haskell-mode-hook #'lsp)
-   ('haskell-literate-mode-hook #'lsp))
+   :mode "\\.hs\\"
+   :hook
+   (('haskell-mode . lsp)
+   ('haskell-literate-mode . lsp)))
 
   (use-package vterm
    :general
@@ -237,19 +210,31 @@
   (use-package docker)
 
   (use-package highlight-indent-guides
-    :ghook 'prog-mode-hook
+    :hook (prog-mode . highlight-indent-guides-mode)
     :custom (highlight-indent-guides-method 'bitmap))
+
+  (use-package hl-todo
+    :config (global-hl-todo-mode))
+
+  (use-package git-gutter
+    :config (global-git-gutter-mode))
 
   (use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
 
-  (provide 'dev)
-
 #+end_src
 
-* Productivity and Organization Related Packages
-#+begin_src emacs-lisp :tangle cfg/prod.el
+* Productivity and Organization Packages
+#+begin_src emacs-lisp :tangle init.el
+  (use-package org
+    :hook
+      (org-mode . (lambda () (org-indent-mode) (variable-pitch-mode) (visual-line-mode)))
+    :custom
+      (org-agenda-files '("~/org/master.org"))
+      (org-hide-emphasis-markers t))
+
 
   (use-package org-roam
+    :after org
     :init
     (setq org-roam-v2-ack t)
     :custom
@@ -271,26 +256,23 @@
            :unnarrowed t)))
 
   (use-package org-roam-ui
+    :after org-roam
     :straight
     (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 
-  (use-package org-bullets :ghook 'org-mode-hook)
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode))
 
   (use-package toc-org
-    :ghook 'org-mode-hook)
+    :after org
+    :hook (org-mode . toc-org-mode))
 
-  (use-package org
-    :gfhook
-    ('org-mode-hook (list #'org-indent-mode #'variable-pitch-mode #'visual-line-mode))
-    :custom
-    (org-agenda-files '("~/org/master.org"))
-    (org-hide-emphasis-markers t))
 
   (let* ((variable-tuple
         (cond ((x-list-fonts "Ubuntu Nerd Font")         '(:font "Ubuntu Nerd Font"))
@@ -327,17 +309,15 @@
              "d" 'password-store-remove
              "g" 'password-store-generate))
 
-  (use-package perspective
-    :init
-    (persp-mode)
-    :general
-    (:states 'normal
-             :prefix "<SPC>w"
-             "s" 'persp-switch
-             "d" 'persp-kill
-             "r" 'persp-rename))
-
-  (use-package olivetti)
+  ;; (use-package persp-mode
+    ;; :init
+    ;; (persp-mode)
+    ;; :general
+    ;; (:states 'normal
+             ;; :prefix "<SPC>w"
+             ;; "s" 'persp-switch
+             ;; "d" 'persp-kill
+             ;; "r" 'persp-rename))
 
   (use-package ag
     :straight rg t)
@@ -347,74 +327,56 @@
     (pdf-loader-install t)
     (pdf-tools-install t))
 
-  (use-package centaur-tabs
-    :config
-    (centaur-tabs-mode t)
-    (setq centaur-tabs-set-icons t)
-    (setq centaur-tabs-set-bar 'left)
-    (setq centaur-tabs-height 32)
-    (setq centaur-tabs-set-modified-marker t)
-    (setq centaur-tabs-gray-out-icons 'buffer))
-
-  (provide 'prod)
-
 #+end_src
 
 * Snippets
-#+begin_src emacs-lisp :tangle cfg/snippet.el
-  
+#+begin_src emacs-lisp :tangle init.el
+
   (use-package yasnippet
     :init
     (yas-global-mode)
     :custom
-    (setq yas-snippet-dirs '("~/.emacs.d/cfg/snippets")))
-
-  (auto-insert-mode)
-  (setq auto-insert-query nil)
-
-  (provide 'snippet)
-#+end_src
-
-* Dashboard
-#+begin_src emacs-lisp :tangle cfg/dashboard.el
-
-  (use-package all-the-icons)
-  (use-package dashboard
-    :init
-    (dashboard-setup-startup-hook)
-    :custom
-    (dashboard-center-content t)
-    (dashboard-set-heading-icons t)
-    (dashboard-set-file-icons t)
-    (dashboard-set-navigator t)
-    (initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
-
-  (provide 'dashboard)
+    (setq yas-snippet-dirs '("~/.emacs.d/snippets")))
 
 #+end_src
 
 * ELFEED
-#+begin_src emacs-lisp :tangle cfg/feed.el
+#+begin_src emacs-lisp :tangle init.el
+
   (use-package elfeed
                :custom
                (elfeed-feeds
                 '("https://distrowatch.com/news/dwd.xml" linux
                   "https://www.economist.com/finance-and-economics/rss.xml" economics))
                (elfeed-search-filter "@1-week-ago +unread"))
-  
-  (provide 'feed)
+
 #+end_src
 
 * EXWM
-#+begin_src emacs-lisp :tangle cfg/exwm.el
-  (use-package exwm
-    :config
-    (setq exwm-workspace-number 5)
-    (exwm-enable))
-    (add-hook 'exwm-update-class-hook
-              (lambda ()
-              (exwm-workspace-rename-buffer exwm-class-name)))
+#+begin_src emacs-lisp :tangle init.el
 
-  (provide 'exwm)
+ ;; (use-package exwm
+ ;;   :config
+ ;;   (exwm-enable))
+ ;;   (add-hook 'exwm-update-class-hook
+ ;;             (lambda ()
+ ;;             (exwm-workspace-rename-buffer exwm-class-name))
+ ;;   (setq exwm-input-global-keys
+ ;;     `(([?\s-\C-r] . exwm-reset)
+ ;;        ([?\s-w] . exwm-workspace-switch)
+ ;;        ([?\s-i] . exwm-input-toggle-keyboard)
+ ;;        ([?\s-E] . (lambda () (interactive) (find-file "~")))
+ ;;        ([?\s-c] . (lambda () (interactive) (evil-quit)))
+ ;;        ([?\s-\S-c] . (lambda () (interactive) (kill-buffer)))
+ ;;        ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+ ;;        ,@(mapcar (lambda (i)
+ ;;                    `(,(kbd (format "s-%d" i)) .
+ ;;                       (lambda ()
+ ;;                        (interactive)
+ ;;                        (exwm-workspace-switch-create ,i))))
+ ;;                   (number-sequence 0 9)))))
+
+ ;; (add-to-list 'display-buffer-alist
+ ;;              (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
 #+end_src
-# fgdfdfdfdfdf
