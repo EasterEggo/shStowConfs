@@ -36,6 +36,14 @@ zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "romkatv/powerlevel10k", as:theme, depth:1
+# install prompt
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
 zplug load
 
 bindkey '^[[A' history-substring-search-up
