@@ -4,3 +4,6 @@
 [submodule "asdf/.asdf"]
 	path = asdf/.asdf
 	url = https://github.com/asdf-vm/asdf.git
+[submodule "zsh/.zplug"]
+	path = zsh/.zplug
+	url = https://github.com/zplug/zplug
