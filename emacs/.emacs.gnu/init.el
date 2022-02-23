@@ -17,7 +17,6 @@
 
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
-(use-package use-package-ensure-system-package)
 
 (use-package general)
 (use-package evil
@@ -132,7 +131,7 @@
 (require 'dap-gdb-lldb))
 
 (use-package haskell-mode
- :mode "\\.hs\\"
+ :mode "\\.hs\\'"
  :hook
  (('haskell-mode . lsp)
  ('haskell-literate-mode . lsp)))
@@ -175,11 +174,11 @@
 (use-package adaptive-wrap :init (adaptive-wrap-prefix-mode))
 
 (use-package org
-  :hook
-    (org-mode . (lambda () (org-indent-mode) (variable-pitch-mode) (visual-line-mode)))
-  :custom
-    (org-agenda-files '("~/org/master.org"))
-    (org-hide-emphasis-markers t))
+:hook
+  (org-mode . (lambda () (org-indent-mode) (variable-pitch-mode) (visual-line-mode)))
+:custom
+  (org-agenda-files '("~/org/master.org"))
+  (org-hide-emphasis-markers t))
 
 
 (use-package org-roam
@@ -215,11 +214,9 @@
         org-roam-ui-open-on-start t))
 
 (use-package org-bullets
-  :after org
   :hook (org-mode . org-bullets-mode))
 
 (use-package toc-org
-  :after org
   :hook (org-mode . toc-org-mode))
 
 
