@@ -44,7 +44,10 @@ require'packer'.startup(function(use)
 	use "folke/which-key.nvim"
 
 	--treesitter
-	use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+	use {
+		'nvim-treesitter/nvim-treesitter', 
+		'p00f/nvim-ts-rainbow',
+		run = ':TSUpdate'}
 
 	if PACKER_BOOTSTRAP then
     		require("packer").sync()
@@ -54,26 +57,25 @@ end)
 require "user.config.cmp"
 require "user.config.toggleterm"
 require "user.config.gitsigns"
+require "user.config.treesitter"
 
 require'nvim-tree'.setup()
 require'colorizer'.setup()
 
-require"indent_blankline".setup {
+require"indent_blankline".setup ({
     show_current_context = true,
     show_current_context_start = true,
+})
 
-}
-
-require'bufferline'.setup{
+require'bufferline'.setup({
 	options = {
 		offsets = {{
     			filetype = "NvimTree",
    			text = "",
-   			padding = 1,
    			text_align = "left"
 		}}
 	}
-}
+})
 
 require'nvim-autopairs'.setup()
 
