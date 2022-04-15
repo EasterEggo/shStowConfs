@@ -7,7 +7,6 @@ vim.cmd([[
 ]])
 
 --plugins
-require "user.packer"
 require "user.plugins"
 
 -- TODO bindings
