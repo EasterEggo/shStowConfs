@@ -44,7 +44,7 @@ require'packer'.startup(function(use)
 	use 'akinsho/bufferline.nvim'
 
 	-- dashboard
-	use 'glepnir/dashboard-nvim'
+	use 'goolord/alpha-nvim'
 
 	use {
 		'nvim-telescope/telescope.nvim',
@@ -68,10 +68,13 @@ require'packer'.startup(function(use)
 	use 'kyazdani42/nvim-tree.lua'
 
 	-- modeline
-	use 'feline-nvim/feline.nvim'
+	use 'nvim-lualine/lualine.nvim'
 
 	-- themes
 	use 'dracula/vim'
+	use 'NTBBloodbath/doom-one.nvim'
+	use "RRethy/nvim-base16"
+	use "rebelot/kanagawa.nvim"
 
 	--utils
 	use 'windwp/nvim-autopairs'
@@ -93,6 +96,7 @@ require'packer'.startup(function(use)
 	use 'L3MON4D3/LuaSnip'
 	use 'rafamadriz/friendly-snippets'
 
+
 	if PACKER_BOOTSTRAP then
     		require("packer").sync()
   	end
@@ -102,28 +106,50 @@ require "user.config.cmp"
 require "user.config.toggleterm"
 require "user.config.gitsigns"
 require "user.config.treesitter"
+require "user.config.bufferline"
 require "user.config.lsp"
 
 require'nvim-tree'.setup()
 require'colorizer'.setup()
+
+-- require('doom-one').setup({
+--             cursor_coloring = false,
+--             terminal_colors = false,
+--             italic_comments = true,
+--             enable_treesitter = true,
+--             transparent_background = false,
+--             pumblend = {
+--                 enable = true,
+--                 transparency_amount = 20,
+--             },
+--             plugins_integrations = {
+--                 neorg = false,
+--                 barbar = false,
+--                 bufferline = true,
+--                 gitgutter = false,
+--                 gitsigns = true,
+--                 telescope = true,
+--                 neogit = false,
+--                 nvim_tree = true,
+--                 dashboard = false,
+--                 startify = true,
+--                 whichkey = true,
+--                 indent_blankline = true,
+--                 vim_illuminate = false,
+--                 lspsaga = true,
+--             },
+--         })
+--
 
 require"indent_blankline".setup ({
     show_current_context = true,
     show_current_context_start = true,
 })
 
-require'bufferline'.setup({
-	options = {
-		offsets = {{
-    			filetype = "NvimTree",
-   			text = "",
-   			text_align = "left"
-		}}
-	}
-})
-
 require'nvim-autopairs'.setup()
-
-require'feline'.setup() -- TODO
 require'which-key'.setup()
 require'Comment'.setup()
+require'lualine'.setup()
+require'alpha'.setup(require'alpha.themes.startify'.config)
+
+vim.cmd [[ colorscheme kanagawa]]
