@@ -3,7 +3,6 @@ vim.cmd([[
 	set completeopt=menu,menuone,noselect
 	set termguicolors nu
 	colorscheme dracula
-
 	let g:dashboard_default_executive = 'telescope'
 ]])
 

@@ -40,7 +40,6 @@ require'packer'.startup(function(use)
 	use 'lewis6991/gitsigns.nvim'
 	use 'norcalli/nvim-colorizer.lua'
 	use 'lukas-reineke/indent-blankline.nvim'
-	use 'L3MON4D3/LuaSnip'
 	use "folke/which-key.nvim"
 
 	--treesitter
@@ -48,6 +47,10 @@ require'packer'.startup(function(use)
 		'nvim-treesitter/nvim-treesitter', 
 		'p00f/nvim-ts-rainbow',
 		run = ':TSUpdate'}
+
+	-- snippets
+	use 'L3MON4D3/LuaSnip'
+	use 'rafamadriz/friendly-snippets'
 
 	if PACKER_BOOTSTRAP then
     		require("packer").sync()
