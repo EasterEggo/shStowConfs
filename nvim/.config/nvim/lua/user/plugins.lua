@@ -16,8 +16,9 @@ require'packer'.startup(function(use)
 
 	-- autocomplete
 	use{
-		'neovim/nvim-lspconfig',
 		'hrsh7th/cmp-nvim-lsp',
+		'neovim/nvim-lspconfig',
+		'williamboman/nvim-lsp-installer',
 		'hrsh7th/cmp-buffer',
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-cmdline',
@@ -61,6 +62,7 @@ require "user.config.cmp"
 require "user.config.toggleterm"
 require "user.config.gitsigns"
 require "user.config.treesitter"
+require "user.config.lsp"
 
 require'nvim-tree'.setup()
 require'colorizer'.setup()
