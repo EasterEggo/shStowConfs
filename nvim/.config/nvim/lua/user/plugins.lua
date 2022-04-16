@@ -68,12 +68,9 @@ require'packer'.startup(function(use)
 	use 'kyazdani42/nvim-tree.lua'
 
 	-- modeline
-	use 'nvim-lualine/lualine.nvim'
+	use 'feline-nvim/feline.nvim'
 
 	-- themes
-	use 'dracula/vim'
-	use 'NTBBloodbath/doom-one.nvim'
-	use "RRethy/nvim-base16"
 	use "rebelot/kanagawa.nvim"
 
 	--utils
@@ -108,38 +105,10 @@ require "user.config.gitsigns"
 require "user.config.treesitter"
 require "user.config.bufferline"
 require "user.config.lsp"
+require "user.config.feline"
 
 require'nvim-tree'.setup()
 require'colorizer'.setup()
-
--- require('doom-one').setup({
---             cursor_coloring = false,
---             terminal_colors = false,
---             italic_comments = true,
---             enable_treesitter = true,
---             transparent_background = false,
---             pumblend = {
---                 enable = true,
---                 transparency_amount = 20,
---             },
---             plugins_integrations = {
---                 neorg = false,
---                 barbar = false,
---                 bufferline = true,
---                 gitgutter = false,
---                 gitsigns = true,
---                 telescope = true,
---                 neogit = false,
---                 nvim_tree = true,
---                 dashboard = false,
---                 startify = true,
---                 whichkey = true,
---                 indent_blankline = true,
---                 vim_illuminate = false,
---                 lspsaga = true,
---             },
---         })
---
 
 require"indent_blankline".setup ({
     show_current_context = true,
@@ -149,7 +118,6 @@ require"indent_blankline".setup ({
 require'nvim-autopairs'.setup()
 require'which-key'.setup()
 require'Comment'.setup()
-require'lualine'.setup()
 require'alpha'.setup(require'alpha.themes.startify'.config)
 
 vim.cmd [[ colorscheme kanagawa]]

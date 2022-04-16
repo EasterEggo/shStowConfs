@@ -114,10 +114,10 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["doom-one.nvim"] = {
+  ["feline.nvim"] = {
     loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/doom-one.nvim",
-    url = "https://github.com/NTBBloodbath/doom-one.nvim"
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/feline.nvim",
+    url = "https://github.com/feline-nvim/feline.nvim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -139,20 +139,10 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
     url = "https://github.com/rebelot/kanagawa.nvim"
   },
-  ["lualine.nvim"] = {
-    loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/lualine.nvim",
-    url = "https://github.com/nvim-lualine/lualine.nvim"
-  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
-  },
-  ["nvim-base16"] = {
-    loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-base16",
-    url = "https://github.com/RRethy/nvim-base16"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -213,11 +203,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
-  },
-  vim = {
-    loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/vim",
-    url = "https://github.com/dracula/vim"
   },
   ["vim-fugitive"] = {
     loaded = true,
