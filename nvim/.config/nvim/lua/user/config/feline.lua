@@ -14,17 +14,15 @@ local lspicons = {
 local colors = {
 	bg = '#16161D',
 	fg = '#C8C093',
-	yellow = '#E6C384',
-	cyan = '#A3D4D5',
-	darkblue = '#223249',
-	gray = '#2A2A37',
-	green = '#98c379',
+	yellow = '#FAE3B0',
+	cyan = '#7E9CD8',
+	gray = '#717C7C',
+	green = '#98BB6C',
 	orange = '#FFA066',
 	violet = '#957FB8',
 	magenta = '#D27E99',
-	blue = '#7E9CD8',
-	aqua = '#6A9589',
-	red = '#E46876'
+	blue = '#7FB4CA',
+	red = '#C34043'
 }
 
 local vi_mode_utils = require 'feline.providers.vi_mode'
@@ -64,20 +62,21 @@ local function file_osinfo()
 	local os = vim.bo.fileformat:upper()
    	local icon
     	if os == 'UNIX' then
-        	icon = ' '
+        	icon = ' '
     	elseif os == 'MAC' then
         	icon = ' '
     	else
         	icon = ' '
     	end
-    	return icon --.. os
+    	return icon .. os
 end
 
 local comps = {
 	position = {
 		provider = 'position',
+		left_sep = ' ',
 		hl = {
-			fg = colors.magenta,
+			fg = colors.gray,
 			style = 'bold'
 		}
 	},
@@ -95,7 +94,7 @@ local comps = {
         	    	provider = diag_of(lsp_diagnostics_info, 'warns'),
         	    	left_sep = ' ',
         	    	hl = {
-        	    	    	fg = colors.yellow
+        	    	    	fg = colors.orange
         	    	}
         	},
         	info = {
@@ -116,9 +115,16 @@ local comps = {
         	},
 	},
     	vi_mode = {
-            	provider = '▊',
-            	hl = vimode_hl,
-            	right_sep = ' '
+		left = {
+            		provider = '▊',
+            		hl = vimode_hl,
+            		right_sep = ' '
+		},
+		right = {
+            		provider = '▊',
+            		hl = vimode_hl,
+            		left_sep = ' '
+		}
 	},
 	file = {
         	info = {
@@ -156,18 +162,21 @@ local comps = {
         	},
         	add = {
             		provider = 'git_diff_added',
+			icon = '  ',
             		hl = {
                 		fg = colors.green
             		}
         	},
         	change = {
             		provider = 'git_diff_changed',
+			icon = '  ',
             		hl = {
                 		fg = colors.orange
             		}
         	},
         	remove = {
             		provider = 'git_diff_removed',
+			icon = '  ',
 			right_sep = '',
             		hl = {
                 		fg = colors.red
@@ -187,9 +196,10 @@ local comps = {
 	},
 	line_percentage = {
         	provider = 'line_percentage',
+        	right_sep = '',
         	left_sep = ' ',
         	hl = {
-			fg = colors.aqua,
+			fg = colors.green,
             		style = 'bold'
         	}
     	},
@@ -204,7 +214,7 @@ table.insert(components.active, {})
 table.insert(components.active, {})
 
 components.active[1] = {
-	comps.vi_mode,
+	comps.vi_mode.left,
 	comps.file.info,
 	comps.git.branch,
 	comps.git.add,
@@ -220,15 +230,16 @@ components.active[2] = {
 }
 
 components.active[3] = {
+	comps.os,
 	comps.position,
 	comps.line_percentage,
-	comps.os,
+	comps.vi_mode.right,
 }
 
 feline.setup({
 	theme = colors,
-	default_bg = bg,
-	default_fg = fg,
+	default_bg = colors.bg,
+	default_fg = colors.fg,
 	components = components,
 })
 
