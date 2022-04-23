@@ -1,4 +1,4 @@
-local status_ok, feline = pcall(require, "feline")
+local status_ok, feline = pcall(require, 'feline')
 if not status_ok then
 	return
 end
@@ -12,17 +12,17 @@ local lspicons = {
 }
 
 local colors = {
-	bg = '#16161D',
-	fg = '#C8C093',
+	bg = '#161320',
+	fg = '#D9E0EE',
 	yellow = '#FAE3B0',
-	cyan = '#7E9CD8',
-	gray = '#717C7C',
-	green = '#98BB6C',
-	orange = '#FFA066',
-	violet = '#957FB8',
-	magenta = '#D27E99',
-	blue = '#7FB4CA',
-	red = '#C34043'
+	cyan = '#96CDFB',
+	gray = '#6E6C7E',
+	green = '#ABE9B3',
+	orange = '#F8BD96',
+	violet = '#F2CDCD',
+	magenta = '#DDB6F2',
+	blue = '#89DCEB',
+	red = '#F28FAD',
 }
 
 local vi_mode_utils = require 'feline.providers.vi_mode'
@@ -30,45 +30,45 @@ local vi_mode_utils = require 'feline.providers.vi_mode'
 local function vimode_hl()
 	return {
 		name = vi_mode_utils.get_mode_highlight_name(),
-		fg = vi_mode_utils.get_mode_color()
+		fg = vi_mode_utils.get_mode_color(),
 	}
 end
 
 local function lsp_diagnostics_info()
 	return {
-        	errs = lsp.get_diagnostics_count('Error'),
-        	warns = lsp.get_diagnostics_count('Warn'),
-        	infos = lsp.get_diagnostics_count('Info'),
-        	hints = lsp.get_diagnostics_count('Hint')
-    	}
+		errs = lsp.get_diagnostics_count 'Error',
+		warns = lsp.get_diagnostics_count 'Warn',
+		infos = lsp.get_diagnostics_count 'Info',
+		hints = lsp.get_diagnostics_count 'Hint',
+	}
 end
 
 local function diag_enable(f, s)
-    return function()
-        local diag = f()[s]
-        return diag and diag ~= 0
-    end
+	return function()
+		local diag = f()[s]
+		return diag and diag ~= 0
+	end
 end
 
 local function diag_of(f, s)
 	local icon = lspicons[s]
 	return function()
 		local diag = f()[s]
-	return icon .. diag
+		return icon .. diag
 	end
 end
 
 local function file_osinfo()
 	local os = vim.bo.fileformat:upper()
-   	local icon
-    	if os == 'UNIX' then
-        	icon = ' '
-    	elseif os == 'MAC' then
-        	icon = ' '
-    	else
-        	icon = ' '
-    	end
-    	return icon .. os
+	local icon
+	if os == 'UNIX' then
+		icon = ' '
+	elseif os == 'MAC' then
+		icon = ' '
+	else
+		icon = ' '
+	end
+	return icon .. os
 end
 
 local comps = {
@@ -77,112 +77,112 @@ local comps = {
 		left_sep = ' ',
 		hl = {
 			fg = colors.gray,
-			style = 'bold'
-		}
+			style = 'bold',
+		},
 	},
 	diagnos = {
-        	err = {
-            		enabled = diag_enable(lsp_diagnostics_info, 'errs'),
-            		provider = diag_of(lsp_diagnostics_info, 'errs'),
-            		left_sep = ' ',
-            		hl = {
-                		fg = colors.red
-            		}
-        	},
-        	warn = {
-        	    	enabled = diag_enable(lsp_diagnostics_info, 'warns'),
-        	    	provider = diag_of(lsp_diagnostics_info, 'warns'),
-        	    	left_sep = ' ',
-        	    	hl = {
-        	    	    	fg = colors.orange
-        	    	}
-        	},
-        	info = {
-        	    	enabled = diag_enable(lsp_diagnostics_info, 'infos'),
-        	    	provider = diag_of(lsp_diagnostics_info, 'infos'),
-        	    	left_sep = ' ',
-        	    	hl = {
-        	        	fg = colors.blue
-        	    	}
-        	},
-        	hint = {
-        	    	enabled = diag_enable(lsp_diagnostics_info, 'hints'),
-        	    	provider = diag_of(lsp_diagnostics_info, 'hints'),
-        	    	left_sep = ' ',
-        	    	hl = {
-        	        	fg = colors.cyan
-        	    	}
-        	},
+		err = {
+			enabled = diag_enable(lsp_diagnostics_info, 'errs'),
+			provider = diag_of(lsp_diagnostics_info, 'errs'),
+			left_sep = ' ',
+			hl = {
+				fg = colors.red,
+			},
+		},
+		warn = {
+			enabled = diag_enable(lsp_diagnostics_info, 'warns'),
+			provider = diag_of(lsp_diagnostics_info, 'warns'),
+			left_sep = ' ',
+			hl = {
+				fg = colors.orange,
+			},
+		},
+		info = {
+			enabled = diag_enable(lsp_diagnostics_info, 'infos'),
+			provider = diag_of(lsp_diagnostics_info, 'infos'),
+			left_sep = ' ',
+			hl = {
+				fg = colors.blue,
+			},
+		},
+		hint = {
+			enabled = diag_enable(lsp_diagnostics_info, 'hints'),
+			provider = diag_of(lsp_diagnostics_info, 'hints'),
+			left_sep = ' ',
+			hl = {
+				fg = colors.cyan,
+			},
+		},
 	},
-    	vi_mode = {
+	vi_mode = {
 		left = {
-            		provider = '▊',
-            		hl = vimode_hl,
-            		right_sep = ' '
+			provider = '▊',
+			hl = vimode_hl,
+			right_sep = ' ',
 		},
 		right = {
-            		provider = '▊',
-            		hl = vimode_hl,
-            		left_sep = ' '
-		}
+			provider = '▊',
+			hl = vimode_hl,
+			left_sep = ' ',
+		},
 	},
 	file = {
-        	info = {
-            		provider = {
-              			name = 'file_info',
-              			opts = {
-                			type = 'base-only',
-                			file_readonly_icon = '  ',
-                			file_modified_icon = '',
-              			}
-            		},
-            		hl = {
-                		fg = colors.blue,
-                		style = 'bold'
-            		}
-        	}
+		info = {
+			provider = {
+				name = 'file_info',
+				opts = {
+					type = 'base-only',
+					file_readonly_icon = '  ',
+					file_modified_icon = '',
+				},
+			},
+			hl = {
+				fg = colors.blue,
+				style = 'bold',
+			},
+		},
 	},
 	os = {
-        	provider = file_osinfo,
-            	left_sep = ' ',
-            	hl = {
-                	fg = colors.violet,
-                	style = 'bold'
-            	}
-        },
+		provider = file_osinfo,
+		left_sep = ' ',
+		hl = {
+			fg = colors.magenta,
+			style = 'bold',
+		},
+	},
 	git = {
-        	branch = {
-        		provider = 'git_branch',
-            		icon = '  ',
-            		left_sep = ' ',
-            		hl = {
-                		fg = colors.violet,
-                		style = 'bold'
-            		},
-        	},
-        	add = {
-            		provider = 'git_diff_added',
+		branch = {
+			provider = 'git_branch',
+			icon = '  ',
+			left_sep = ' ',
+			hl = {
+				fg = colors.magenta,
+				style = 'bold',
+			},
+		},
+		add = {
+			provider = 'git_diff_added',
 			icon = '  ',
-            		hl = {
-                		fg = colors.green
-            		}
-        	},
-        	change = {
-            		provider = 'git_diff_changed',
+			hl = {
+				fg = colors.green,
+			},
+		},
+		change = {
+			provider = 'git_diff_changed',
 			icon = '  ',
-            		hl = {
-                		fg = colors.orange
-            		}
-        	},
-        	remove = {
-            		provider = 'git_diff_removed',
+			hl = {
+				fg = colors.orange,
+			},
+		},
+		remove = {
+			provider = 'git_diff_removed',
 			icon = '  ',
 			right_sep = '',
-            		hl = {
-                		fg = colors.red
-            		}
-        	}
-    	},
+			hl = {
+				fg = colors.red,
+			},
+		},
+	},
 	lsp = {
 		name = {
 			provider = 'lsp_client_names',
@@ -190,19 +190,19 @@ local comps = {
 			icon = ' ',
 			hl = {
 				fg = colors.yellow,
-				style = 'bold'
-			}
-		}
+				style = 'bold',
+			},
+		},
 	},
 	line_percentage = {
-        	provider = 'line_percentage',
-        	right_sep = '',
-        	left_sep = ' ',
-        	hl = {
-			fg = colors.green,
-            		style = 'bold'
-        	}
-    	},
+		provider = 'line_percentage',
+		right_sep = '',
+		left_sep = ' ',
+		hl = {
+			fg = colors.gray,
+			style = 'bold',
+		},
+	},
 }
 
 local components = {
@@ -219,7 +219,8 @@ components.active[1] = {
 	comps.git.branch,
 	comps.git.add,
 	comps.git.change,
-	comps.git.remove,}
+	comps.git.remove,
+}
 
 components.active[2] = {
 	comps.lsp.name,
@@ -242,4 +243,3 @@ feline.setup({
 	default_fg = colors.fg,
 	components = components,
 })
-

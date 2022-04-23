@@ -1,3 +1,3 @@
-require "user.options"
-require "user.plugins"
-require "user.bindings"
+require 'user.options'
+require 'user.plugins'
+require 'user.bindings'

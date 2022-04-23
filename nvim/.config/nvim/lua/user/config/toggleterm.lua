@@ -1,9 +1,9 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
+local status_ok, toggleterm = pcall(require, 'toggleterm')
 if not status_ok then
 	return
 end
 
-toggleterm.setup{
+toggleterm.setup({
 	size = 30,
 	open_mapping = [[<c-\>]],
 	hide_numbers = true,
@@ -18,7 +18,7 @@ toggleterm.setup{
 	close_on_exit = true,
 	shell = vim.o.shell,
 	float_opts = {
-	  border = 'curved',
-	  winblend = 0,
-	}
-}
+		border = 'curved',
+		winblend = 0,
+	},
+})

@@ -1,9 +1,9 @@
 local options = {
 	backup = false,
-	clipboard = "unnamedplus",
-	completeopt = { "menuone", "noselect" },
+	clipboard = 'unnamedplus',
+	completeopt = { 'menuone', 'noselect' },
 	conceallevel = 0,
-	fileencoding = "utf-8",
+	fileencoding = 'utf-8',
 	ignorecase = true,
 	pumheight = 10,
 	showmode = false,
@@ -20,15 +20,15 @@ local options = {
 	cursorline = true,
 	number = true,
 	relativenumber = false,
-	
+
 	numberwidth = 4,
-	signcolumn = "yes",
+	signcolumn = 'yes',
 	scrolloff = 8,
 	sidescrolloff = 8,
 }
 
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append 'c'
 
 for k, v in pairs(options) do
-vim.opt[k] = v
+	vim.opt[k] = v
 end
