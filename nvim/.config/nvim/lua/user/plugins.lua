@@ -17,11 +17,11 @@ end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+   augroup packer_user_config
+     autocmd!
+     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+   augroup end
+ ]]
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, 'packer')
@@ -33,7 +33,7 @@ end
 packer.init({
 	display = {
 		open_fn = function()
-			return require('packer.util').float({ border = true })
+			return require('packer.util').float({ border = 'rounded' })
 		end,
 	},
 })
@@ -46,23 +46,16 @@ packer.startup(function(use)
 	use 'nvim-lua/plenary.nvim'
 	use 'nvim-lua/popup.nvim'
 
-	-- git
-	use({ 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' })
-	use 'lewis6991/gitsigns.nvim'
-
-	-- tabs
-	use 'akinsho/bufferline.nvim'
-
 	-- dashboard
 	use 'goolord/alpha-nvim'
 
 	-- fuzzy finder
 	use({
-		{ 'nvim-telescope/telescope-media-files.nvim' },
-		{ 'nvim-telescope/telescope.nvim' },
+		'nvim-telescope/telescope-media-files.nvim',
+		'nvim-telescope/telescope.nvim',
 	})
 
-	-- LSP
+	-- lsp and completion
 	use({
 		'hrsh7th/cmp-nvim-lsp',
 		'neovim/nvim-lspconfig',
@@ -76,20 +69,12 @@ packer.startup(function(use)
 		'jose-elias-alvarez/null-ls.nvim',
 	})
 
+	use 'lewis6991/gitsigns.nvim'
+
 	-- file explorer
 	use 'kyazdani42/nvim-tree.lua'
 
-	-- modeline
-	use 'feline-nvim/feline.nvim'
-
-	-- themes
-	use 'rebelot/kanagawa.nvim'
-	use({
-		'catppuccin/nvim',
-		as = 'catppuccin',
-	})
-
-	--utils
+	-- utils
 	use 'windwp/nvim-autopairs'
 	use 'akinsho/toggleterm.nvim'
 	use 'norcalli/nvim-colorizer.lua'
@@ -97,37 +82,38 @@ packer.startup(function(use)
 	use 'folke/which-key.nvim'
 	use 'numToStr/Comment.nvim'
 
-	--treesitter
+	-- treesitter
 	use({
-		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
 		'p00f/nvim-ts-rainbow',
+		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
 	})
+
+	-- themes
+	use 'rebelot/kanagawa.nvim'
+	use {'catppuccin/nvim', as = 'catppuccin'}
 
 	-- snippets
 	use 'L3MON4D3/LuaSnip'
 	use 'rafamadriz/friendly-snippets'
+
+	-- status bar
+	use 'feline-nvim/feline.nvim'
+
+	-- tabs
+	use 'akinsho/bufferline.nvim'
+
+	if PACKER_BOOTSTRAP then
+		require('packer').sync()
+	end
 end)
 
+vim.cmd 'colorscheme catppuccin'
+
 require 'user.config.cmp'
+require 'user.config.feline'
 require 'user.config.toggleterm'
 require 'user.config.gitsigns'
 require 'user.config.treesitter'
-require 'user.config.bufferline'
 require 'user.config.lsp'
-require 'user.config.feline'
-
-require('nvim-tree').setup()
-require('colorizer').setup()
-require('indent_blankline').setup({
-	show_current_context = true,
-	show_current_context_start = true,
-})
-
-require('nvim-autopairs').setup()
-require('which-key').setup()
-require('alpha').setup(require('alpha.themes.startify').config)
-require('Comment').setup()
-require('telescope').load_extension 'media_files'
-require('neogit').setup()
-
-vim.cmd 'colorscheme catppuccin'
+require 'user.config.other'
+require 'user.config.bufferline'

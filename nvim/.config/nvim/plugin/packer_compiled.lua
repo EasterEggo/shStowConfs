@@ -144,11 +144,6 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
     url = "https://github.com/rebelot/kanagawa.nvim"
   },
-  neogit = {
-    loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/neogit",
-    url = "https://github.com/TimUntersberger/neogit"
-  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/null-ls.nvim",

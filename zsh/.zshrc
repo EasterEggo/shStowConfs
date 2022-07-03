@@ -25,7 +25,7 @@ compinit
 #precmd_functions+=( precmd_vcs_info )
 #setopt prompt_subst
 
-export PATH="$PATH:~/.local/bin/:"
+export PATH="$PATH:$HOME/.local/bin/:"
 
 #export PROMPT=""$'\n'"%B%F{blue}%~%f %F{208}"'${vcs_info_msg_0_}'"%f %b "$'\n'"[%n@%m] %B%F{%(0?.green.red)}λ%f%b "
 #zstyle ':vcs_info:git:*' formats ' %b'

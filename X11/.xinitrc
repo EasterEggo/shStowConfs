@@ -18,6 +18,7 @@ feh --bg-fill wallpapers/2.png &
 #/usr/bin/emacs --daemon &
 
 #~/.config/dwm-6.2/dwbar &
-exec /usr/bin/awesome
 #exec /usr/local/bin/dwm
-#exec xmonad
+#exec /usr/bin/awesome
+/usr/bin/qtile start
+# exec budgie-desktop

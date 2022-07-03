@@ -1,9 +1,7 @@
 local options = {
 	backup = false,
-	clipboard = 'unnamedplus',
 	completeopt = { 'menuone', 'noselect' },
 	conceallevel = 0,
-	fileencoding = 'utf-8',
 	ignorecase = true,
 	pumheight = 10,
 	showmode = false,
@@ -19,8 +17,6 @@ local options = {
 	writebackup = false,
 	cursorline = true,
 	number = true,
-	relativenumber = false,
-
 	numberwidth = 4,
 	signcolumn = 'yes',
 	scrolloff = 8,

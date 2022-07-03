@@ -34,7 +34,7 @@ mySB :: StatusBarConfig
 mySB = statusBarProp "xmobar ~/.xmonad/xmobarrc" (clickablePP myXmobarPP)
 
 myLauncher :: String
-myLauncher = "rofi -show run"
+myLauncher = "dmenu_run"
 
 myXmobarPP :: PP
 myXmobarPP = def {
