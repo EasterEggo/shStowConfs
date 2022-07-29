@@ -40,6 +40,7 @@ packer.init({
 
 -- Install your plugins here
 packer.startup(function(use)
+
 	-- core
 	use 'wbthomason/packer.nvim'
 	use 'kyazdani42/nvim-web-devicons'
@@ -88,9 +89,8 @@ packer.startup(function(use)
 		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
 	})
 
-	-- themes
-	use 'rebelot/kanagawa.nvim'
-	use {'catppuccin/nvim', as = 'catppuccin'}
+	-- colorschemes
+	use({ 'catppuccin/nvim', as = 'catppuccin' })
 
 	-- snippets
 	use 'L3MON4D3/LuaSnip'
@@ -106,6 +106,9 @@ packer.startup(function(use)
 		require('packer').sync()
 	end
 end)
+
+vim.g.catppuccin_flavour = 'mocha'
+require('catppuccin').setup()
 
 vim.cmd 'colorscheme catppuccin'
 

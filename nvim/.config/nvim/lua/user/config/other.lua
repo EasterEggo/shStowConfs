@@ -1,53 +1,13 @@
-_G.__luacache_config = {
-  chunks = {
-    enable = true,
-    path = vim.fn.stdpath('cache')..'/luacache_chunks',
-  },
-  modpaths = {
-    enable = true,
-    path = vim.fn.stdpath('cache')..'/luacache_modpaths',
-  }
-}
+local nvimTree = require('nvim-tree')
+local colorizer = require('colorizer')
+local indent_blankline = require('indent_blankline')
+local autopairs = require('nvim-autopairs')
+local whichKey = require('which-key')
+local alpha = require('alpha')
+local comment = require('Comment')
+local telescope = require('telescope')
 
-local status_ok, nTree = pcall(require, 'nvim-tree')
-if not status_ok then
-	return
-end
-local status_ok1, colorizer = pcall(require, 'colorizer')
-if not status_ok then
-	return
-end
-local status_ok2, indent_blankline = pcall(require, 'indent_blankline')
-if not status_ok then
-	return
-end
-local status_ok3, autopairs = pcall(require, 'nvim-autopairs')
-if not status_ok then
-	return
-end
-local status_ok4, whichKey = pcall(require, 'which-key')
-if not status_ok then
-	return
-end
-local status_ok5, alpha = pcall(require, 'alpha')
-if not status_ok then
-	return
-end
-local status_ok6, comment = pcall(require, 'Comment')
-if not status_ok then
-	return
-end
-local status_ok7, telescope = pcall(require, 'telescope')
-if not status_ok then
-	return
-end
-
-local status_ok8, impatient = pcall(require, 'impatient')
-if not status_ok then
-	return
-end
-
-nTree.setup()
+nvimTree.setup()
 colorizer.setup()
 indent_blankline.setup({
 	show_current_context = true,
@@ -55,6 +15,6 @@ indent_blankline.setup({
 })
 autopairs.setup()
 whichKey.setup()
-alpha.setup(require('alpha.themes.startify').config)
+alpha.setup(require('alpha.themes.dashboard').config)
 comment.setup()
 telescope.load_extension 'media_files'
