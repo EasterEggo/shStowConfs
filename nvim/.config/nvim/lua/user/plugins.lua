@@ -70,7 +70,9 @@ packer.startup(function(use)
 		'jose-elias-alvarez/null-ls.nvim',
 	})
 
+	-- git
 	use 'lewis6991/gitsigns.nvim'
+	use 'tpope/vim-fugitive'
 
 	-- file explorer
 	use 'kyazdani42/nvim-tree.lua'
