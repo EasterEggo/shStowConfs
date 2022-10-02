@@ -40,7 +40,6 @@ packer.init({
 
 -- Install your plugins here
 packer.startup(function(use)
-
 	-- core
 	use 'wbthomason/packer.nvim'
 	use 'kyazdani42/nvim-web-devicons'
@@ -53,6 +52,7 @@ packer.startup(function(use)
 	-- fuzzy finder
 	use({
 		'nvim-telescope/telescope-media-files.nvim',
+		'nvim-telescope/telescope-file-browser.nvim',
 		'nvim-telescope/telescope.nvim',
 	})
 
@@ -72,7 +72,6 @@ packer.startup(function(use)
 
 	-- git
 	use 'lewis6991/gitsigns.nvim'
-	use 'tpope/vim-fugitive'
 
 	-- file explorer
 	use 'kyazdani42/nvim-tree.lua'
@@ -80,7 +79,7 @@ packer.startup(function(use)
 	-- utils
 	use 'windwp/nvim-autopairs'
 	use 'akinsho/toggleterm.nvim'
-	use 'norcalli/nvim-colorizer.lua'
+	use({ 'uga-rosa/ccc.nvim', branch = '0.7.2' })
 	use 'lukas-reineke/indent-blankline.nvim'
 	use 'folke/which-key.nvim'
 	use 'numToStr/Comment.nvim'
@@ -93,6 +92,8 @@ packer.startup(function(use)
 
 	-- colorschemes
 	use({ 'catppuccin/nvim', as = 'catppuccin' })
+	use 'RRethy/nvim-base16'
+	use 'folke/tokyonight.nvim'
 
 	-- snippets
 	use 'L3MON4D3/LuaSnip'
@@ -104,6 +105,9 @@ packer.startup(function(use)
 	-- tabs
 	use 'akinsho/bufferline.nvim'
 
+	-- note taking
+	use 'mickael-menu/zk-nvim'
+
 	if PACKER_BOOTSTRAP then
 		require('packer').sync()
 	end
@@ -112,7 +116,7 @@ end)
 vim.g.catppuccin_flavour = 'mocha'
 require('catppuccin').setup()
 
-vim.cmd 'colorscheme catppuccin'
+vim.cmd 'colorscheme tokyonight-night'
 
 require 'user.config.cmp'
 require 'user.config.feline'

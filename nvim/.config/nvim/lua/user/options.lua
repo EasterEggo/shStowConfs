@@ -2,6 +2,7 @@ local options = {
 	backup = false,
 	completeopt = { 'menuone', 'noselect' },
 	conceallevel = 0,
+	autochdir = true,
 	ignorecase = true,
 	pumheight = 10,
 	showmode = false,

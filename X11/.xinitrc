@@ -13,7 +13,7 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill wallpapers/2.png &
+feh --bg-fill wallpapers/Big\ macOS\ Sur-8.jpg
 
 #/usr/bin/emacs --daemon &
 

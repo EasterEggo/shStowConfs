@@ -101,7 +101,7 @@ screens = [
                 widget.WindowName(),
                 widget.Systray(),
                 widget.Wttr(
-                    location={"Santo André": "Santo Andre"},
+                    location={"Santo-Andre": "Santo Andre"},
                     format="%c%t",
                 ),
                 widget.CheckUpdates(

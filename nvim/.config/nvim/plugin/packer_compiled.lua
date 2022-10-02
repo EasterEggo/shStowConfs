@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/catppuccin",
     url = "https://github.com/catppuccin/nvim"
   },
+  ["ccc.nvim"] = {
+    loaded = true,
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/ccc.nvim",
+    url = "https://github.com/uga-rosa/ccc.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -154,15 +159,15 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
+  ["nvim-base16"] = {
+    loaded = true,
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-base16",
+    url = "https://github.com/RRethy/nvim-base16"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
-  },
-  ["nvim-colorizer.lua"] = {
-    loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
-    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
@@ -209,6 +214,11 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
   },
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
+  },
   ["telescope-media-files.nvim"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/telescope-media-files.nvim",
@@ -224,15 +234,20 @@ _G.packer_plugins = {
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-fugitive"] = {
+  ["tokyonight.nvim"] = {
     loaded = true,
-    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["which-key.nvim"] = {
     loaded = true,
     path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/which-key.nvim",
     url = "https://github.com/folke/which-key.nvim"
+  },
+  ["zk-nvim"] = {
+    loaded = true,
+    path = "/home/easteregg/.local/share/nvim/site/pack/packer/start/zk-nvim",
+    url = "https://github.com/mickael-menu/zk-nvim"
   }
 }
 
