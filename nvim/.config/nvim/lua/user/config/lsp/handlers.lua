@@ -84,7 +84,7 @@ end
 M.on_attach = function(client, bufnr)
 	local function ignore_formatting(lsp_client_name)
 		if client.name == lsp_client_name then
-			client.resolved_capabilities.document_formatting = false
+			client.server_capabilities.document_formatting = false
 		end
 	end
 
