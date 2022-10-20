@@ -70,7 +70,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.MonadTall(),
+    layout.MonadTall(margin=15),
     layout.Max(),
     # layout.Columns(),
     # layout.Stack(num_stacks=2),
