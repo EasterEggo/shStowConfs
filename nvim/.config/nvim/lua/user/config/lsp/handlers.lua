@@ -1,8 +1,9 @@
 local M = {}
 
-local lsp_buf = '<cmd>lua vim.lsp.buf'
-local vim_diag = '<cmd>lua vim.diagnostic'
-local set_keymap = vim.api.nvim_buf_set_keymap
+local status_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+if not status_ok then
+	return
+end
 
 M.setup = function()
 	local signs = {
@@ -64,16 +65,21 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
+	local vim_diag = '<cmd>lua vim.diagnostic'
+	local lsp_buf = '<cmd>lua vim.lsp.buf'
+	local set_keymap = vim.api.nvim_buf_set_keymap
+
 	local opts = { noremap = true, silent = true }
+
 	set_keymap(bufnr, 'n', 'gD', lsp_buf .. 'declaration()<CR>', opts)
 	set_keymap(bufnr, 'n', 'gd', lsp_buf .. '.definition()<CR>', opts)
 	set_keymap(bufnr, 'n', 'K', lsp_buf .. '.hover()<CR>', opts)
 	set_keymap(bufnr, 'n', 'gi', lsp_buf .. '.implementation()<CR>', opts)
 	set_keymap(bufnr, 'n', '<C-k>', lsp_buf .. '.signature_help()<CR>', opts)
-	-- set_mapkey(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	set_keymap(bufnr, 'n', 'gr', lsp_buf .. '.references()<CR>', opts)
-	-- set_mapkey(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	-- set_mapkey(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	set_keymap(bufnr, 'n', '<leader>ca', lsp_buf .. '.code_action()<CR>', opts)
+	set_keymap(bufnr, 'n', '<leader>f', vim_diag .. '.open_float()<CR>', opts)
 	set_keymap(bufnr, 'n', '[d', vim_diag .. '.goto_prev({ border = "rounded" })<CR>', opts)
 	set_keymap(bufnr, 'n', 'gl', vim_diag .. '.open_float({ border = "rounded" })<CR>', opts)
 	set_keymap(bufnr, 'n', ']d', vim_diag .. '.goto_next({ border = "rounded" })<CR>', opts)
@@ -89,20 +95,11 @@ M.on_attach = function(client, bufnr)
 	end
 
 	ignore_formatting 'sumneko_lua'
-	ignore_formatting 'pylsp'
-	ignore_formatting 'tsserver'
 
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-local status_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-if not status_ok then
-	return
-end
-
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities()
 
 return M

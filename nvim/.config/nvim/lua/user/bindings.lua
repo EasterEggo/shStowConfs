@@ -5,8 +5,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 bind('', '<Space>', '<Nop>', opts)
-bind('n', '<leader>,', ':lua vim.lsp.buf.formatting_sync() <CR>', opts)
-bind('n', '<leader>g', ':Git <CR>', opts)
+bind('n', '<leader>,', ':lua vim.lsp.buf.format() <CR>', opts)
+bind('n', '<leader>g', ':TermExec cmd=lazygit <CR>', opts)
 
 -- Better window navigation
 bind('n', '<C-h>', '<C-w>h', opts)
@@ -32,3 +32,11 @@ bind('n', '<leader>zn', ':ZkNew <CR>', opts)
 bind('n', '<leader>zb', ':ZkBacklinks <CR>', opts)
 bind('n', '<leader>zl', ':ZkLinks <CR>', opts)
 bind('n', '<leader>zt', ':ZkTags <CR>', opts)
+bind('n', '<leader>zp', ':MarkdownPreviewToggle <CR>', opts)
+
+-- dap
+bind('n', '<leader>db', ':DapToggleBreakpoint <CR>', opts)
+bind('n', '<leader>dd', ':DapContinue <CR>', opts)
+
+-- ccc
+bind('n', '<leader>p', ':CccPick <CR>', opts)

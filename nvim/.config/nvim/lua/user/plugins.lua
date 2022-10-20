@@ -58,16 +58,18 @@ packer.startup(function(use)
 
 	-- lsp and completion
 	use({
-		'hrsh7th/cmp-nvim-lsp',
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim',
+		'jose-elias-alvarez/null-ls.nvim',
+		'jayp0521/mason-null-ls.nvim',
 		'neovim/nvim-lspconfig',
-		'williamboman/nvim-lsp-installer',
 
+		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-buffer',
 		'hrsh7th/cmp-path',
 		'hrsh7th/cmp-cmdline',
 		'hrsh7th/nvim-cmp',
 		'saadparwaiz1/cmp_luasnip',
-		'jose-elias-alvarez/null-ls.nvim',
 	})
 
 	-- git
@@ -107,6 +109,16 @@ packer.startup(function(use)
 
 	-- note taking
 	use 'mickael-menu/zk-nvim'
+	use({
+		'iamcco/markdown-preview.nvim',
+		run = function()
+			vim.fn['mkdp#util#install']()
+		end,
+	})
+
+	-- debugging
+	use 'mfussenegger/nvim-dap'
+	use 'rcarriga/nvim-dap-ui'
 
 	if PACKER_BOOTSTRAP then
 		require('packer').sync()
@@ -119,10 +131,10 @@ require('catppuccin').setup()
 vim.cmd 'colorscheme tokyonight-night'
 
 require 'user.config.cmp'
+require 'user.config.lsp'
 require 'user.config.feline'
 require 'user.config.toggleterm'
 require 'user.config.gitsigns'
 require 'user.config.treesitter'
-require 'user.config.lsp'
 require 'user.config.other'
 require 'user.config.bufferline'

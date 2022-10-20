@@ -1,18 +1,18 @@
-local stats_ok, null_ls = pcall(require, 'null-ls')
-if not stats_ok then
-	return
-end
-
 local completion = null_ls.builtins.completion
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
 
-null_ls.setup({
-	sources = {
-		formatting.stylua,
-		formatting.prettier,
-		formatting.black,
-		formatting.uncrustify,
-	},
+mnulls.setup({
+	ensure_installed = {'stylua'},
+	automatic_installation = true,
 })
+mnulls.setup_handlers {
+	stylua = function ()
+		null_ls.register(formatting.stylua)
+	end,
+	cpplint = function ()
+		null_ls.register(diagnostics.cpplint)
+	end,
+}
+null_ls.setup()
