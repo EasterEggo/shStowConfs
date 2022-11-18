@@ -13,7 +13,9 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill wallpapers/Big\ macOS\ Sur-8.jpg
+feh --bg-fill ~/wallpapers/catppuccin-arch-dark.png &
+
+dunst &
 
 #/usr/bin/emacs --daemon &
 
@@ -22,3 +24,4 @@ feh --bg-fill wallpapers/Big\ macOS\ Sur-8.jpg
 #exec /usr/bin/awesome
 /usr/bin/qtile start
 # exec budgie-desktop
+

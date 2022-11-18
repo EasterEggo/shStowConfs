@@ -1,22 +1,3 @@
-dap.adapters.lldb = {
-	type = 'executable',
-	command = '/usr/bin/lldb-vscode',
-	name = 'lldb'
-}
-dap.configurations.cpp = {
-{
-	name = "Launch",
-	type = "lldb",
-	request = "launch",
-	program = function()
-		return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-	end,
-	cwd = '${workspaceFolder}',
-	stopOnEntry = false,
-},}
-dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
-
 require("dapui").setup({
   icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
   mappings = {
@@ -89,3 +70,22 @@ require("dapui").setup({
     max_value_lines = 100, -- Can be integer or nil.
   }
 })
+
+dap.adapters.lldb = {
+	type = 'executable',
+	command = '/usr/bin/lldb-vscode',
+	name = 'lldb'
+}
+dap.configurations.cpp = {
+{
+	name = "Launch",
+	type = "lldb",
+	request = "launch",
+	program = function()
+		return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+	end,
+	cwd = '${workspaceFolder}',
+	stopOnEntry = false,
+},}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp

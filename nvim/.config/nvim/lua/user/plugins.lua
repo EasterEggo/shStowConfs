@@ -85,6 +85,7 @@ packer.startup(function(use)
 	use 'lukas-reineke/indent-blankline.nvim'
 	use 'folke/which-key.nvim'
 	use 'numToStr/Comment.nvim'
+	use 'jghauser/mkdir.nvim'
 
 	-- treesitter
 	use({
@@ -128,7 +129,7 @@ end)
 vim.g.catppuccin_flavour = 'mocha'
 require('catppuccin').setup()
 
-vim.cmd 'colorscheme tokyonight-night'
+vim.cmd 'colorscheme catppuccin'
 
 require 'user.config.cmp'
 require 'user.config.lsp'
