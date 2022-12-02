@@ -12,6 +12,7 @@ udiskie-mount --all &
 xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
+xsetwacom set 22 Rotate half &
 
 feh --bg-fill ~/wallpapers/catppuccin-arch-dark.png &
 
@@ -24,4 +25,4 @@ dunst &
 #exec /usr/bin/awesome
 /usr/bin/qtile start
 # exec budgie-desktop
-
+# exec gnome-session

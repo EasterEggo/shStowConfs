@@ -8,6 +8,13 @@ terminal = guess_terminal()
 
 keys = [
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
+    Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toggle")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 10%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 10%-")),
+
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
