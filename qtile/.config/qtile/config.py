@@ -107,14 +107,18 @@ screens = [
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Systray(),
+                widget.Sep(),
+                widget.CheckUpdates(
+                    distro="Arch_yay",
+                    display_format=" {updates}",
+                    no_update_string =" 0",
+                ),
+                widget.Sep(),
                 widget.Wttr(
-                    location={"Santo-Andre": "Santo Andre"},
+                    location={"-23.6753275,-46.5131238": "City"},
                     format="%c%t",
                 ),
-                widget.CheckUpdates(
-                    distro="Arch_paru",
-                    display_format=" {updates}",
-                ),
+
                 widget.Sep(),
                 widget.DF(
                     warn_space=0,
