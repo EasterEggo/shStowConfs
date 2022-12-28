@@ -2,8 +2,8 @@
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 pipewire &
-pipewire-media-session &
 pipewire-pulse &
+pipewire-media-session &
 
 picom &
 
@@ -12,17 +12,15 @@ udiskie-mount --all &
 xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
-xsetwacom set 22 Rotate half &
 
-feh --bg-fill ~/wallpapers/catppuccin-arch-dark.png &
+feh --bg-fill ~/wallpapers/arch_gruvbox.png
+
+# odd issue with programs taking too long to launch
+systemctl --user import-environment DISPLAY XAUTHORITY
+dbus-update-activation-environment DISPLAY XAUTHORITY
 
 dunst &
 
-#/usr/bin/emacs --daemon &
-
 #~/.config/dwm-6.2/dwbar &
 #exec /usr/local/bin/dwm
-#exec /usr/bin/awesome
 /usr/bin/qtile start
-# exec budgie-desktop
-# exec gnome-session
