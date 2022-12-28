@@ -12,17 +12,16 @@ local lspicons = {
 }
 
 local colors = {
-	bg = '#161320',
+	bg = '#1d2021',
 	fg = '#D9E0EE',
-	yellow = '#FAE3B0',
+	yellow = '#d8a657',
 	cyan = '#96CDFB',
 	gray = '#6E6C7E',
-	green = '#ABE9B3',
-	orange = '#F8BD96',
-	violet = '#F2CDCD',
-	magenta = '#DDB6F2',
-	blue = '#89DCEB',
-	red = '#F28FAD',
+	green = '#a9b665',
+	orange = '#e78a4e',
+	magenta = '#d3869b',
+	blue = '#7daea3',
+	red = '#ea6962',
 }
 
 local vi_mode_utils = require 'feline.providers.vi_mode'

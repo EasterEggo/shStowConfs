@@ -1,6 +1,5 @@
 local fn = vim.fn
 
--- Automatically install packer
 local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
 	PACKER_BOOTSTRAP = fn.system({
@@ -23,7 +22,6 @@ vim.cmd [[
    augroup end
  ]]
 
--- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, 'packer')
 if not status_ok then
 	return
@@ -63,6 +61,7 @@ packer.startup(function(use)
 		'jose-elias-alvarez/null-ls.nvim',
 		'jayp0521/mason-null-ls.nvim',
 		'neovim/nvim-lspconfig',
+		'SmiteshP/nvim-navic',
 
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-buffer',
@@ -72,12 +71,6 @@ packer.startup(function(use)
 		'saadparwaiz1/cmp_luasnip',
 	})
 
-	-- git
-	use 'lewis6991/gitsigns.nvim'
-
-	-- file explorer
-	use 'kyazdani42/nvim-tree.lua'
-
 	-- utils
 	use 'windwp/nvim-autopairs'
 	use 'akinsho/toggleterm.nvim'
@@ -85,7 +78,9 @@ packer.startup(function(use)
 	use 'lukas-reineke/indent-blankline.nvim'
 	use 'folke/which-key.nvim'
 	use 'numToStr/Comment.nvim'
+	use 'phaazon/hop.nvim'
 	use 'jghauser/mkdir.nvim'
+	use 'ahmedkhalf/project.nvim'
 
 	-- treesitter
 	use({
@@ -96,7 +91,6 @@ packer.startup(function(use)
 	-- colorschemes
 	use({ 'catppuccin/nvim', as = 'catppuccin' })
 	use 'RRethy/nvim-base16'
-	use 'folke/tokyonight.nvim'
 
 	-- snippets
 	use 'L3MON4D3/LuaSnip'
@@ -120,16 +114,18 @@ packer.startup(function(use)
 	-- debugging
 	use 'mfussenegger/nvim-dap'
 	use 'rcarriga/nvim-dap-ui'
+	use 'jayp0521/mason-nvim-dap.nvim'
 
 	if PACKER_BOOTSTRAP then
 		require('packer').sync()
 	end
 end)
 
-vim.g.catppuccin_flavour = 'mocha'
-require('catppuccin').setup()
-
-vim.cmd 'colorscheme catppuccin'
+vim.cmd 'let g:gruvbox_material_background = "soft"'
+vim.cmd 'colorscheme base16-gruvbox-material-dark-medium'
+vim.g.mapleader = ' '
+Opts = { noremap = true, silent = true }
+Bind = vim.api.nvim_set_keymap
 
 require 'user.config.cmp'
 require 'user.config.lsp'
@@ -139,3 +135,4 @@ require 'user.config.gitsigns'
 require 'user.config.treesitter'
 require 'user.config.other'
 require 'user.config.bufferline'
+require 'user.config.telescope'

@@ -30,7 +30,7 @@ mlsp.setup({
 })
 mlsp.setup_handlers({
 	function(server_name)
-		require('lspconfig')[server_name].setup({
+		lspconfig[server_name].setup({
 			on_attach = opts.on_attach,
 			capabilities = opts.capabilities,
 		})

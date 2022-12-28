@@ -14,3 +14,6 @@ require('bufferline').setup({
 		numbers = 'none',
 	},
 })
+
+Bind('n', '<leader>bb', ':BufferLinePickClose <CR>', Opts)
+Bind('n', '<leader>be', ':BufferLinePick <CR>', Opts)

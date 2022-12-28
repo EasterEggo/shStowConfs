@@ -10,14 +10,14 @@ if not masonlsp_ok then
 	return
 end
 
-status_ok, lspconfig = pcall(require, 'lspconfig')
-if not status_ok then
+lsp_ok, lspconfig = pcall(require, 'lspconfig')
+if not lsp_ok then
 	vim.notify("problem with lspconfig")
 	return
 end
 
-stats_ok, null_ls = pcall(require, 'null-ls')
-if not stats_ok then
+null_ok, null_ls = pcall(require, 'null-ls')
+if not null_ok then
 	return
 end
 
@@ -27,7 +27,21 @@ if not masonnull_ok then
 end
 
 dap_ok, dap = pcall(require, 'dap')
-if not masonnull_ok then
+if not dap_ok then
 	return
 end
 
+dapui_ok, dapui = pcall(require, 'dapui')
+if not dapui_ok then
+	return
+end
+
+masondap_ok, mdap = pcall(require, 'mason-nvim-dap')
+if not masondap_ok then
+	return
+end
+
+nav_ok, navic = pcall(require, 'nvim-navic')
+if not nav_ok then
+	return
+end
