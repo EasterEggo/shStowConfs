@@ -15,5 +15,5 @@ require('bufferline').setup({
 	},
 })
 
-Bind('n', '<leader>bb', ':BufferLinePickClose <CR>', Opts)
-Bind('n', '<leader>be', ':BufferLinePick <CR>', Opts)
+Bind('n', '<leader>bb', ':BufferLinePick <CR>', Opts)
+Bind('n', '<leader>bd', ':BufferLinePickClose <CR>', Opts)

@@ -81,6 +81,7 @@ packer.startup(function(use)
 	use 'phaazon/hop.nvim'
 	use 'jghauser/mkdir.nvim'
 	use 'ahmedkhalf/project.nvim'
+	use 'mbbill/undotree'
 
 	-- treesitter
 	use({
@@ -103,13 +104,7 @@ packer.startup(function(use)
 	use 'akinsho/bufferline.nvim'
 
 	-- note taking
-	use 'mickael-menu/zk-nvim'
-	use({
-		'iamcco/markdown-preview.nvim',
-		run = function()
-			vim.fn['mkdp#util#install']()
-		end,
-	})
+	use 'vimwiki/vimwiki'
 
 	-- debugging
 	use 'mfussenegger/nvim-dap'
@@ -127,12 +122,17 @@ vim.g.mapleader = ' '
 Opts = { noremap = true, silent = true }
 Bind = vim.api.nvim_set_keymap
 
-require 'user.config.cmp'
-require 'user.config.lsp'
-require 'user.config.feline'
-require 'user.config.toggleterm'
-require 'user.config.gitsigns'
-require 'user.config.treesitter'
-require 'user.config.other'
-require 'user.config.bufferline'
-require 'user.config.telescope'
+local req = {
+    'cmp',
+    'lsp',
+    'feline',
+    'toggleterm',
+    'gitsigns',
+    'treesitter',
+    'other',
+    'bufferline',
+    'telescope',
+}
+for _, pkg in ipairs(req) do
+    pcall(require, 'user.config.' .. pkg)
+end

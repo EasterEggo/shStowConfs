@@ -7,10 +7,9 @@ require('telescope').setup({
 })
 telescope.load_extension 'media_files'
 telescope.load_extension 'file_browser'
-telescope.load_extension 'zk'
 telescope.load_extension 'projects'
 
-Bind('n', '<leader>.', ':Telescope file_browser <CR>', Opts)
+-- Bind('n', '<leader>.', ':Telescope file_browser <CR>', Opts)
 Bind('n', '<leader>tt', ':Telescope <CR>', Opts)
 Bind('n', '<leader>tc', ':Telescope colorscheme <CR>', Opts)
 Bind('n', '<leader>tg', ':Telescope live_grep <CR>', Opts)

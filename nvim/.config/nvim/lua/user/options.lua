@@ -8,21 +8,34 @@ local options = {
 	showmode = false,
 	smartcase = true,
 	smartindent = true,
-	splitbelow = true,
-	splitright = true,
 	swapfile = false,
 	termguicolors = true,
-	relativenumber = true,
 	timeoutlen = 100,
-	undofile = true,
-	updatetime = 300,
+	updatetime = 50,
 	writebackup = false,
 	cursorline = true,
+	wrap = false,
+
+	relativenumber = true,
 	number = true,
 	numberwidth = 4,
+
 	signcolumn = 'yes',
 	scrolloff = 8,
 	sidescrolloff = 8,
+
+	hlsearch = false,
+	incsearch = true,
+
+	tabstop = 4,
+	shiftwidth = 4,
+	softtabstop = 4,
+	expandtab = true,
+
+	undodir = os.getenv 'HOME' .. '/.config/nvim/undodir/',
+	undofile = true,
+
+	colorcolumn = '95',
 }
 
 vim.opt.shortmess:append 'c'

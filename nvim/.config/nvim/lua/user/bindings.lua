@@ -1,3 +1,4 @@
+vim.cmd [[autocmd FileType netrw setl bufhidden=wipe]]
 Bind('', '<Space>', '<Nop>', Opts)
 Bind('n', '<leader>,', ':lua vim.lsp.buf.format() <CR>', Opts)
 Bind('n', '<leader>g', ':TermExec cmd=lazygit <CR>', Opts)
@@ -10,6 +11,12 @@ Bind('n', '<C-l>', '<C-w>l', Opts)
 
 -- ccc
 Bind('n', '<leader>p', ':CccPick <CR>', Opts)
+
+-- undo tree
+Bind('n', '<leader>u', ':UndotreeToggle <CR>', Opts)
+
+-- netwr
+Bind('n', '<leader>.', ':Ex <CR>', Opts)
 
 -- hop
 Bind('n', '<leader>hh', ':HopWord <CR>', Opts)
