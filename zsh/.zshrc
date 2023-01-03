@@ -58,6 +58,8 @@ bindkey '^[[B' history-substring-search-down
 
 alias ls='exa --icons'
 alias cat='bat'
+alias nv='nvim'
+alias nf='nerdfetch'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

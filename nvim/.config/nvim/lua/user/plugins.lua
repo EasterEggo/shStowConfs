@@ -53,6 +53,7 @@ require('lazy').setup({
 	'jghauser/mkdir.nvim',
 	'ahmedkhalf/project.nvim',
 	'mbbill/undotree',
+    'lewis6991/gitsigns.nvim',
 
 	-- treesitter
 	'p00f/nvim-ts-rainbow',
