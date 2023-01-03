@@ -5,7 +5,6 @@ local autopairs = require 'nvim-autopairs'
 local whichKey = require 'which-key'
 local alpha = require 'alpha'
 local comment = require 'Comment'
-local hop = require 'hop'
 
 project.setup({ show_hidden = true })
 indent_blankline.setup({
@@ -17,8 +16,4 @@ whichKey.setup()
 alpha.setup(require('alpha.themes.startify').config)
 comment.setup()
 
-ccc.setup({
-	highlighter = { auto_enable = true },
-})
-
-hop.setup()
+ccc.setup({ highlighter = { auto_enable = true } })

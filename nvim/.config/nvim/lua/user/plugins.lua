@@ -1,138 +1,100 @@
-local fn = vim.fn
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
-local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-	PACKER_BOOTSTRAP = fn.system({
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
 		'git',
 		'clone',
-		'--depth',
-		'1',
-		'https://github.com/wbthomason/packer.nvim',
-		install_path,
+		'--filter=blob:none',
+		'https://github.com/folke/lazy.nvim.git',
+		'--branch=stable', -- latest stable release
+		lazypath,
 	})
-	print 'Installing packer close and reopen Neovim...'
-	vim.cmd [[packadd packer.nvim]]
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-   augroup packer_user_config
-     autocmd!
-     autocmd BufWritePost plugins.lua source <afile> | PackerSync
-   augroup end
- ]]
+vim.g.mapleader = ' '
 
-local status_ok, packer = pcall(require, 'packer')
-if not status_ok then
-	return
-end
-
--- Have packer use a popup window
-packer.init({
-	display = {
-		open_fn = function()
-			return require('packer.util').float({ border = 'rounded' })
-		end,
-	},
-})
-
--- Install your plugins here
-packer.startup(function(use)
+require('lazy').setup({
 	-- core
-	use 'wbthomason/packer.nvim'
-	use 'kyazdani42/nvim-web-devicons'
-	use 'nvim-lua/plenary.nvim'
-	use 'nvim-lua/popup.nvim'
+	'kyazdani42/nvim-web-devicons',
+	'nvim-lua/plenary.nvim',
+	'nvim-lua/popup.nvim',
 
 	-- dashboard
-	use 'goolord/alpha-nvim'
+	'goolord/alpha-nvim',
 
 	-- fuzzy finder
-	use({
-		'nvim-telescope/telescope-media-files.nvim',
-		'nvim-telescope/telescope-file-browser.nvim',
-		'nvim-telescope/telescope.nvim',
-	})
+	'nvim-telescope/telescope-media-files.nvim',
+	'nvim-telescope/telescope-file-browser.nvim',
+	'nvim-telescope/telescope.nvim',
 
 	-- lsp and completion
-	use({
-		'williamboman/mason.nvim',
-		'williamboman/mason-lspconfig.nvim',
-		'jose-elias-alvarez/null-ls.nvim',
-		'jayp0521/mason-null-ls.nvim',
-		'neovim/nvim-lspconfig',
-		'SmiteshP/nvim-navic',
+	'williamboman/mason.nvim',
+	'williamboman/mason-lspconfig.nvim',
+	'jose-elias-alvarez/null-ls.nvim',
+	'jayp0521/mason-null-ls.nvim',
+	'neovim/nvim-lspconfig',
+	'SmiteshP/nvim-navic',
 
-		'hrsh7th/cmp-nvim-lsp',
-		'hrsh7th/cmp-buffer',
-		'hrsh7th/cmp-path',
-		'hrsh7th/cmp-cmdline',
-		'hrsh7th/nvim-cmp',
-		'saadparwaiz1/cmp_luasnip',
-	})
+	'hrsh7th/cmp-nvim-lsp',
+	'hrsh7th/cmp-buffer',
+	'hrsh7th/cmp-path',
+	'hrsh7th/cmp-cmdline',
+	'hrsh7th/nvim-cmp',
+	'saadparwaiz1/cmp_luasnip',
 
 	-- utils
-	use 'windwp/nvim-autopairs'
-	use 'akinsho/toggleterm.nvim'
-	use({ 'uga-rosa/ccc.nvim', branch = '0.7.2' })
-	use 'lukas-reineke/indent-blankline.nvim'
-	use 'folke/which-key.nvim'
-	use 'numToStr/Comment.nvim'
-	use 'phaazon/hop.nvim'
-	use 'jghauser/mkdir.nvim'
-	use 'ahmedkhalf/project.nvim'
-	use 'mbbill/undotree'
+	'windwp/nvim-autopairs',
+	'akinsho/toggleterm.nvim',
+	{ 'uga-rosa/ccc.nvim', branch = '0.7.2' },
+	'lukas-reineke/indent-blankline.nvim',
+	'folke/which-key.nvim',
+	'numToStr/Comment.nvim',
+	'jghauser/mkdir.nvim',
+	'ahmedkhalf/project.nvim',
+	'mbbill/undotree',
 
 	-- treesitter
-	use({
-		'p00f/nvim-ts-rainbow',
-		{ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
-	})
+	'p00f/nvim-ts-rainbow',
+	{ 'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate' },
 
 	-- colorschemes
-	use({ 'catppuccin/nvim', as = 'catppuccin' })
-	use 'RRethy/nvim-base16'
+	{ 'RRethy/nvim-base16', lazy = false },
 
 	-- snippets
-	use 'L3MON4D3/LuaSnip'
-	use 'rafamadriz/friendly-snippets'
+	'L3MON4D3/LuaSnip',
+	'rafamadriz/friendly-snippets',
 
 	-- status bar
-	use 'feline-nvim/feline.nvim'
+	'feline-nvim/feline.nvim',
 
 	-- tabs
-	use 'akinsho/bufferline.nvim'
+	'akinsho/bufferline.nvim',
 
 	-- note taking
-	use 'vimwiki/vimwiki'
+	'vimwiki/vimwiki',
 
 	-- debugging
-	use 'mfussenegger/nvim-dap'
-	use 'rcarriga/nvim-dap-ui'
-	use 'jayp0521/mason-nvim-dap.nvim'
+	'mfussenegger/nvim-dap',
+	'rcarriga/nvim-dap-ui',
+	'jayp0521/mason-nvim-dap.nvim',
+})
 
-	if PACKER_BOOTSTRAP then
-		require('packer').sync()
-	end
-end)
-
-vim.cmd 'let g:gruvbox_material_background = "soft"'
 vim.cmd 'colorscheme base16-gruvbox-material-dark-medium'
-vim.g.mapleader = ' '
 Opts = { noremap = true, silent = true }
 Bind = vim.api.nvim_set_keymap
 
 local req = {
-    'cmp',
-    'lsp',
-    'feline',
-    'toggleterm',
-    'gitsigns',
-    'treesitter',
-    'other',
-    'bufferline',
-    'telescope',
+	'cmp',
+	'lsp',
+	'feline',
+	'toggleterm',
+	'gitsigns',
+	'treesitter',
+	'other',
+	'bufferline',
+	'telescope',
 }
 for _, pkg in ipairs(req) do
-    pcall(require, 'user.config.' .. pkg)
+	pcall(require, 'user.config.' .. pkg)
 end
