@@ -1,4 +1,7 @@
-local telescope = require 'telescope'
+local status_ok, telescope = pcall(require, 'telescope')
+if not status_ok then
+    return vim.notify('problem with telescope')
+end
 require('telescope').setup({
 	defaults = {
 		prompt_prefix = ' ',

@@ -1,3 +1,18 @@
+local mason_ok, mason = pcall(require, 'mason')
+if not mason_ok then
+	return vim.notify("problem with mason.nvim")
+end
+
+local masonlsp_ok, mlsp = pcall(require, 'mason-lspconfig')
+if not masonlsp_ok then
+	return vim.notify("problem with mason-lspconfig.nvim")
+end
+
+local lsp_ok, lspconfig = pcall(require, 'lspconfig')
+if not lsp_ok then
+	return vim.notify("problem with lspconfig")
+end
+
 local opts = {
 	on_attach = require('user.config.lsp.handlers').on_attach,
 	capabilities = require('user.config.lsp.handlers').capabilities,

@@ -1,3 +1,18 @@
+local dap_ok, dap = pcall(require, 'dap')
+if not dap_ok then
+	return vim.notify('problem with dap')
+end
+
+local dapui_ok, dapui = pcall(require, 'dapui')
+if not dapui_ok then
+	return vim.notify('problem with dapui')
+end
+
+local masondap_ok, mdap = pcall(require, 'mason-nvim-dap')
+if not masondap_ok then
+	return vim.notify('problem with mason-dap')
+end
+
 mdap.setup {
 	ensure_installed = {'codelldb'},
 	automatic_setup = true,

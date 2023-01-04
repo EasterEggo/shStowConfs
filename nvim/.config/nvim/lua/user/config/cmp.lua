@@ -1,10 +1,10 @@
 local status_ok, cmp = pcall(require, 'cmp')
 if not status_ok then
-	return
+	return vim.notify('problem with cmp')
 end
-local ln_status_ok, luasnip = pcall(require, 'luasnip')
-if not ln_status_ok then
-	return
+local ls_status_ok, luasnip = pcall(require, 'luasnip')
+if not ls_status_ok then
+	return vim.notify('problem with luasnip')
 end
 
 require('luasnip/loaders/from_vscode').lazy_load()
@@ -40,7 +40,7 @@ local kind_icons = {
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			require('luasnip').lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	window = {

@@ -88,10 +88,6 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-	if client.server_capabilities.documentSymbolProvider then
-        	navic.attach(client, bufnr)
-    	end
-
 	local function ignore_formatting(lsp_client_name)
 		if client.name == lsp_client_name then
 			client.server_capabilities.document_formatting = false

@@ -34,7 +34,6 @@ require('lazy').setup({
 	'jose-elias-alvarez/null-ls.nvim',
 	'jayp0521/mason-null-ls.nvim',
 	'neovim/nvim-lspconfig',
-	'SmiteshP/nvim-navic',
 
 	'hrsh7th/cmp-nvim-lsp',
 	'hrsh7th/cmp-buffer',
@@ -53,7 +52,7 @@ require('lazy').setup({
 	'jghauser/mkdir.nvim',
 	'ahmedkhalf/project.nvim',
 	'mbbill/undotree',
-    'lewis6991/gitsigns.nvim',
+	'lewis6991/gitsigns.nvim',
 
 	-- treesitter
 	'p00f/nvim-ts-rainbow',
@@ -97,5 +96,5 @@ local req = {
 	'telescope',
 }
 for _, pkg in ipairs(req) do
-	pcall(require, 'user.config.' .. pkg)
+	require ('user.config.' .. pkg)
 end
