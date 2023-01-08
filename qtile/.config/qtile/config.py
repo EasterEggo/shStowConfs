@@ -77,7 +77,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.MonadTall(margin=15),
+    layout.MonadTall(),
     layout.Max(),
     # layout.Columns(),
     # layout.Stack(num_stacks=2),
@@ -113,12 +113,6 @@ screens = [
                     display_format=" {updates}",
                     no_update_string =" 0",
                 ),
-                widget.Sep(),
-                widget.Wttr(
-                    location={"-23.6753275,-46.5131238": "City"},
-                    format="%c%t",
-                ),
-
                 widget.Sep(),
                 widget.DF(
                     warn_space=0,
