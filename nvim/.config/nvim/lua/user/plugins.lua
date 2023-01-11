@@ -73,6 +73,7 @@ require('lazy').setup({
 
 	-- note taking
 	'vimwiki/vimwiki',
+    'lervag/vimtex',
 
 	-- debugging
 	'mfussenegger/nvim-dap',

@@ -15,7 +15,6 @@ zstyle ':completion:*' menu select
 compinit
 _comp_options+=(globdots)
 
-export PATH="$PATH:$HOME/.local/bin/:$HOME/Documents/scripts/"
 
 source ~/.zplug/init.zsh
 
@@ -39,6 +38,7 @@ zplug load
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+export PATH="$PATH:$HOME/.local/bin/:$HOME/Documents/scripts/"
 export FZF_DEFAULT_COMMAND="fd -H"
 export FZF_DEFAULT_OPTS="-e -x --border --preview='bat --style=numbers --color=always --line-range :500 {}'"
 export EDITOR="nvim"
