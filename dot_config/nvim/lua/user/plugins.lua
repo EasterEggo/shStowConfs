@@ -82,7 +82,7 @@ require('lazy').setup({
 	'jayp0521/mason-nvim-dap.nvim',
 })
 
-vim.cmd 'colorscheme base16-catppuccin'
+vim.cmd 'colorscheme base16-rose-pine'
 Opts = { noremap = true, silent = true }
 Bind = vim.api.nvim_set_keymap
 

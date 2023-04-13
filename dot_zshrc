@@ -37,6 +37,7 @@ zplug load
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '\C-H' backward-kill-word
 
 export PATH="$PATH:$HOME/.local/bin/:$HOME/Documents/scripts/"
 export FZF_DEFAULT_COMMAND="fd -H"
@@ -56,5 +57,6 @@ fi
 # funtoo keychain
 eval `keychain --quiet --eval id_ed25519`
 pfetch | lolcat
+eval "$(zoxide init zsh)"
 
 eval "$(atuin init zsh)"

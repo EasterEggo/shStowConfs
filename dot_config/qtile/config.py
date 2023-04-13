@@ -1,7 +1,7 @@
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
+# from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = "tilix"
@@ -38,7 +38,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
@@ -66,7 +66,6 @@ for i in groups:
             ),
         ]
     )
-
 layouts = [
     layout.MonadTall(margin=20),
     layout.Max(),
@@ -81,6 +80,15 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
+
+groups.append(ScratchPad('scr', [
+                             DropDown('term', 'alacritty', height=0.8, y=0.1, opacity=0.90),
+                             DropDown('bitwarden', 'bitwarden-desktop', height=0.8, y=0.1, opacity=0.90),
+                         ]))
+keys.extend([
+                Key([mod], "Return", lazy.group['scr'].dropdown_toggle('term')),
+                Key([mod, "shift"], "p", lazy.group['scr'].dropdown_toggle('bitwarden'))
+            ])
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font Bold",
@@ -109,6 +117,7 @@ screens = [
                     warn_space=0,
                     visible_on_warn=False,
                     format=" {uf}G free",
+                    foreground="#787",
                 ),
                 widget.Sep(),
                 widget.Memory(format=" {MemUsed:.0f}M"),

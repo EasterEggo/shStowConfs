@@ -2,7 +2,6 @@
 .ccls-cache
 *.o
 .cache/
-dwm/.config/dwm-6.2/dwm
-nvim/.config/nvim/undodir
-nvim/.config/nvim/plugin
 dot_config/qtile/__pycache__
+dot_config/nvim/undodir
+dot_config/nvim/plugin
