@@ -149,9 +149,15 @@
   (meow-global-mode 1))
 
 (use-package vertico
-  :demand t
+  :elpaca (:files (:defaults "extensions/*"))
   :config
   (vertico-mode))
+(use-package vertico-directory
+  :after vertico
+  :elpaca nil
+  :bind (:map vertico-map
+	      ("RET" . vertico-directory-enter)
+	      ("DEL" . vertico-directory-delete-char)))
 (use-package embark-consult)
 (use-package embark)
 (use-package consult
@@ -197,7 +203,6 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
-         ;; Dailies
          ("C-c n j" . org-roam-dailies-capture-today))
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
