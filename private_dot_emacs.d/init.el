@@ -218,4 +218,3 @@
                            (platformio-conditionally-enable)))
 (use-package vterm
   :bind (("C-c t" . vterm-other-window)))
-
