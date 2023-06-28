@@ -1,9 +1,6 @@
 #!/bin/sh
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
-# pipewire &
-# pipewire-pulse &
-# pipewire-media-session &
 
 picom &
 
@@ -13,7 +10,7 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill ~/wallpapers/arch-catppuccin.png
+feh --bg-fill ~/wallpapers/x220.png
 
 # odd issue with programs taking too long to launch
 systemctl --user import-environment DISPLAY XAUTHORITY
@@ -24,7 +21,4 @@ sxhkd &
 
 xfce4-session &
 
-#~/.config/dwm-6.2/dwbar &
-#exec /usr/local/bin/dwm
-/usr/bin/qtile start
-# exec i3
+/usr/bin/xmonad

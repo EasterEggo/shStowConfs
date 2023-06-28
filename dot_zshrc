@@ -56,7 +56,5 @@ fi
 
 # funtoo keychain
 eval `keychain --quiet --eval id_ed25519`
-pfetch | lolcat
-eval "$(zoxide init zsh)"
 
 eval "$(atuin init zsh)"
