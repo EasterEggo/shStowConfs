@@ -21,4 +21,6 @@ sxhkd &
 
 xfce4-session &
 
+setxkbmap -layout us -model thinkpad60 -variant dvp -option lv3:ralt_switch
+
 /usr/bin/xmonad
