@@ -5,7 +5,7 @@
 (global-display-line-numbers-mode)
 (recentf-mode)
 (setq inhibit-startup-screen t)
-(set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 115)
+(set-face-attribute 'default nil :font "CommitMono" :height 100)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq make-backup-files nil)
 
