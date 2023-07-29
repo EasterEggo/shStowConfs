@@ -155,3 +155,8 @@
   :general
   (:states 'normal
 	   "<SPC>t" 'vterm-other-window))
+(use-package elfeed
+  :config
+  (setq elfeed-feeds
+	'(("https://hnrss.org/best" hackerNews best)
+	)))
