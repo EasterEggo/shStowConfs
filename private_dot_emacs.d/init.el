@@ -142,6 +142,11 @@
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((C . t)
+   (python . t)))
+
 (use-package emms
   :config (emms-all))
 
@@ -158,5 +163,14 @@
 (use-package elfeed
   :config
   (setq elfeed-feeds
-	'(("https://hnrss.org/best" hackerNews best)
-	)))
+	'(("https://hnrss.org/best" HN best)
+	  ("https://hnrss.org/frontpage" HN frontpage)
+	  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA" youtube mentalOutlaw)
+	  ))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :before "2 weeks ago"
+				:remove 'unread)))
+(use-package elfeed-goodies
+  :config (elfeed-goodies/setup))
+(use-package pdf-tools
+  :config (pdf-loader-install))
