@@ -15,7 +15,6 @@ zstyle ':completion:*' menu select
 compinit
 _comp_options+=(globdots)
 
-
 source ~/.zplug/init.zsh
 
 zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
@@ -60,3 +59,6 @@ pfetch | lolcat
 eval "$(zoxide init zsh)"
 
 eval "$(atuin init zsh)"
+
+source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+
