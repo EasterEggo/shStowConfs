@@ -15,7 +15,6 @@ zstyle ':completion:*' menu select
 compinit
 _comp_options+=(globdots)
 
-
 source ~/.zplug/init.zsh
 
 zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
@@ -61,3 +60,5 @@ eval `keychain --quiet --eval id_ed25519`
 eval "$(atuin init zsh)"
 
 [ -f "/home/easteregg/.ghcup/env" ] && source "/home/easteregg/.ghcup/env" # ghcup-env
+
+source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh

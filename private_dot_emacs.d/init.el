@@ -67,16 +67,19 @@
 (use-package modus-themes
   :config
   (setq modus-themes-common-palette-overrides
-      '((border-mode-line-active unspecified)
-        (border-mode-line-inactive unspecified)
-	(bg-mode-line-active bg-lavender)
-	(bg-region bg-ochre)
-        (fg-region unspecified)
-	(comment yellow-cooler)
-        (string green-cooler)))
+	'((border-mode-line-active unspecified)
+          (border-mode-line-inactive unspecified)
+	  (bg-mode-line-active bg-lavender)
+	  (bg-region bg-ochre)
+          (fg-region unspecified)
+	  (comment yellow-cooler)
+          (string green-cooler)))
   (load-theme 'modus-vivendi t))
 
 (use-package evil :config (evil-mode 1))
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
 
 (use-package vertico
   :elpaca (:files (:defaults "extensions/*"))
