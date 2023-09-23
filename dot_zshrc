@@ -45,6 +45,7 @@ export FZF_DEFAULT_OPTS="-e -x --border --preview='bat --style=numbers --color=a
 export EDITOR="nvim"
 export BROWSER="librewolf"
 export TERM="xterm-256color"
+export WPID="52"
 
 alias ls='exa --icons'
 alias cat='bat'
@@ -58,3 +59,5 @@ fi
 eval `keychain --quiet --eval id_ed25519`
 
 eval "$(atuin init zsh)"
+
+[ -f "/home/easteregg/.ghcup/env" ] && source "/home/easteregg/.ghcup/env" # ghcup-env

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
-
 picom &
 
 udiskie-mount --all &
@@ -10,17 +8,16 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill ~/wallpapers/x220.png
+feh --bg-fill ~/wallpapers/x220.png &
 
 # odd issue with programs taking too long to launch
-systemctl --user import-environment DISPLAY XAUTHORITY
-dbus-update-activation-environment DISPLAY XAUTHORITY
+systemctl --user import-environment DISPLAY XAUTHORITY &
+dbus-update-activation-environment DISPLAY XAUTHORITY &
 
 dunst &
-sxhkd &
 
 xfce4-session &
 
-setxkbmap -layout us -model thinkpad60 -variant dvp -option lv3:ralt_switch
+setxkbmap -layout us -model thinkpad60 -variant dvp -option lv3:ralt_switch &
 
-/usr/bin/xmonad
+exec /usr/bin/xmonad 

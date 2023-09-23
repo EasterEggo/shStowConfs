@@ -2,7 +2,8 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
-(global-display-line-numbers-mode)
+(pixel-scroll-precision-mode 1)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (recentf-mode)
 (setq inhibit-startup-screen t)
 (set-face-attribute 'default nil :font "CommitMono" :height 110)
@@ -109,8 +110,6 @@
   :config (which-key-mode))
 (use-package company
   :hook (elpaca-after-init . global-company-mode))
-(use-package lsp-mode
-  :hook (c-mode . lsp))
 (use-package lsp-ui
   :after lsp-mode
   :config
@@ -119,7 +118,6 @@
 (use-package tree-sitter
   :config (global-tree-sitter-mode)
   :hook (prog-mode . tree-sitter-hl-mode))
-(use-package tree-sitter-langs :after tree-sitter)
 (use-package magit)
 (use-package diff-hl :hook (elpaca-after-init . global-diff-hl-mode))
 (use-package doom-modeline
@@ -142,6 +140,7 @@
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+(setq org-src-preserve-indentation t)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((C . t)
