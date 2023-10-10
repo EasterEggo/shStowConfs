@@ -4,21 +4,13 @@
 (menu-bar-mode -1)
 (pixel-scroll-precision-mode 1)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setq visible-bell 1)
 (recentf-mode)
 (setq inhibit-startup-screen t)
 (set-face-attribute 'default nil :font "CommitMono" :height 110)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq make-backup-files nil)
 
-;; Minimize garbage collection during startup
-(setq gc-cons-threshold most-positive-fixnum)
-
-;; Lower threshold back to 8 MiB (default is 800kB)
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (expt 2 23))))
-
-(setq package-enable-at-startup nil)
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -46,7 +38,7 @@
                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
                  ((require 'elpaca))
                  ((elpaca-generate-autoloads "elpaca" repo)))
-            (kill-buffer buffer)
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
           (error "%s" (with-current-buffer buffer (buffer-string))))
       ((error) (warn "%s" err) (delete-directory repo 'recursive))))
   (unless (require 'elpaca-autoloads nil t)
@@ -55,6 +47,7 @@
     (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
+
 (elpaca elpaca-use-package
   (elpaca-use-package-mode)
   (setq elpaca-use-package-by-default t))
@@ -126,23 +119,15 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
+(setq org-agenda-files '("~/notes/agenda.org"))
 (use-package org-modern
   :hook (org-mode . org-modern-mode))
-(use-package org-roam
-  :custom
-  (org-roam-directory (file-truename "~/roam"))
-  :general
-  (:states 'normal
-	   :prefix "<SPC>n"
-	   "l" 'org-roam-buffer-toggle
-           "f" 'org-roam-node-find
-           "g" 'org-roam-graph
-           "i" 'org-roam-node-insert
-           "c" 'org-roam-capture
-           "j" 'org-roam-dailies-capture-today)
+
+(use-package denote
   :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode))
+  (setq denote-directory(expand-file-name "~/notes/")
+	denote-file-type nil))
+
 (setq org-src-preserve-indentation t)
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -176,3 +161,5 @@
   :config (elfeed-goodies/setup))
 (use-package pdf-tools
   :config (pdf-loader-install))
+
+(use-package org-drill)
