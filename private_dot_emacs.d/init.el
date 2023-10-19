@@ -127,7 +127,7 @@
   :config
   (setq denote-directory(expand-file-name "~/notes/")
 	denote-file-type nil))
-
+(setq org-hide-emphasis-markers t)
 (setq org-src-preserve-indentation t)
 (org-babel-do-load-languages
  'org-babel-load-languages
