@@ -1,3 +1,5 @@
+* Initial Setup
+#+begin_src emacs-lisp :tangle init.el
 (set-face-attribute 'default nil :font "HackNerdfontMono" :height 125)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq make-backup-files nil)
@@ -6,7 +8,10 @@
 (defun my/set-gc-threshold ()
   "Reset `gc-cons-threshold' to its default value."
   (setq gc-cons-threshold 800000))
+#+end_src
 
+* Elpaca Package Manager
+#+begin_src emacs-lisp :tangle init.el
 (defvar elpaca-installer-version 0.7)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -50,7 +55,10 @@
   (elpaca-use-package-mode)
   (setq elpaca-use-package-by-default t))
 (elpaca-wait)
+#+end_src
 
+* Keybindings Packages
+#+begin_src emacs-lisp :tangle init.el
 (use-package general)
 
 (elpaca-wait)
@@ -58,7 +66,10 @@
 (use-package evil :config (evil-mode 1))
 (use-package which-key
   :config (which-key-mode))
+#+end_src
 
+* Editor Style
+#+begin_src emacs-lisp :tangle init.el
 (setq inhibit-startup-screen t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -90,7 +101,10 @@
   :config
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+#+end_src
 
+* Vertico With Some Complementary Packages
+#+begin_src emacs-lisp :tangle init.el
 (savehist-mode 1)
 (use-package vertico
   :ensure (:files (:defaults "extensions/*"))
@@ -134,7 +148,10 @@
 (use-package marginalia
   :after vertico
   :config (marginalia-mode))
+#+end_src
 
+* Improving Programming Experience
+#+begin_src emacs-lisp :tangle init.el
 (recentf-mode)
 (electric-pair-mode)
 (use-package company
@@ -166,7 +183,10 @@
   :general
   (:states 'normal
 	   "<SPC>t" 'vterm-other-window))
+#+end_src
 
+* Packages For Consuming Media(Music, News, Videos...)
+#+begin_src emacs-lisp :tangle init.el
 (use-package mpv)
 
 (use-package emms
@@ -213,7 +233,10 @@
   (setq rmh-elfeed-org-files (list "~/notes/20240803T125350--sites__general_learn_news_web.org")))
 
 (use-package hackernews)
+#+end_src
 
+* Packages Related To Note Taking Using Org Mode And Studying In General
+#+begin_src emacs-lisp :tangle init.el
 (use-package denote
   :config
   (setq denote-directory(expand-file-name "~/notes/")
@@ -256,3 +279,5 @@
   :init
   (setopt ellama-keymap-prefix "C-c e")
   (setopt ellama-language "Portuguese"))
+
+#+end_src

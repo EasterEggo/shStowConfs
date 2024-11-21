@@ -2,7 +2,6 @@ local dap_ok, dap = pcall(require, 'dap')
 if not dap_ok then
 	return vim.notify('problem with dap')
 end
-
 local dapui_ok, dapui = pcall(require, 'dapui')
 if not dapui_ok then
 	return vim.notify('problem with dapui')
@@ -17,12 +16,12 @@ mdap.setup {
 	ensure_installed = {'codelldb'},
 	automatic_setup = true,
 }
-mdap.setup_handlers {
-	function(source_name)
-		require('mason-nvim-dap.automatic_setup')(source_name)
-    	end,
-
-}
+--mdap.setup_handlers {
+--	function(source_name)
+--		require('mason-nvim-dap.automatic_setup')(source_name)
+--   	end,
+--
+--}
 dapui.setup()
 
 dap.listeners.after.event_initialized["dapui_config"] = function()

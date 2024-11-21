@@ -8,7 +8,6 @@ require('telescope').setup({
 		layout_strategy = 'vertical',
 	},
 })
-telescope.load_extension 'media_files'
 telescope.load_extension 'file_browser'
 telescope.load_extension 'projects'
 

@@ -17,12 +17,12 @@ mnulls.setup({
 	ensure_installed = {'stylua'},
 	automatic_installation = true,
 })
-mnulls.setup_handlers {
-	stylua = function ()
-		null_ls.register(formatting.stylua)
-	end,
-	cpplint = function ()
-		null_ls.register(diagnostics.cpplint)
-	end,
-}
+--mnulls.setup_handlers {
+--	stylua = function ()
+--		null_ls.register(formatting.stylua)
+--	end,
+--	cpplint = function ()
+--		null_ls.register(diagnostics.cpplint)
+--	end,
+--}
 null_ls.setup()

@@ -28,20 +28,22 @@ wsKeys = [
 myKeys = [
          ("M-S-<Return>", spawn myTerm)
        , ("M-<Return>", namedScratchpadAction scratchpads "term")
-       , ("M-e", spawn "emacs")
-       , ("<XF86AudioRaiseVolume>", spawn "wpctl set-volume 52 0.05+")
-       , ("<XF86AudioLowerVolume>", spawn "wpctl set-volume 52 0.05-")
-       , ("<XF86AudioMute>", spawn "wpctl set-mute 52 toggle")
+       , ("M-S-e", spawn "emacsclient -e '(kill-emacs)'; emacs --daemon | notify-send daemon restarted")
+       , ("M-e", spawn "emacsclient -c")
+       , ("<XF86AudioRaiseVolume>", spawn "wpctl set-volume 51 0.05+")
+       , ("<XF86AudioLowerVolume>", spawn "wpctl set-volume 51 0.05-")
+       , ("<XF86AudioMute>", spawn "wpctl set-mute 51 toggle")
        , ("<XF86AudioPlay>", spawn "playerctl play-pause")
        , ("<XF86MonBrightnessUp>", spawn "brightnessctl s +5%")
        , ("<XF86MonBrightnessDown>", spawn "brightnessctl s 5%-")
+       , ("<Print>", spawn "flameshot gui")
        ]
-      ++
-      [(otherModMasks ++ "M-" ++ key, action tag)
-       | (tag, key)  <- zip myWorkspaces wsKeys
-       , (otherModMasks, action) <- [ ("", windows . W.greedyView)
-                                     , ("S-", windows . W.shift)]
-    ]
+--      ++
+--      [(otherModMasks ++ "M-" ++ key, action tag)
+--       | (tag, key)  <- zip myWorkspaces wsKeys
+--       , (otherModMasks, action) <- [ ("", windows . W.greedyView)
+--                                     , ("S-", windows . W.shift)]
+--    ]
 
 myXmobarPP :: PP
 myXmobarPP = def

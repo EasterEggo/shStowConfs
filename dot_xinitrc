@@ -8,7 +8,12 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill ~/wallpapers/x220.png &
+feh --bg-fill ~/wallpaper.jpg &
+
+xset b off &
+xhost +SI:localuser:$USER &
+export _JAVA_AWT_WM_NONREPARENTING=1 &
+xset r rate 200 60 &
 
 # odd issue with programs taking too long to launch
 systemctl --user import-environment DISPLAY XAUTHORITY &
@@ -18,6 +23,4 @@ dunst &
 
 xfce4-session &
 
-setxkbmap -layout us -model thinkpad60 -variant dvp -option lv3:ralt_switch &
-
-exec /usr/bin/xmonad 
+exec i3
