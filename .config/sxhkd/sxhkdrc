@@ -1,0 +1,29 @@
+super + b
+    brave-beta
+
+super + p
+    rofi -show run
+
+super + c
+    xfce4-settings-manager
+
+super + x
+    archlinux-logout
+
+Print
+    flameshot gui
+
+XF86AudioMute 
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+XF86AudioPlay 
+    playerctl play-pause
+
+XF86AudioPrev 
+    playerctl previous
+
+XF86AudioNext 
+    playerctl next
+
+XF86Audio{Lower,Raise}Volume 
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1{-,+}
