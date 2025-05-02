@@ -1,4 +1,4 @@
-(defvar elpaca-installer-version 0.9)
+(defvar elpaca-installer-version 0.10)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -13,7 +13,7 @@
   (add-to-list 'load-path (if (file-exists-p build) build repo))
   (unless (file-exists-p repo)
     (make-directory repo t)
-    (when (< emacs-major-version 28) (require 'subr-x))
+    (when (<= emacs-major-version 28) (require 'subr-x))
     (condition-case-unless-debug err
         (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
                   ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
@@ -26,7 +26,7 @@
                   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
                                         "--eval" "(byte-recompile-directory \".\" 0 'force)")))
                   ((require 'elpaca))
-                  ((elpaca-generate-autoloads "elpaca" repo)))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
             (progn (message "%s" (buffer-string)) (kill-buffer buffer))
           (error "%s" (with-current-buffer buffer (buffer-string))))
       ((error) (warn "%s" err) (delete-directory repo 'recursive))))
@@ -48,8 +48,7 @@
 (elpaca-wait)
 
 (use-package evil :config (evil-mode 1))
-(use-package which-key
-  :config (which-key-mode))
+(which-key-mode)
 
 (add-to-list 'default-frame-alist
              '(font . "Hack Nerd Font-12"))
@@ -127,17 +126,40 @@
   :after vertico
   :config (marginalia-mode))
 
+;;(use-package company
+;;  :hook (elpaca-after-init . global-company-mode))
+(use-package tempel
+  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
+  :init
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'conf-mode-hook 'tempel-setup-capf)
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+)
+(use-package corfu
+  :init (global-corfu-mode 1)
+  :config (setq corfu-auto t
+      corfu-quit-no-match 'separator
+      global-corfu-minibuffer nil))
 (use-package projectile
   :config
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-
 (use-package undo-tree
   :config (global-undo-tree-mode))
 (recentf-mode)
 (electric-pair-mode)
-(use-package company
-  :hook (elpaca-after-init . global-company-mode))
 
 ;;(use-package ob-rust)
 ;;(use-package rust-mode)

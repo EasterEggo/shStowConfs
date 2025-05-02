@@ -17,6 +17,7 @@ _comp_options+=(globdots)
 
 source ~/.zplug/init.zsh
 
+zplug "Aloxaf/fzf-tab"
 zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "plugins/colored-man-pages", from:oh-my-zsh
@@ -73,4 +74,5 @@ eval "$(atuin init zsh)"
 
 
 source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
+
 [ -f "/home/easteregg/.ghcup/env" ] && . "/home/easteregg/.ghcup/env" # ghcup-env

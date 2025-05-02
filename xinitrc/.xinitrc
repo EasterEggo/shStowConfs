@@ -8,7 +8,7 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill ~/wallpaper.jpg &
+feh --bg-fill ~/wallpapers/disco-conquest-wallpaper-4k.png &
 
 xset b off &
 xhost +SI:localuser:$USER &
@@ -19,10 +19,10 @@ xset r rate 200 60 &
 systemctl --user import-environment DISPLAY XAUTHORITY &
 dbus-update-activation-environment DISPLAY XAUTHORITY &
 
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --tint 0x00000 --height 30 --distance 0 --margin 320 --transparent 1 --alpha 0 &
+#trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --tint 0x00000 --height 30 --distance 0 --margin 320 --transparent 1 --alpha 0 &
 
 dunst &
 
 xfce4-session &
 
-exec xmonad
+exec qtile start

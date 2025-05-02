@@ -4,7 +4,7 @@ from libqtile.lazy import lazy
 # from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = "tilix"
+terminal = "kitty"
 
 keys = [
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -13,6 +13,7 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "p", lazy.spawn("dmenu_run"), desc="Open Launcher"),
     Key(
         [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
@@ -38,7 +39,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod, "shift"], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "o", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "r", lazy.reload_config(), desc="Reload the config"),
@@ -67,7 +68,7 @@ for i in groups:
         ]
     )
 layouts = [
-    layout.MonadTall(margin=20),
+    layout.MonadTall(margin=5),
     layout.Max(),
     # layout.Columns(),
     # layout.Stack(num_stacks=2),
@@ -82,12 +83,12 @@ layouts = [
 ]
 
 groups.append(ScratchPad('scr', [
-                             DropDown('term', 'alacritty', height=0.8, y=0.1, opacity=0.90),
-                             DropDown('bitwarden', 'bitwarden-desktop', height=0.8, y=0.1, opacity=0.90),
+                             DropDown('term', 'kitty', height=0.8, y=0.1, opacity=0.90),
+                             DropDown('pass', 'keepassxc', height=0.8, y=0.1, opacity=0.90),
                          ]))
 keys.extend([
-                Key([mod], "Return", lazy.group['scr'].dropdown_toggle('term')),
-                Key([mod, "shift"], "p", lazy.group['scr'].dropdown_toggle('bitwarden'))
+                Key([mod], "o", lazy.group['scr'].dropdown_toggle('term')),
+                Key([mod, "shift"], "p", lazy.group['scr'].dropdown_toggle('pass'))
             ])
 
 widget_defaults = dict(
@@ -109,7 +110,7 @@ screens = [
                 widget.Sep(),
                 widget.CheckUpdates(
                     distro="Arch_yay",
-                    display_format=" {updates}",
+                    display_format="  {updates}",
                     no_update_string =" 0",
                 ),
                 widget.Sep(),
@@ -120,7 +121,7 @@ screens = [
                     foreground="#787",
                 ),
                 widget.Sep(),
-                widget.Memory(format=" {MemUsed:.0f}M"),
+                widget.Memory(format="  {MemUsed:.0f}M"),
                 widget.Sep(),
                 widget.CPU(
                     format=" {load_percent}%",
