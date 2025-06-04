@@ -43,7 +43,7 @@ export PATH="$PATH:$HOME/.local/bin/:$HOME/Documents/scripts/"
 export FZF_DEFAULT_COMMAND="fd -H"
 export FZF_DEFAULT_OPTS="-e -x --border --preview='bat --style=numbers --color=always --line-range :500 {}'"
 export EDITOR="nvim"
-export BROWSER="librewolf"
+export BROWSER="zen-browser"
 export TERM="xterm-256color"
 export WPID="52"
 
@@ -51,28 +51,7 @@ alias ls='exa --icons'
 alias cat='bat'
 alias nv='nvim'
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-
-vterm_printf() {
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
 # funtoo keychain
 eval `keychain --quiet --eval id_ed25519`
 
 eval "$(atuin init zsh)"
-
-
-source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
-
-[ -f "/home/easteregg/.ghcup/env" ] && . "/home/easteregg/.ghcup/env" # ghcup-env

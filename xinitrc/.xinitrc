@@ -8,7 +8,7 @@ xset -dpms &
 xset s off &
 xsetroot -cursor_name left_ptr &
 
-feh --bg-fill ~/wallpapers/disco-conquest-wallpaper-4k.png &
+#feh --bg-fill ~/wallpapers/disco-conquest-wallpaper-4k.png &
 
 xset b off &
 xhost +SI:localuser:$USER &
