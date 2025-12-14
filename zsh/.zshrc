@@ -1,6 +1,3 @@
-#asdf
-. $HOME/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -15,6 +12,8 @@ zstyle ':completion:*' menu select
 compinit
 _comp_options+=(globdots)
 
+eval "$(/home/easteregg/.local/bin/oh-my-posh init zsh --config 'pure')"
+
 source ~/.zplug/init.zsh
 
 zplug "Aloxaf/fzf-tab"
@@ -23,7 +22,6 @@ zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # install prompt
 if ! zplug check --verbose; then
@@ -49,19 +47,17 @@ export WPID="52"
 
 alias ls='exa --icons'
 alias cat='bat'
+alias cd='z'
 alias nv='nvim'
 
-# funtoo keychain
-eval `keychain --quiet --eval id_ed25519`
-
 eval "$(atuin init zsh)"
-_fastanime_completion() {
+_viu_completion() {
     local -a completions
     local -a completions_with_descriptions
     local -a response
-    (( ! $+commands[fastanime] )) && return 1
+    (( ! $+commands[viu] )) && return 1
 
-    response=("${(@f)$(env COMP_WORDS="${words[*]}" COMP_CWORD=$((CURRENT-1)) _FASTANIME_COMPLETE=zsh_complete fastanime)}")
+    response=("${(@f)$(env COMP_WORDS="${words[*]}" COMP_CWORD=$((CURRENT-1)) _VIU_COMPLETE=zsh_complete viu)}")
 
     for type key descr in ${response}; do
         if [[ "$type" == "plain" ]]; then
@@ -88,12 +84,13 @@ _fastanime_completion() {
 
 if [[ $zsh_eval_context[-1] == loadautofunc ]]; then
     # autoload from fpath, call function directly
-    _fastanime_completion "$@"
+    _viu_completion "$@"
 else
     # eval/source/. command, register function for later
-    compdef _fastanime_completion fastanime
+    compdef _viu_completion viu
 fi
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
   source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
+eval "$(zoxide init zsh)"
