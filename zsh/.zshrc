@@ -2,17 +2,16 @@
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
+FPATH="$HOME/.docker/completions:$FPATH"
 setopt autocd extendedglob nomatch
 bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/easteregg/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 compinit
 _comp_options+=(globdots)
 
-eval "$(/home/easteregg/.local/bin/oh-my-posh init zsh --config 'pure')"
+eval "$($HOME/.local/bin/oh-my-posh init zsh --config 'pure')"
 
 source ~/.zplug/init.zsh
 
@@ -41,11 +40,11 @@ export PATH="$PATH:$HOME/.local/bin/:$HOME/Documents/scripts/"
 export FZF_DEFAULT_COMMAND="fd -H"
 export FZF_DEFAULT_OPTS="-e -x --border --preview='bat --style=numbers --color=always --line-range :500 {}'"
 export EDITOR="nvim"
-export BROWSER="zen-browser"
+export BROWSER="floorp"
+export TERMINAL="ghostty"
 export TERM="xterm-256color"
 export WPID="52"
 
-alias ls='exa --icons'
 alias cat='bat'
 alias cd='z'
 alias nv='nvim'
@@ -90,7 +89,5 @@ else
     compdef _viu_completion viu
 fi
 
-[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-  source "$EAT_SHELL_INTEGRATION_DIR/zsh"
-
 eval "$(zoxide init zsh)"
+eval "$(/bin/mise activate zsh)"
